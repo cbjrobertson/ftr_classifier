@@ -7,7 +7,7 @@ Created on Fri May 31 22:32:52 2019
 """
 #imports 
 import spacy
-import ftr_classifier.ftr_classify as ftr
+from ftr_classifier import ftr_classify as ftr
 
 #import models
 #english

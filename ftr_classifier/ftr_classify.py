@@ -8,8 +8,9 @@ Created on Fri May 31 22:32:52 2019
 
 #load libraries
 import pandas as pd
+import ftr_classifier
 from ftr_classifier.ftr_word_lists import FEATURES, WORD_LISTS
-from ftr_classifier import MODELS
+from ftr_classifier.__init__ import MODELS
 
 #fuck off pandas
 pd.options.mode.chained_assignment = None  # default='warn'
