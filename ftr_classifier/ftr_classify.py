@@ -1,44 +1,22 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Fri May 31 22:32:52 2019
+
+@author: cole roberson
+"""
+
 #load libraries
 import pandas as pd
-import spacy
-
-#local imports 
-from ftr_word_lists import WORD_LISTS,FEATURES
+from ftr_classifier.ftr_word_lists import FEATURES, WORD_LISTS
 
 #fuck off pandas
 pd.options.mode.chained_assignment = None  # default='warn'
 
-#load MODELS
-en = spacy.load('en')
-de = spacy.load('de')
-nl = spacy.load('nl')
-
-#make MODELS dictionary
-MODELS = {'english':en,
-          'dutch':nl,
-          'german':de}
-
 #define missing data flag
 MISSING = '-999'
 
-#import data
-df = pd.read_excel('/Users/cole/Dropbox/FTR2Share/chen_1/cleanedData/chenMasterExp1_uncoded.xlsx')
-
-# =============================================================================
-# #subset for test
-# gdf = df.groupby('textLang')
-# dxt = pd.DataFrame()
-# for lang,dx in gdf:
-#     dx = dx[:40]
-#     dxt = dxt.append(dx)
-# 
-# =============================================================================
-#drop duplicates
-df = df.dropna(subset=['response'])
-#dxt = dxt.dropna(subset=['response'])
-#df=dxt
-
-
+#functions
 def _append_spacy_docs(df,lang_col='textLang',text_col='response'):
     #create new dataframe
     dx = pd.DataFrame()
@@ -131,7 +109,7 @@ def _check_words(response):
     return dict(zip(FEATURES, scores))
             
 
-def prepare(df,**kwargs):
+def prepare(df,*args,**kwargs):
     df = df.copy()
     #clean docs with spacy
     df = _append_spacy_docs(df,**kwargs)
@@ -176,11 +154,7 @@ def process_dataframe(df,**kwargs):
     df = prepare(df,**kwargs)
     df = score(df,**kwargs)
     df = apply_dominance(df)
-    return df 
-    
-if __name__ == '__main__':
-    df = process_dataframe(df)
-
+    return df
 
 
 

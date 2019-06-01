@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Fri May 31 22:32:52 2019
+
+@author: cole roberson
+"""
+
 try:
     from setuptools import setup, find_packages
 except ImportError:
@@ -17,7 +25,7 @@ setup(name='ftr_classifier',
             "pandas==0.24.2",
             'pathlib==1.0.1; python_version < "3.4"',
                         ],
-        python_requires='3.6.0',
+        python_requires='==3.6.*',
         download_url='https://github.com/cbjrobertson/future_modality/archive/1.0.0.tar.gz',
         key_words = ['natural-language-processing'],
         classifiers = []
