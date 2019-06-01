@@ -7,4 +7,3 @@ Created on Fri May 31 22:32:52 2019
 """
 
 from . import FEATURES, WORD_LISTS, ftr_classify
- 
