@@ -14,7 +14,7 @@ import ftr_classifier.ftr_classify as ftr
 try:    
     en = spacy.load('en')
 except OSError:
-    print('Downloading english language model for the spaCy\n'
+    print('Downloading English language model for the spaCy\n'
           "(don't worry, this will only happen once)")
     spacy.cli.download('en')
     en = spacy.load('en')
@@ -23,7 +23,7 @@ except OSError:
 try:    
     nl = spacy.load('nl')
 except OSError:
-    print('Downloading dutch language model for the spaCy\n'
+    print('Downloading Dutch language model for the spaCy\n'
           "(don't worry, this will only happen once)")
     spacy.cli.download('nl')
     nl = spacy.load('nl')
@@ -31,7 +31,7 @@ except OSError:
 try:    
     de = spacy.load('de')
 except OSError:
-    print('Downloading german language model for the spaCy\n'
+    print('Downloading German language model for the spaCy\n'
           "(don't worry, this will only happen once)")
     spacy.cli.download('de')
     de = spacy.load('de')
