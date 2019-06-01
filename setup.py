@@ -3,7 +3,7 @@ try:
 except ImportError:
     from distutils.core import setup, find_packages
 
-setup(name='app_test',
+setup(name='ftr_classifier',
       py_modules=['ftr_classifier'],
       url = 'https://github.com/cbjrobertson/ftr_classifier.git',
       author = 'cole robertson',
@@ -17,5 +17,8 @@ setup(name='app_test',
             "pandas==0.24.2",
             'pathlib==1.0.1; python_version < "3.4"',
                         ],
-        python_requires='3.6.0'
+        python_requires='3.6.0',
+        download_url='https://github.com/cbjrobertson/future_modality/archive/1.0.0.tar.gz',
+        key_words = ['natural-language-processing'],
+        classifiers = []
       )
