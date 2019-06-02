@@ -12,6 +12,7 @@ import pandas as pd
 #local imports
 from ftr_classifier.ftr_word_lists import FEATURES, WORD_LISTS
 from ftr_classifier.models import MODELS
+from ftr_classifier.info import __version__
 
 #fuck off pandas
 pd.options.mode.chained_assignment = None  # default='warn'
