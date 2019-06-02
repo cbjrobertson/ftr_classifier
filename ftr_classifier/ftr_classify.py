@@ -118,7 +118,6 @@ def _check_words(response):
             scores += [0]
     return dict(zip(FEATURES, scores))
             
-
 def prepare(df,*args,**kwargs):
     """ append two columns to a pandas dataframe containing at least two columns, one
     definining language in ['english','dutch','german'], the second containing str 
