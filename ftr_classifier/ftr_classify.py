@@ -101,6 +101,12 @@ def _tok_return(doc):
             not token.is_punct]
     return toks
 
+def _is_negated(doc):
+    if any(tok.dep_ == 'neg' or tok.dep_ == 'ng' for tok in doc):
+        return 1
+    else:
+        return 0
+    
 def _check_words(response):
     scores = []
     for feature,w_list in _word_list.items():
@@ -129,7 +135,6 @@ def prepare(df,*args,**kwargs):
     df = _append_last_sentence(df,**kwargs)
     return df
 
-
 def score(df,lang_col='textLang',process_col='final_sentence',clean_spacy=True):
     """ Append columns for each of the features in ftr.word_lists._FEATURES. Columns are in [0,1], and define whether ftr.word_lists._FEATURES_i is present in df[process_col]
     :param df: a pandas.DataFrame() object
@@ -149,11 +154,12 @@ def score(df,lang_col='textLang',process_col='final_sentence',clean_spacy=True):
     
     #iterate and apply
     for lang,dy in df_groups:
-        #assign lang_specific word list
-        _word_list = WORD_LISTS[lang]        
+        #assign lang_specific word list abd language
+        _word_list = WORD_LISTS[lang]  
        
         #apply function to lang-specific group
         dy[FEATURES] = dy[process_col].apply(lambda doc: pd.Series(_check_words(doc)))
+        dy['negated'] = dy[process_col].apply(lambda doc: _is_negated(doc))
         
         #append together
         dx = dx.append(dy)
