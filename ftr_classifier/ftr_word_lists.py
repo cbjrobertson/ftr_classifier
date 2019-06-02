@@ -16,7 +16,6 @@ FEATURES = ['present','future',
             'particle_poss','particle',
             'will_future','go_future']
 
-
 # =============================================================================
 # English word lists
 # =============================================================================
@@ -143,30 +142,33 @@ english = {'present':([],
                  ),
     
     'adv_adj_poss':([],
-                    ['probably',
-                     'probable'
-                     'probability',
-                     'possibly',
-                     'possibility',
-                     'possible',
-                     'likely',
-                     'somewhat',
-                     'maybe',
-                     'perhaps',
-                     'apparently',
-                     'dubiously',
-                     'expectably',
-                     'expectedly',
-                     'improbably',  
-                     'mayhap',
-                     'perchance',   
-                     'potentially',
-                     'presumably',
-                     'questionably',
-                     'seemingly',
-                     'supposedly',
-                     'supposed'
-                     'uncertainly']
+                   ['apparently',
+                    'dubiously',
+                    'expectably',
+                    'expectedly',
+                    'improbably',
+                    'likely',
+                    'maybe',
+                    'mayhap',
+                    'perchance',
+                    'perhaps',
+                    'possibility',
+                    'possible',
+                    'possibly',
+                    'potentially',
+                    'presumably',
+                    'probable',
+                    'probability',
+                    'probably',
+                    'improbable',
+                    'improbability',
+                    'improbably',
+                    'questionably',
+                    'seemingly',
+                    'somewhat',
+                    'supposedly',
+                    'supposed',
+                    'uncertainly']
                     ),
     
     'adv_adj_cert':(['for sure'],
@@ -460,48 +462,43 @@ dutch = {'present':(['is het','vallen om','storten in'
         'adv_adj_poss':(['in aanmerking komend'
                          'niet zeker',
                          'is er een kans',
-                         'te komen'],
-                        ['horen',
-                         'gehoord', #to hear, possible epistemic use? Check data
-                         'waarschijnlijk',
-                         'vermoedelijk',
-                         'aannemelijk',
-                         'mogelijk',
-                         'misschien',
-                         'mogelijkerwijs',
-                         'geschiktlijkend',
-                         'veelbelovend',
-                         'verwacht',
+                         'te komen',
+                         'naar het schijnt'],#it seems 
+                        ['aannemelijk',#predsumably (Nuyts 2000)
+                         'allichet',#probably
                          'bedenkelijk',
                          'blijkbaar',
                          'denkelijk',
+                         'gehoord',#to hear, possible epistemic use? Check data
+                         'geschiktlijkend',
+                         'horen', #to hear, possible epistemic use? Check data
                          'hypothetisch',
+                         'misschien',#perhaps
+                         'mogelijk',#possibly
+                         'mogelijkerwijs',#possibly
                          'ongeveer',
                          'onzeker',
-                         'schijnbaar',
+                         'ogenschijnlijk',#seemingly/apparently
+                         'klaarblijkelijk',
+                         'schijnbaar',#seemingly
                          'twijfelachtig',
-                         'wellicht',
+                         'veelbelovend',
+                         'vermoedelijk',
+                         'verwacht',
+                         'waarschijnlijk',
+                         'wellicht',#probably
                          'word',
                          'worden',
                          'wordt']#unclear worden "becomes" is a futuroid, but is in the present tense. from a cognitive/pragmatic perspective, it is somewhat modal/marked
                         ),
         'adv_adj_cert':(['wel degelijk'],
-                        ['definitief',
-                         'voorgoed',
-                         'beslist',
-                         'zeker',
-                         'stellig',
-                         'vast',
-                         'bepaald',
-                         'wis',
-                         'gedwongen',
-                         'nodig',
-                         'ongetwijfeld',
-                         'verplicht',
-                         'absoluut',
+                        ['absoluut',
                          'alleszins',
                          'allicht',
-                         'doorgans'
+                         'bepaald',
+                         'beslist',
+                         'definitief',
+                         'doorgansduidelijk',
                          'duidelijk',
                          'echt',
                          'eenvoudigweg',
@@ -509,18 +506,23 @@ dutch = {'present':(['is het','vallen om','storten in'
                          'essentieel',
                          'evident',
                          'fietelijk',
+                         'gedwongen',
                          'gegarandeerd',
                          'glashelder',
                          'hoogstwaarschijnlijk',
+                         'helder',
                          'inderdaad',
-                         'kennelijk',   
-                         'klaarblijkelijk', 
+                         'kennelijk',
+                         'klaarblijkelijk',
+                         'klaar',
                          'logisch',
                          'natuurlijk',
+                         'nodig',
                          'noodzakelijk',
                          'normaal',
                          'ondenkbaar',
                          'ongetwijfeld',
+                         'ongetwiffeld',#certainly                  
                          'onmiskenbaar',
                          'onmogelijk',
                          'onomstotelijk',
@@ -532,9 +534,15 @@ dutch = {'present':(['is het','vallen om','storten in'
                          'overduidelijk',
                          'overtuigend',
                          'sowieso',
+                         'stellig',
                          'uiteraard',
                          'vanzelfsprekend',
-                         'werkelijk']
+                         'vast',#certain
+                         'verplicht',
+                         'voorgoed',
+                         'werkelijk',
+                         'wis',
+                         'zeker']
                         ),
         'mental_poss':(['jij denkt',
                         'hij denkt',
@@ -696,7 +704,7 @@ german = {'present':(['nutze ab',
                   'könnten',
                   'könntet',
                   
-                  #may have some epistemic use, but not typical (Nuyts 2000). Both konjunctiv ii and indicative included    
+                  #may have some epistemic use, but not typical, as in english ''should' (Nuyts 2000). Both konjunctiv ii and indicative included    
                   'sollen',
                   'soll',
                   'sollst',
@@ -755,23 +763,38 @@ german = {'present':(['nutze ab',
                  ),
     
     'adv_adj_poss':(['unter umständen'],
-                    ['wahrscheinlich',
-                     'möglicherweise',
-                     'vielleicht',
+                    ['annehmbar',#presumably (Nuyts 2000)
                      'eventuell',
+                     'anscheinend',
                      'gegebenenfalls',
-                     'womöglich',
-                     'möglich']
+                     'möglich',
+                     'möglicherweise',
+                     'offenbar',
+                     'scheinbar',#seemingly
+                     'vielleicht',
+                     'vielleicht',
+                     'vermutlich',#presumably (Nuyts 2000)
+                     'wahrscheinlich',
+                     'womöglich']#maybe
                     ),
     
-    'adv_adj_cert':(['auf jeden fall'],
-                    ['definitiv',
-                     'sicher',
-                     'aufjedenfall',
-                     'jedenfalls',
+    'adv_adj_cert':(['auf jeden fall',
+                     'klipp und klar'],
+                    ['aufjedenfall',
+                     'augenscheinlich',#evidently
+                     'bestimmt',#certainly
+                     'definitiv',
+                     'deutlich',#clearly
+                     'eindeutig',
                      'gewiss',
-                     'bestimmt',
-                     'sicherlich']
+                     'klar',
+                     'offensichtlich',#obviously
+                     'jedenfalls',
+                     'sicher',#certainly (Nuyts 2000)
+                     'sicherlich',#certainly
+                     'zweifelsohne',#certainly
+                     'zweifellos',#certainly
+                     ]
                     ),
     
     'mental_poss':(['ich denke',
@@ -832,6 +855,4 @@ WORD_LISTS = {
         'english':english,
         'dutch':dutch,
         'german':german
-            }
-
- 
+            } 
