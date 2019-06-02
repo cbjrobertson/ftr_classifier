@@ -5,3 +5,4 @@ ftr_classifier/__init__.py
 ftr_classifier/ftr_classify.py
 ftr_classifier/ftr_word_lists.py
 ftr_classifier/models.py
+ftr_classifier/info.py

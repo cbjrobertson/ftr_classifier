@@ -204,18 +204,29 @@ english = {'present':([],
     'mental_poss':(['feel like'],
                    ['think',
                     'thinking',
+                    'thinks',
                     'believe',
+                    'believes',
                     'believing'
                     'reckon',
                     'reckoning',
                     'expect',
                     'expecting'
                     'planning',
-                    'plan']
+                    'plan',
+                    'plans',
+                    'doubt',
+                    'doubts',
+                    'suppose',
+                    'supposes',
+                    'guess',
+                    'guesses']
                    ),
     
     'mental_cert':([],
-                   ['know']),
+                   ['know',
+                    'knows']#certaintly strongest of mental state preds, enough for certain category?
+                   ),
                    
     'particle_poss':([],
                      []
@@ -410,9 +421,6 @@ dutch = {'present':(['is het','vallen om','storten in'
                      'woon',
                      'woont',
                      'wwon',#typo 
-                     'zeg',
-                     'zeggen',
-                     'zegt',
                      'zie',
                      'zien',
                      'ziet',
@@ -469,9 +477,7 @@ dutch = {'present':(['is het','vallen om','storten in'
                          'bedenkelijk',
                          'blijkbaar',
                          'denkelijk',
-                         'gehoord',#to hear, possible epistemic use? Check data
                          'geschiktlijkend',
-                         'horen', #to hear, possible epistemic use? Check data
                          'hypothetisch',
                          'misschien',#perhaps
                          'mogelijk',#possibly
@@ -544,14 +550,41 @@ dutch = {'present':(['is het','vallen om','storten in'
                          'wis',
                          'zeker']
                         ),
-        'mental_poss':(['jij denkt',
-                        'hij denkt',
-                        'wij denken',
-                        'zij denken'],
-                        ['denk']
+        'mental_poss':(['houden voor'],
+                        ['denk',
+                         'denken',
+                         'denkt',
+                         'geloven',
+                         'gelooft',
+                         'geloof',
+                         'meen',
+                         'ment'
+                         'menen',
+                         'veronderstellen',#to suppose, epistemic use (Nuyts 2000)
+                         'veronderstel',
+                         'veronderstelt',
+                         'vermoed',
+                         'vermoedt',
+                         'vermoeden',
+                         'gehoord',#to hear, possible epistemic/evidential use (Nuyts, 2000)
+                         'horen', #to hear, possible epistemic/evidential
+                         'hoor',
+                         'hoort'
+                         'betwijfel',#to doubt, has epistemic use Nuyts (2000)
+                         'betwijfelt',
+                         'betwijfelen',
+                         'annehm',#to assume, but more clear qualificational use than in English (Nuyts 2000)
+                         'annehmt',
+                         'annehmen',
+                         'zeg', #say, but similar to mental state pred use (Nuyts, 2000)
+                         'zeggen',
+                         'zegt',
+                         
+                         ]
                         ),
         'mental_cert':([],
-                       []
+                       ['weet',
+                        'weten']#not sure if certain or uncertain, certaintly strongest of mental state preds
                        ),
         'particle_poss':(['wel eens'],
                          ['wel']
@@ -658,10 +691,6 @@ german = {'present':(['nutze ab',
                       'kaufst',
                       'kauft',
                       'kaufen',
-                      'sage',
-                      'sagst',
-                      'sagt',
-                      'sagen',
                       'sterbe',
                       'stirbst',
                       'stirbt',
@@ -797,17 +826,43 @@ german = {'present':(['nutze ab',
                      ]
                     ),
     
-    'mental_poss':(['ich denke',
-                    'du denkst',
-                    'er denkt',
-                    'wer denken',
-                    'ihr denkt',
-                    'sie denken'],
-                    []
+    'mental_poss':(['nehme an',
+                    'nimmst an',
+                    'nimmt an',
+                    'nehmen an',
+                    'nehmt an'], #assume, but with more clear qualificational use 
+                   ['denke',
+                    'denkst',
+                    'denkt',
+                    'denken',
+                    'glaube',
+                    'glaubst',
+                    'glaubt',
+                    'glauben',# Nuyts 2000
+                    'meine',
+                    'meinst',
+                    'meint',
+                    'meinen', # to mean, no qualificational use in english, but stronger in german, and menen, too in dutch (Nuyts 2000)
+                    'vermuten',#to presume (outdated in engish mostly, (Nuyts, 2000))
+                    'vermute',
+                    'vermutest',
+                    'vermutet',
+                    'rechne',#reckon, qulaificational use, (Nuyts 2000)
+                    'rechnest',
+                    'rechnet',
+                    'rechnen',
+                    'sage',
+                    'sagst',
+                    'sagt',
+                    'sagen',
+                    ]
                     ),
     
     'mental_cert':([],
-                   []
+                   ['weiß',
+                    'weißt',
+                    'wissen',
+                    'wisst'] #to know, qualificational use, though whether certain/uncertain unclear (Nuyts 2000)
                    ),
     
     'particle_poss':([],
@@ -846,7 +901,6 @@ german = {'present':(['nutze ab',
                   []
                    )
      }
-
 
 # =============================================================================
 # Create master dictionary

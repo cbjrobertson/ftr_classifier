@@ -108,3 +108,8 @@ venv.bak/
 
 #mac OS files
 .DS_Store
+
+
+#testing and debugging files
+ftr_classifier/test.py
+ftr_classifier/test.pkl
