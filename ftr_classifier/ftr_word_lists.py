@@ -9,7 +9,7 @@ Created on Fri May 31 22:32:52 2019
 # =============================================================================
 # Features 
 # =============================================================================
-_FEATURES = ['present','future',
+FEATURES = ['present','future',
             'verb_poss','verb_cert',
             'adv_adj_poss','adv_adj_cert',
             'mental_poss','mental_cert',
@@ -851,7 +851,7 @@ german = {'present':(['nutze ab',
 # =============================================================================
 # Create master dictionary
 # =============================================================================
-_WORD_LISTS = {
+WORD_LISTS = {
         'english':english,
         'dutch':dutch,
         'german':german

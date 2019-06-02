@@ -36,6 +36,6 @@ except OSError:
     de = spacy.load('de')
 
 #make MODELS dictionary
-_MODELS = {'english':en,
+MODELS = {'english':en,
           'dutch':nl,
           'german':de}

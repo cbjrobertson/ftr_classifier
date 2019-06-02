@@ -10,8 +10,8 @@ Created on Fri May 31 22:32:52 2019
 import pandas as pd
 
 #local imports
-from ftr_classifier.ftr_word_lists import _FEATURES, _WORD_LISTS
-from ftr_classifier.models import _MODELS
+from ftr_classifier.ftr_word_lists import FEATURES, WORD_LISTS
+from ftr_classifier.models import MODELS
 
 #fuck off pandas
 pd.options.mode.chained_assignment = None  # default='warn'
@@ -27,7 +27,7 @@ def _append_spacy_docs(df,lang_col='textLang',text_col='response'):
     df_group = df.groupby(lang_col)
     for lang,dy in df_group:
         #pull a model
-        nlp = _MODELS[lang]
+        nlp = MODELS[lang]
         #apply model to language
         dy['spacy_doc'] = dy[text_col].apply(lambda x: nlp(x))
         #append together
@@ -65,7 +65,7 @@ def _clean_non_applicable(df,lang_col='textLang'):
 def _present_dom(df):
     df = df.copy()
     #other features not pres
-    other_features = [x for x in _FEATURES if x != 'present']
+    other_features = [x for x in FEATURES if x != 'present']
     #apply
     df['present_dom'] = [0 if any(feature == 1 for feature in df.loc[x,other_features])\
                   else 1 if df.present[x] == 1 else 0\
@@ -75,7 +75,7 @@ def _present_dom(df):
 def _future_dom(df):
     df = df.copy()
     futures = ['go_future','will_future','future']
-    other_features = [x for x in _FEATURES if x not in futures and x != 'present']
+    other_features = [x for x in FEATURES if x not in futures and x != 'present']
     for future in futures:
         df[future+'_dom'] = [0 if any(feature == 1 for feature in df.loc[x,other_features])\
                               else 1 if df[future][x] == 1 else 0\
@@ -85,8 +85,8 @@ def _future_dom(df):
 def _make_lexi_vars(df):
     df = df.copy()
     #make features lists
-    poss_features = [x for x in _FEATURES  if x.endswith('poss')]
-    cert_features = [x for x in _FEATURES if x.endswith('cert')]
+    poss_features = [x for x in FEATURES  if x.endswith('poss')]
+    cert_features = [x for x in FEATURES if x.endswith('cert')]
     #apply
     df['lexi_poss'] = [1 if any(feature == 1 for feature in df.loc[x,poss_features])\
                        else 0 for x in df.index]
@@ -109,7 +109,7 @@ def _check_words(response):
             scores += [1]
         else:
             scores += [0]
-    return dict(zip(_FEATURES, scores))
+    return dict(zip(FEATURES, scores))
             
 
 def prepare(df,*args,**kwargs):
@@ -149,10 +149,10 @@ def score(df,lang_col='textLang',process_col='final_sentence',clean_spacy=True):
     #iterate and apply
     for lang,dy in df_groups:
         #assign lang_specific word list
-        _word_list = _WORD_LISTS[lang]        
+        _word_list = WORD_LISTS[lang]        
        
         #apply function to lang-specific group
-        dy[_FEATURES] = dy[process_col].apply(lambda doc: pd.Series(_check_words(doc)))
+        dy[FEATURES] = dy[process_col].apply(lambda doc: pd.Series(_check_words(doc)))
         
         #append together
         dx = dx.append(dy)
