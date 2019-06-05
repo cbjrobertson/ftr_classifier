@@ -2,7 +2,9 @@
 README.md
 setup.py
 ftr_classifier/__init__.py
-ftr_classifier/ftr_classify.py
-ftr_classifier/ftr_word_lists.py
+ftr_classifier/classify.py
+ftr_classifier/word_lists.py
 ftr_classifier/models.py
 ftr_classifier/info.py
+ftr_classifier/count_lemmas.py
+ftr_classifier/lemma_map/lemma_map
