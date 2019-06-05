@@ -5,6 +5,74 @@ Created on Fri May 31 22:32:52 2019
 
 @author: cole roberson
 """
+# =============================================================================
+# imports
+# =============================================================================
+from copy import deepcopy
+import os
+import pickle
+
+#set constants
+DIR = os.path.dirname(os.path.realpath(__file__))
+LOCAL_PATH ='/lemma_map/lemma_map'
+# =============================================================================
+# CRUD functions
+# =============================================================================
+
+def _load_map():
+    import pickle
+    load_path = DIR+LOCAL_PATH
+    with open(load_path,'rb') as handle:
+        lemma_map = pickle.load(handle)
+    return lemma_map   
+
+#save map function
+def _save_map(lemma_map,filepath='/lemma_map/lemma_map'):
+    #save
+    save_path = DIR+LOCAL_PATH
+    with open(save_path,'wb') as handle:
+        pickle.dump(lemma_map,handle,protocol=pickle.HIGHEST_PROTOCOL)
+    print('lemma_map saved to {}'.format(save_path))
+    
+def check_add_lemmas(add_lemmas=True,**kwargs):
+    safe = True
+    if add_lemmas is True:
+        new_map = deepcopy(LEMMA_MAP)
+    #iterate through and add/check
+    for lang,lang_dict in WORD_LISTS.items():
+        for feature,phrase_word_tuple in lang_dict.items():
+            for phrase in phrase_word_tuple[0]:
+                if phrase not in LEMMA_MAP[lang][feature][0]:
+                    safe = False
+                    if add_lemmas is False:
+                        print('The phrase "{}" from the {} feature "{}" is not in the corresponding lemma_map'.format(phrase,lang,feature))
+                    elif add_lemmas is True:
+                        new_lemma = input('Please enter the phrase "{}" will be lemmatized as in the {} language feature {}.\n\n Enter "pass" to continue with no change:\n\n'.format(phrase,lang,feature))
+                        if not new_lemma == 'pass':
+                            new_map[lang][feature][0][phrase] = new_lemma
+                            print('New lemma "{}" added to new lemma_map for "{}"'.format(new_lemma,phrase))
+                    else:
+                        pass
+            for word in phrase_word_tuple[1]:
+                if word not in LEMMA_MAP[lang][feature][1]:
+                        safe = False
+                        if add_lemmas is False:
+                            print('The word "{}" from the {} feature "{}" is not in the corresponding lemma_map'.format(word,lang,feature))
+                        elif add_lemmas is True:
+                            new_lemma = input('Please enter the word "{}" will be lemmatized as in the {} language feature "{}":\n\nEnter "pass" to continue with no change:\n\n'.format(word,lang,feature))
+                            if not new_lemma == 'pass':
+                                new_map[lang][feature][1][word] = new_lemma
+                                print('New lemma "{}" added to new lemma_map for "{}"'.format(new_lemma,word))
+                        else:
+                            pass
+    if safe is True:
+        print("All phrases and words are in the lemma map")
+        return LEMMA_MAP
+    elif add_lemmas is True and new_map != LEMMA_MAP:
+        _save_map(new_map,**kwargs)
+        return new_map
+    else:
+        return LEMMA_MAP
 
 # =============================================================================
 # Features 
@@ -16,6 +84,7 @@ FEATURES = ['present','future',
             'particle_poss','particle',
             'will_future','go_future']
 
+LANGUAGES = ['english','dutch','german']
 # =============================================================================
 # English word lists
 # =============================================================================
@@ -44,7 +113,7 @@ english = {'present':([],
                        'come',
                        'comes',
                        'congratulate',
-                       'congradulates',
+                       'congratulates',
                        'crash',
                        'crashes',
                        'decline',
@@ -76,7 +145,7 @@ english = {'present':([],
                        'increase',
                        'increases',
                        'insist',
-                       'indists',
+                       'insists',
                        'is',
                        'live',
                        'lives',
@@ -176,8 +245,8 @@ english = {'present':([],
                 'definite',
                 'certainly',
                 'certain',
-                'certainty'
-                'assuredly'
+                'certainty',
+                'assuredly',
                 'assured',
                 'clearly',
                 'doubtless',
@@ -185,7 +254,7 @@ english = {'present':([],
                 'inevitably',
                 'infallibly',
                 'irrefutably',
-                'irrefutable'
+                'irrefutable',
                 'necessarily',
                 'necessary',
                 'obviously',
@@ -207,20 +276,25 @@ english = {'present':([],
                     'thinks',
                     'believe',
                     'believes',
-                    'believing'
+                    'believing',
                     'reckon',
+                    'reckons',
                     'reckoning',
                     'expect',
-                    'expecting'
+                    'expects',
+                    'expecting',
                     'planning',
                     'plan',
                     'plans',
                     'doubt',
                     'doubts',
+                    'doubting',
                     'suppose',
                     'supposes',
+                    'supposing',
                     'guess',
-                    'guesses']
+                    'guesses',
+                    'guessing']
                    ),
     
     'mental_cert':([],
@@ -250,7 +324,7 @@ english = {'present':([],
 # =============================================================================
 # Dutch word lists
 # =============================================================================
-dutch = {'present':(['is het','vallen om','storten in'
+dutch = {'present':(['is het','vallen om','storten in',
                      'en ik in au','het stoort',
                      'contact opnemen','leuk vindt',
                      'ze halen het','val om','stort in',
@@ -258,7 +332,7 @@ dutch = {'present':(['is het','vallen om','storten in'
                     ['.is',#typo
                      'accepteer',
                      'accepteert',
-                     'accepteeren',
+                     'accepteren',
                      'bedank',
                      'bedanken',
                      'bedankt',
@@ -284,7 +358,7 @@ dutch = {'present':(['is het','vallen om','storten in'
                      'dalen',
                      'dank',
                      'dankt',
-                     'danken'
+                     'danken',
                      'doe',
                      'doet',
                      'doen',
@@ -344,11 +418,9 @@ dutch = {'present':(['is het','vallen om','storten in'
                      'reis',
                      'reist',
                      'reizen',
-                     'resi',
                      'resideer',
                      'resideert',
                      'resideren',
-                     'resit',
                      'rij',
                      'rijd',
                      'rijden',
@@ -383,13 +455,16 @@ dutch = {'present':(['is het','vallen om','storten in'
                      'verdubbelen',
                      'verdubbelt',
                      'vergangt',
+                     'vergang',
+                     'vergangen',
                      'verhuis',
                      'verhuist',
                      'verhuizen',
                      'verlies',
                      'verliest',
                      'verliezen',
-                     'verlslijten',
+                     'verslijten',
+                     'verslijt',
                      'verminder',
                      'verminderen',
                      'vermindert',
@@ -453,7 +528,7 @@ dutch = {'present':(['is het','vallen om','storten in'
                       'kon' ,
                       'kans',
                       'mag',
-                      'mogen' #doesn't have primary epistemic uses, more deontic, Nuyts 2000, but included anyway for exploratory pusposes 
+                      'mogen', #doesn't have primary epistemic uses, more deontic, Nuyts 2000, but included anyway for exploratory pusposes 
                       'vermogen',
                       'vermoogd'] #i.e. mogen + prefix ver-
                      ),
@@ -462,10 +537,11 @@ dutch = {'present':(['is het','vallen om','storten in'
                       'moet',
                       'moest',
                       'gemoeten',
-                      'moesten',
-                      'wil',
-                      'wilt',
-                      'willen']#no real epistemic use, i.e. "to want" but included for exploratory purposes, see Nuyts 2000
+                      'moesten'
+                      #'wil',
+                      #'wilt',
+                      #'willen'#no real epistemic use, i.e. "to want", see Nuyts 2000
+                      ]
                      ),
         'adv_adj_poss':(['in aanmerking komend'
                          'niet zeker',
@@ -527,8 +603,7 @@ dutch = {'present':(['is het','vallen om','storten in'
                          'noodzakelijk',
                          'normaal',
                          'ondenkbaar',
-                         'ongetwijfeld',
-                         'ongetwiffeld',#certainly                  
+                         'ongetwijfeld',#certainly               
                          'onmiskenbaar',
                          'onmogelijk',
                          'onomstotelijk',
@@ -558,7 +633,7 @@ dutch = {'present':(['is het','vallen om','storten in'
                          'gelooft',
                          'geloof',
                          'meen',
-                         'ment'
+                         'ment',
                          'menen',
                          'veronderstellen',#to suppose, epistemic use (Nuyts 2000)
                          'veronderstel',
@@ -646,8 +721,6 @@ german = {'present':(['nutze ab',
                       'sind',#typo
                       'seid',#typo
                       'sein',
-                      'kaputt',
-                      'zusammen',
                       'komme',
                       'kommst',
                       'kommt',
@@ -660,11 +733,13 @@ german = {'present':(['nutze ab',
                       'bekommst',
                       'bekommt',
                       'bekommen',
-                      'nutzen',
                       'mache',
                       'machst',
                       'macht',
                       'machen',
+                      'nutzen',
+                      'nutze',
+                      'nutzt',
                       'habe',
                       'hast',
                       'hat',
@@ -707,8 +782,11 @@ german = {'present':(['nutze ab',
                       'gehst',
                       'geht',
                       'gehen',
+                      'liebe',
+                      'liebst',
+                      'liebt',
+                      'lieben',
                       'lebe', 
-                      'liebe', 
                       'lebst', 
                       'lebt', 
                       'leben']),
@@ -727,7 +805,6 @@ german = {'present':(['nutze ab',
                   'können',
                   
                   #konjunktiv ii of können
-                  'könne'
                   'könnte',
                   'könntest',
                   'könnten',
@@ -743,7 +820,7 @@ german = {'present':(['nutze ab',
                   'sollte',
                   'solltest',
                   'sollten',
-                  'soltet',
+                  'solltet',
                   
                   #indicative dürfen cannot have epistemic uses, only deontic (Nuyts, 2000)
                   #'darf',
@@ -800,7 +877,6 @@ german = {'present':(['nutze ab',
                      'möglicherweise',
                      'offenbar',
                      'scheinbar',#seemingly
-                     'vielleicht',
                      'vielleicht',
                      'vermutlich',#presumably (Nuyts 2000)
                      'wahrscheinlich',
@@ -903,10 +979,17 @@ german = {'present':(['nutze ab',
      }
 
 # =============================================================================
-# Create master dictionary
+# Create master dictionaries
 # =============================================================================
 WORD_LISTS = {
         'english':english,
         'dutch':dutch,
         'german':german
-            } 
+            }    
+#load map
+LEMMA_MAP = _load_map()
+
+#run and save changes to lemma map
+if __name__ == '__main__':
+    LEMMA_MAP = check_add_lemmas(add_lemmas=True)
+    

@@ -5,13 +5,13 @@ Created on Fri May 31 22:32:52 2019
 
 @author: cole roberson
 """
-
 #load libraries
 import pandas as pd
 
 #local imports
-from ftr_classifier.ftr_word_lists import FEATURES, WORD_LISTS
+from ftr_classifier.word_lists import FEATURES, WORD_LISTS
 from ftr_classifier.models import MODELS
+
 
 #fuck off pandas
 pd.options.mode.chained_assignment = None  # default='warn'
@@ -37,12 +37,6 @@ def _append_spacy_docs(df,lang_col='textLang',text_col='response'):
 def _append_last_sentence(df):
     df = df.copy()
     df['final_sentence'] = df.spacy_doc.apply(lambda doc: [sent for sent in doc.sents][-1])
-    return df
-
-def _clean_spacy(df):
-    df = df.copy()
-    df['response_clean'] = df.final_sentence.apply(lambda x: _tok_return(x))
-    df = df.drop(['final_sentence','spacy_doc'],1)
     return df
 
 def _clean_non_applicable(df,lang_col='textLang'):
@@ -75,7 +69,8 @@ def _present_dom(df):
 def _future_dom(df):
     df = df.copy()
     futures = ['go_future','will_future','future']
-    other_features = [x for x in FEATURES if x not in futures and x != 'present']
+    exclude = ['present','particle']
+    other_features = [x for x in FEATURES if x not in futures and x not in exclude]
     for future in futures:
         df[future+'_dom'] = [0 if any(feature == 1 for feature in df.loc[x,other_features])\
                               else 1 if df[future][x] == 1 else 0\
@@ -116,7 +111,10 @@ def _check_words(response):
         else:
             scores += [0]
     return dict(zip(FEATURES, scores))
-            
+
+
+
+
 def prepare(df,*args,**kwargs):
     """ append two columns to a pandas dataframe containing at least two columns, one
     definining language in ['english','dutch','german'], the second containing str 
@@ -129,11 +127,13 @@ def prepare(df,*args,**kwargs):
     """
     df = df.copy()
     #clean docs with spacy
-    df = _append_spacy_docs(df,**kwargs)
-    df = _append_last_sentence(df,**kwargs)
+    df = _append_spacy_docs(df,*args,**kwargs)
+    df = _append_last_sentence(df)
+    df['response_clean'] = df.final_sentence.apply(lambda x: _tok_return(x))
     return df
 
-def score(df,lang_col='textLang',process_col='final_sentence',clean_spacy=True):
+
+def score(df,lang_col='textLang',process_col='final_sentence'):
     """ Append columns for each of the features in ftr.word_lists._FEATURES. Columns are in [0,1], and define whether ftr.word_lists._FEATURES_i is present in df[process_col]
     :param df: a pandas.DataFrame() object
     :param clean_spacy: boolean, default == True. If True, spacy docs in df.final_sentence and df.spacy_doc will be dropped from df, if False, these will be kept.
@@ -160,10 +160,7 @@ def score(df,lang_col='textLang',process_col='final_sentence',clean_spacy=True):
         dy['negated'] = dy[process_col].apply(lambda doc: _is_negated(doc))
         
         #append together
-        dx = dx.append(dy)
-    #remove memory hungry spacy docs
-    if clean_spacy == True:
-        dx = _clean_spacy(dx)        
+        dx = dx.append(dy)       
     return dx
 
 def apply_dominance(df):
@@ -180,7 +177,7 @@ def apply_dominance(df):
     df = _make_lexi_vars(df)
     return df
     
-def process_dataframe(df,**kwargs):
+def classify_df(df,**kwargs):
     """ Sequentially call prepare(df), score(df), and apply_dominance(df)
     :param df: a pandas.DataFrame() object which MUST match criteria described in prepare() description.
     :param **kwargs: any key_word arguments passable to prepare() or score(), 
@@ -191,4 +188,9 @@ def process_dataframe(df,**kwargs):
     df = prepare(df,**kwargs)
     df = score(df,**kwargs)
     df = apply_dominance(df)
+    return df
+    
+def clean_spacy(df):
+    df = df.copy()
+    df = df.drop(['final_sentence','spacy_doc'],1)
     return df

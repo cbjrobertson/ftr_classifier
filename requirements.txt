@@ -1,3 +1,4 @@
 #requirements
 spacy<2.0
 pandas==0.24.2
+pathlib==1.0.1
