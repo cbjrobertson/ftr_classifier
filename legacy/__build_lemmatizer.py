@@ -6,6 +6,11 @@ Created on Wed Jun  5 10:48:05 2019
 @author: robertson
 """
 # =============================================================================
+# IMPORTANT: This script is included for legasy purposes. It was how the original
+# lemmatiser/stemmer was made, but is not designed to be run.
+# =============================================================================
+
+# =============================================================================
 # create morpheme ---> lemma/stem mappings facilitate counting by lemma/stem 
 # rather than inflection/derivation.  Additionally, any outputs of the following for loop
 # will need to be adjusted by hand, i.e. because stemming results in non-dictionary root morphemes

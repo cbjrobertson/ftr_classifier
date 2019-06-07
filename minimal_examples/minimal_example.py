@@ -50,9 +50,9 @@ df_class = ftr.clean_spacy(df_class)
 # save to desired format (pickle or .xlxs) recommended
 # =============================================================================
 ##pickle
-df_class.to_pickle('path/to/desired/location/of/df_class.pkl')
-df_lemma_count.to_pickle('path/to/desired/location/of/df_lemma_count.pkl')
+df_class.to_pickle('df_class.pkl')
+df_lemma_count.to_pickle('df_lemma_count.pkl')
 
 ##excel
-df_class.to_excel('path/to/desired/location/of/df_class.xlsx',index=False)
-df_lemma_count.to_excel('path/to/desired/location/of/df_lemma_count.xlsx',index=False)
+df_class.to_excel('df_class.xlsx',index=False)
+df_lemma_count.to_excel('df_lemma_count.xlsx',index=False)
