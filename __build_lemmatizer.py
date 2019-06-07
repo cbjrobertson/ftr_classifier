@@ -15,7 +15,7 @@ Created on Wed Jun  5 10:48:05 2019
 def make_initial_map(stem_langs=['english'],stem_features = ['adv_adj_poss','adv_adj_cert']):
     '''
     Note: only english adjectives and adverbs are stemmed, as they are derivations (ie different word classes). 
-    Onther features classes (i.e. present, mental_*, verb_*, *future*, and particle*, are either marked 
+    Other features classes (i.e. present, mental_*, verb_*, *future*, and particle*, are either marked 
     only for person and number so share a root lemma (i.e. present tense verbs, mental state predicates),
     or are not marked (modal verbs, particles). Dutch and German epistemic adverbs/adjectives are mostly 
     not marked so only lemmatized, rather than stemmed (Nuyts 2000)

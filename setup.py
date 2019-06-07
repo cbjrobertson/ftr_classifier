@@ -26,6 +26,7 @@ setup(name='ftr_classifier',
       install_requires=[
             "spacy>2.0",
             "pandas==0.24.2",
+            'openpyxl==2.6.2',
             'pathlib==1.0.1; python_version < "3.4"'],
         python_requires='==3.6.*',
         download_url='https://github.com/cbjrobertson/future_modality/archive/1.0.8.tar.gz',

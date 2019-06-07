@@ -9,7 +9,6 @@ Created on Fri May 31 22:32:52 2019
 import pandas as pd
 from copy import deepcopy
 import itertools
-import os
 
 #local imports
 from ftr_classifier.classify import prepare
@@ -30,7 +29,7 @@ def _make_counts_df(counts,df,lang_col='textLang'):
 
     #sort
     dx = dx.sort_values(by=['language','feature','count'],ascending=False)
-    
+   
     #return
     return dx
 
