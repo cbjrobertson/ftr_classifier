@@ -8,7 +8,32 @@ It is recommended that ftr_classifier be used in a `conda` environment with `pyt
 `pip install ftr-classifier` 
 
 ## usage
-`import ftr_classifier as ftr`
+
+See minimal examples for future explanation on usage.
+
+```
+#import ftr_classifier
+import ftr_classifier as ftr
+
+#load data
+df = pd.read_excel('data.xlsx')*
+
+#classify
+class_df = ftr.classify_df(df)
+
+#count lemmas
+lemma_count = ftr.count_lemmas(class_df)
+
+#clean spacy docs
+class_df = ftr.clean_spacy(class_df)
+
+#save
+class_df.to_excel('classified_data.xlsx',index=False)*
+lemma_count.to_excel('lemma_counts.xlsx',index=False)*
+```
+* `.xlsx` is the recommended filetype, because excel tends to mangle non-ascii (i.e. Dutch, German) character when it opens `.csv` files. See pandas docs on importing different file types (see minimal examples for explanation).
+
+## description
 
 `ftr_classifier` has two main purposes. Firstly, it scores some dataframe  `pandas` dataframe, "`df`", with a column containing text data in `str` format, and another column containing information about the language of the text data, currently limited to  `english`, `dutch`, or `german`, in terms of how sentences in  `df['response']` refer to the future. Seconly, it provides counts of the lemmas/stems of the word lists it uses to classify responses.
 
