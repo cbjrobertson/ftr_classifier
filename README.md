@@ -3,13 +3,15 @@ This is a natural language classifier, which uses key-word methods to classify f
 
 
 ## installation
-It is recommended that ftr_classifier be used in a `conda` environment with `python 3.6` installed. Instructions on getting started with `conda` can be found [here](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html). Once `conda` is installed, create an appropriate environment, with `conda create --name my_env_name python=3.6` , then activate the environment with `conda activate my_env_name` or `source activate my_env_name`. Then, to install `ftr_classifier` run:
+It is recommended that ftr_classifier be used in a `conda` environment with `python 3.6` installed. Instructions on getting started with `conda` can be found [here](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html). Once `conda` is installed, create an appropriate environment, with `conda create --name my_env_name python=3.6` , then activate the environment with `conda activate my_env_name` or `source activate my_env_name`. 
+
+Then, to install  run:
 
 `pip install ftr-classifier` 
 
 ## usage
 
-See minimal examples for future explanation on usage.
+See minimal examples for further explanation on usage.
 
 ```
 #import ftr_classifier
@@ -31,7 +33,7 @@ class_df = ftr.clean_spacy(class_df)
 class_df.to_excel('classified_data.xlsx',index=False)*
 lemma_count.to_excel('lemma_counts.xlsx',index=False)*
 ```
-* `.xlsx` is the recommended filetype, because excel tends to mangle non-ascii (i.e. Dutch, German) character when it opens `.csv` files. See pandas docs on importing different file types (see minimal examples for explanation).
+* `.xlsx` is the recommended filetype, because excel tends to mangle non-ascii (i.e. Dutch, German) character when it opens `.csv` files. See pandas docs on importing different file types.
 
 ## description
 
