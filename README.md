@@ -10,7 +10,7 @@ It is recommended that ftr_classifier be used in a `conda` environment with `pyt
 ## usage
 `import ftr_classifier as ftr`
 
-`ftr_classifier` has two main purposes. Firstly, it scores some dataframe  `pandas` dataframe, "`df`", with a column containing text data in `str` format, and another column contained information about the languages of the text data, currently limited to either `english`, `dutch`, or `german`, in terms of how sentences in  `df['response']` refer to the future. Seconly, it provides counts of the lemmas of the word lists it uses to classify responses.
+`ftr_classifier` has two main purposes. Firstly, it scores some dataframe  `pandas` dataframe, "`df`", with a column containing text data in `str` format, and another column containing information about the language of the text data, currently limited to  `english`, `dutch`, or `german`, in terms of how sentences in  `df['response']` refer to the future. Seconly, it provides counts of the lemmas/stems of the word lists it uses to classify responses.
 
 The default column names are `response` for the column containing natural language strings, and `textLang` for the column indexing language. But these can be altered according to the user's data by passing key word arguments as in, `ftr.prepare(lang_col='new_textLang_col_name',text_col='new_response_col_name')` or `ftr.score(lang_col='new_textLang_col_name',text_col='new_response_col_name')`. Natural langauge responses should have been generated using the experimental methods described in `Robertson et al (TKTK)`. 
 
@@ -18,14 +18,14 @@ The default column names are `response` for the column containing natural langua
 ### classification
 
 #### main classification functions
-1)  `ftr.prepare()` processes `df['response']` using `spacy` natural language processing models, and returns `df` with `df['spacy_doc']` the processed version of `df['response']`, and `df['final_sentence']`, which is just a `spacy` document of the last sentence of any response in `df['response']` containing more than one sentence.
-2) `ftr.score()` scores `df['final_sentence']` in terms of how it refers to the future (i.e. whether it uses the present tense, future tense, or some kind of expression exhibiting epistemic modal qualifcation. For explanation and justification of this classification scheme as regards English, Dutch, and German, see `Robertson et al. (TKTK)`. 
-3) `ftr.apply_dominance()` applies a dominance relationship to the output of `ftr.score()`, as described in `Robertson et al. (TKTK)`. Any analyses on the results of this package should be performed on dominance-subjected results, i.e. the columns ending in `_dom`. If there is no `_dom` column for a particular category, e.g. `verb_poss`, then this category is the dominant category and should be used in analysis.
+1)  `ftr.prepare()` processes `df['response']` using `spacy` natural language processing models, and returns `df` with `df['spacy_doc']`, the processed version of `df['response']`, and `df['final_sentence']`, which is just a `spacy` document of the last sentence in `df['response']`.
+2) `ftr.score()` classifies  `df['final_sentence']` in terms of how it refers to the future (i.e. whether it uses the present tense, future tense, or some kind of expression exhibiting epistemic modal qualifcation). For explanation and justification of this classification scheme as regards English, Dutch, and German, see `Robertson et al. (TKTK)`. 
+3) `ftr.apply_dominance()` applies a dominance relationship to the output of `ftr.score()`, as described in `Robertson et al. (TKTK)`. Any analyses on the results of this package should be performed on dominance-subjected results, i.e. the columns ending in `_dom`. If there is no `_dom` column for a particular category, e.g. `verb_poss`, then this category is the dominant category and can be used in analysis.
 
 Finally, `ftr.lassify_df()` calls `ftr.prepare()`, `ftr.score()` and `ftr.apply_dominance()` in sequence and returns a dataframe scoared according to the descriptions in `Robertson et al (TKTK)`. This is the recommended apprach, as given in  the minimal examples.
 
 #### resultant collumns
-Calling  `ftr.lassify_df(df)` append the following columns to `df`. Except for when a language does not have the word category of the column in question, columns are scored as `1` when the given feature is present and `0` when it is not. When a language does not have the word category in question, all values for that feature for that langauge are scored `-999`.
+Calling  `ftr.lassify_df(df)` appends the following columns to `df`. Except for when a language does not have the word category of the column in question, columns are scored as `1` when a given feature is present and `0` when it is not. When a language does not have the word category in question, all values for that feature for that langauge are scored `-999`.
 
 1) `response_clean` a python `list`, of the tokens in the final sentence in the strings in `df['response']`.
 2) `present`: indicates whether the reponse uses one of the words in `ftr.WORD_LISTS[lang]['present']` where `lang` == the language in `df['textLang']`, and is in `['english','dutch','german']`, i.e. whether it uses the present tense of the main verb in each response.
@@ -65,4 +65,4 @@ Additionally, `ftr_classifier` includes functionality to count word occuances ac
 Finally we provide a function which drops the  `spacy` docs automatically appended to the dataframe when `ftr.prepare()` or `ftr.classify_df()` are called. This is because these are memory intensive and sometimes cause display difficulties in the resultant dataframes in some common IDEs, e.g. `spyder`. Use is `clean_df = ftr.clean_spacy(df_class)`, where `df_class == ftr.prepare(df) OR ftr.classify_df(df)`.
 
 ### minimal examples
-Minimal example scripts are located in `./minimal_examples/`. There is an `iPython` and base `python` version, which demonstrate the same function calls. 
+Minimal example scripts are located in `./minimal_examples/`. There is an `iPython` and base `python` version, which demonstrate the same function calls. Opening `minimal_example.ipynb` by clicking on it in `git` will show the interested reader examples of useage with printed results.
