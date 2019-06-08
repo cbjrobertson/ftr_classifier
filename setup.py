@@ -30,7 +30,6 @@ setup(name='ftr_classifier',
             'pathlib==1.0.1; python_version < "3.4"'],
         python_requires='==3.6.*',
         download_url='https://github.com/cbjrobertson/future_modality/archive/1.0.8.tar.gz',
-        key_words = ['natural-language-processing'],
         package_data = {'ftr_classifier':['lemma_map/lemma_map']},
         classifiers = []
       )
