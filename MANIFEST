@@ -8,3 +8,4 @@ ftr_classifier/models.py
 ftr_classifier/info.py
 ftr_classifier/count_lemmas.py
 ftr_classifier/lemma_map/lemma_map
+ftr_classifier/__build_lemmatizer.py

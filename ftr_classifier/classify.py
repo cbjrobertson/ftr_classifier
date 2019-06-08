@@ -20,7 +20,7 @@ pd.options.mode.chained_assignment = None  # default='warn'
 _MISSING = '-999'
 
 #functions
-def _append_spacy_docs(df,lang_col='textLang',text_col='response'):
+def _append_spacy_docs(df,lang_col='language',text_col='response'):
     #create new dataframe
     dx = pd.DataFrame()
     #group by language
@@ -39,7 +39,7 @@ def _append_last_sentence(df):
     df['final_sentence'] = df.spacy_doc.apply(lambda doc: [sent for sent in doc.sents][-1])
     return df
 
-def _clean_non_applicable(df,lang_col='textLang'):
+def _clean_non_applicable(df,lang_col='language'):
     #create new dataframe
     dx = pd.DataFrame()
     #group by language
@@ -122,7 +122,7 @@ def prepare(df,*args,**kwargs):
     spaCy document, and 'final_sentence' which is the last sentence in each spaCy document object.
     :param df: a pandas.DataFrame() object
     :param text_col: str, name of the df column containing natural language strings to be processed using spacy.nlp() models for languages in df[lang_col] default == 'response'
-    :param lang_col: str, name of df column indexing language, default == 'textLang'. df[lang_col] must contain only ['english','dutch','german'], or a subset thereof
+    :param lang_col: str, name of df column indexing language, default == 'language'. df[lang_col] must contain only ['english','dutch','german'], or a subset thereof
     :return: pd.DataFrame() with spaCy documents appended to df.spacy_doc., and last sentence to df.final_sentence
     """
     df = df.copy()
@@ -133,12 +133,12 @@ def prepare(df,*args,**kwargs):
     return df
 
 
-def score(df,lang_col='textLang',process_col='final_sentence'):
+def score(df,lang_col='language',process_col='final_sentence'):
     """ Append columns for each of the features in ftr.word_lists._FEATURES. Columns are in [0,1], and define whether ftr.word_lists._FEATURES_i is present in df[process_col]
     :param df: a pandas.DataFrame() object
     :param clean_spacy: boolean, default == True. If True, spacy docs in df.final_sentence and df.spacy_doc will be dropped from df, if False, these will be kept.
     :param process_col: str, name of the df column containing spacy classified, default == 'final_sentence', must contain spacy.doc objects
-    :param lang_col: str, name of df column indexing language, default == 'textLang'. df[lang_col] must contain only ['english','dutch','german'], or a subset thereof
+    :param lang_col: str, name of df column indexing language, default == 'language'. df[lang_col] must contain only ['english','dutch','german'], or a subset thereof
     :return: pd.DataFrame() with columns for each feature in ftr.word_lists._FEATURES, 1 indicates feature present, 0 indicates feature not present
     """
     #initiate a new dataframe

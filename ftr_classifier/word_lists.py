@@ -19,17 +19,24 @@ LOCAL_PATH ='/lemma_map/lemma_map'
 # CRUD functions
 # =============================================================================
 
-def _load_map():
-    import pickle
-    load_path = DIR+LOCAL_PATH
+def _load_map(filepath=None):
+    if filepath is None:
+        load_path = DIR+LOCAL_PATH
+    else:
+        load_path = filepath
+    #open
     with open(load_path,'rb') as handle:
         lemma_map = pickle.load(handle)
     return lemma_map   
 
 #save map function
-def _save_map(lemma_map,filepath='/lemma_map/lemma_map'):
+def _save_map(lemma_map,filepath=None):
     #save
-    save_path = DIR+LOCAL_PATH
+    if filepath is None:
+        save_path = DIR+LOCAL_PATH
+    else:
+        save_path = filepath
+    #open
     with open(save_path,'wb') as handle:
         pickle.dump(lemma_map,handle,protocol=pickle.HIGHEST_PROTOCOL)
     print('lemma_map saved to {}'.format(save_path))
@@ -85,6 +92,12 @@ FEATURES = ['present','future',
             'will_future','go_future']
 
 LANGUAGES = ['english','dutch','german']
+
+EXTRA_FEATURES = ['negated','lexi_poss',
+                  'lexi_cert','future_dom',
+                  'present_dom','go_future_dom',
+                  'will_future_dom']
+ALL_FEATURES = FEATURES + EXTRA_FEATURES
 # =============================================================================
 # English word lists
 # =============================================================================
@@ -113,6 +126,8 @@ english = {'present':([],
                        'come',
                        'comes',
                        'congratulate',
+                       'congradulate',
+                       'congradulates',#typo
                        'congratulates',
                        'crash',
                        'crashes',
@@ -251,6 +266,7 @@ english = {'present':([],
                 'clearly',
                 'doubtless',
                 'indubitably',
+                'indubitable',
                 'inevitably',
                 'infallibly',
                 'irrefutably',
@@ -328,7 +344,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'en ik in au','het stoort',
                      'contact opnemen','leuk vindt',
                      'ze halen het','val om','stort in',
-                     'valt om','storten in'],
+                     'valt om','storten in','storten inen'],
                     ['.is',#typo
                      'accepteer',
                      'accepteert',
@@ -991,5 +1007,6 @@ LEMMA_MAP = _load_map()
 
 #run and save changes to lemma map
 if __name__ == '__main__':
-    LEMMA_MAP = check_add_lemmas(add_lemmas=True)
+    #LEMMA_MAP = check_add_lemmas()
+    pass
     

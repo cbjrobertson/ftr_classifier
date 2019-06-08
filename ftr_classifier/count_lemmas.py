@@ -14,33 +14,58 @@ import itertools
 from ftr_classifier.classify import prepare
 from ftr_classifier.word_lists import WORD_LISTS,LEMMA_MAP
 
-def _make_counts_df(counts,df,lang_col='textLang'):
+def _make_counts_df(counts,df,lang_col='language'):
     
-    #initialise serialized dataframe
-    d = {'language':[lang for lang in counts for feature in counts[lang] for lemma in counts[lang][feature]],
-         'feature':[feature for lang in counts for feature in counts[lang] for lemma in counts[lang][feature]],
-         'lemma':[lemma for lang in counts for feature in counts[lang] for lemma in counts[lang][feature]],
-         'count':[count for lang in counts for feature in counts[lang] for count in counts[lang][feature].values()],
-         'num_responses':[word_sums[lang][0] for lang in counts for feature in counts[lang] for lemma in counts[lang][feature]],
-         'num_words':[word_sums[lang][1] for lang in counts for feature in counts[lang] for lemma in counts[lang][feature]]}
+    #initialise serialized dataframe    
+    d = {'language':[],
+         'feature':[],
+         'lemma':[],
+         'count':[],
+         'num_responses':[],
+         'num_words':[]}
     
+    #write into lists
+    for lang,lang_dict in counts.items():
+        for feature,feature_dict in lang_dict.items():
+            for lemma,count in feature_dict.items():
+                d['language'] += [lang]
+                d['feature'] += [feature]
+                d['lemma'] += [lemma]
+                d['count'] += [count]
+                d['num_responses'] += [word_sums[lang][0]]
+                d['num_words'] += [word_sums[lang][1]]
+                
     #aconvert to dataframe
     dx = pd.DataFrame(d)
 
     #sort
     dx = dx.sort_values(by=['language','feature','count'],ascending=False)
    
+    #drop will and go future (as the lemmas are alredy counted in future)
+    dx = dx[~dx['feature'].isin(['will_future','go_future'])]
     #return
     return dx
 
-def _counter(df,lang_col='textLang',process_col='final_sentence'):
+def _count_to_lemma_map(feature_lem_map,lexeme_counts):
+    #initialize lemma dict
+    lemma_counts = {}
+    #map lexemes onto lemmas/stems
+    for lexeme,lemma in feature_lem_map.items():
+        if lemma in lemma_counts.keys():
+            lemma_counts[lemma] += lexeme_counts[lexeme]
+        else:
+            lemma_counts[lemma] = lexeme_counts[lexeme]
+    return lemma_counts
+           
+    
 
+def _counter(df,lang_col='language',phrase_col='final_sentence',word_col='response_clean'):
     #group by language
     df_groups = df.groupby(lang_col)
     
     #counts dict initiate
-    COUNTS = deepcopy(WORD_LISTS)
-
+    counts = deepcopy(WORD_LISTS)
+    
     #add count data
     global word_sums
     word_sums = {}
@@ -51,25 +76,24 @@ def _counter(df,lang_col='textLang',process_col='final_sentence'):
         no_responses = len(dy)
         no_words = len(list(itertools.chain.from_iterable(dy['response_clean'].to_list())))
         word_sums[lang] = (no_responses,no_words)
-        for feature in COUNTS[lang]:
+        for feature in counts[lang]:
             #count phrases
-            phrase_counts = {phrase : sum(dy[process_col].apply(lambda doc:doc.text.count(phrase)))\
-                                      for phrase in COUNTS[lang][feature][0]}
-            #sum phrase counts to lemma
-            phrase_lemma_counts = {}
-            phrase_lemma_counts = {LEMMA_MAP[lang][feature][0][phrase] : (val+LEMMA_MAP[phrase] if phrase in phrase_lemma_counts.keys() else val) for phrase,val in phrase_counts.items()}
+            phrase_counts = {phrase : sum(dy[phrase_col].apply(lambda doc:doc.text.lower().count(phrase)))\
+                                      for phrase in counts[lang][feature][0]}
             
+            #count phrase lemmas
+            phrase_lemma_counts = _count_to_lemma_map(LEMMA_MAP[lang][feature][0],phrase_counts)
+
             #count word
-            word_counts = {word : sum(dy[process_col].apply(lambda doc:doc.text.count(word)))\
-                           for word in COUNTS[lang][feature][1]}
+            word_counts = {word : sum(dy[word_col].apply(lambda response_clean: response_clean.count(word)))\
+                           for word in counts[lang][feature][1]}
             
-            #sum word counts to lemma
-            word_lemma_counts = {}
-            phrase_lemma_counts = {LEMMA_MAP[lang][feature][1][word] : (val+LEMMA_MAP[word] if word in word_lemma_counts.keys() else val) for word,val in word_counts.items()}
+            #count word lemmas
+            word_lemma_counts = _count_to_lemma_map(LEMMA_MAP[lang][feature][1],word_counts)
 
             #merge two together
-            COUNTS[lang][feature] = {**phrase_lemma_counts, **word_lemma_counts}
-    return COUNTS
+            counts[lang][feature] = {**phrase_lemma_counts, **word_lemma_counts}
+    return counts
 
 
 def count_lemmas(df,*args,**kwargs):

@@ -67,8 +67,8 @@ def print_map(lemma_map,indent=4):
 # =============================================================================
 # English
 # =============================================================================
-english_lems = {'adv_adj_cert': ({'for sure': 'for sure'},
-                            {'assured': 'assured',
+english_lems = {   'adv_adj_cert': (   {'for sure': 'for sure'},
+                        {   'assured': 'assured',
                             'assuredly': 'assured',
                             'certain': 'certain',
                             'certainly': 'certain',
@@ -96,11 +96,9 @@ english_lems = {'adv_adj_cert': ({'for sure': 'for sure'},
                             'undoubted': 'undoubted',
                             'undoubtedly': 'undoubted',
                             'unquestionable': 'unquestionable',
-                            'unquestionably': 'unquestionable'}
-                        ),
-    
-    'adv_adj_poss':     (   {},
-                            {'apparently': 'apparent',
+                            'unquestionably': 'unquestionable'}),
+    'adv_adj_poss': (   {},
+                        {   'apparently': 'apparent',
                             'dubiously': 'dubiously',
                             'expectably': 'expect',
                             'expectedly': 'expect',
@@ -125,70 +123,52 @@ english_lems = {'adv_adj_cert': ({'for sure': 'for sure'},
                             'somewhat': 'somewhat',
                             'supposed': 'supposed',
                             'supposedly': 'supposed',
-                            'uncertainly': 'uncertain'}
-                            ),
-           
-    'future':       ({'about to': 'about to',
+                            'uncertainly': 'uncertain'}),
+    'future': (   {   'about to': 'about to',
                       'am going': 'be going to',
-                      'are going':'be going to',
-                      'going to': 'be going to',
-                      'is going': 'be going to'},
-                      {"'ll": 'will',
-                      'shall': 'shall',
-                      'theyll': 'will',
-                      'wil': 'will',
-                      'will': 'will'}
-                      ),
-    
-    'go_future':    ({'am going': 'be going to',
                       'are going': 'be going to',
                       'going to': 'be going to',
                       'is going': 'be going to'},
-                     {}
-                     ),
-    
-    'mental_cert': ({}, 
-                    {'know': 'know',
-                     'knows': 'know'}
-                    ),
-    
-    'mental_poss': ({'feel like': 'feel like'},
-                    {'believe': 'believe',
-                     'believes': 'believe',
-                     'believing': 'believe',
-                     'doubt': 'doubt',
-                     'doubts': 'doubt',
-                     'doubting':'doubt',
-                     'expect': 'expect',
-                     'expects':'expecting',
-                     'expecting': 'expect',
-                     'guess': 'guess',
-                     'guesses': 'guess',
-                     'guessing':'guess',
-                     'plan': 'plan',
-                     'planning': 'plan',
-                     'plans': 'plan',
-                     'reckon': 'reckon',
-                     'reckons':'reckon',
-                     'reckoning': 'reckon',
-                     'suppose': 'suppose',
-                     'supposes': 'suppose',
-                     'supposing':'suppose',
-                     'think': 'think',
-                     'thinking': 'think',
-                     'thinks': 'think'}
-                    ),
-    
-    'particle':     ({}, 
-                     {}
-                     ),
-    
-    'particle_poss': ({},
-                      {}
-                      ),
-    
-    'present':      ({},
-                     {"'m": "be",
+                  {   "'ll": 'will',
+                      'shall': 'shall',
+                      'theyll': 'will',
+                      'wil': 'will',
+                      'will': 'will'}),
+    'go_future': (   {   'am going': 'be going to',
+                         'are going': 'be going to',
+                         'going to': 'be going to',
+                         'is going': 'be going to'},
+                     {}),
+    'mental_cert': ({}, {'know': 'know', 'knows': 'know'}),
+    'mental_poss': (   {'feel like': 'feel like'},
+                       {   'believe': 'believe',
+                           'believes': 'believe',
+                           'believing': 'believe',
+                           'doubt': 'doubt',
+                           'doubting': 'doubt',
+                           'doubts': 'doubt',
+                           'expect': 'expect',
+                           'expecting': 'expect',
+                           'expects': 'expecting',
+                           'guess': 'guess',
+                           'guesses': 'guess',
+                           'guessing': 'guess',
+                           'plan': 'plan',
+                           'planning': 'plan',
+                           'plans': 'plan',
+                           'reckon': 'reckon',
+                           'reckoning': 'reckon',
+                           'reckons': 'reckon',
+                           'suppose': 'suppose',
+                           'supposes': 'suppose',
+                           'supposing': 'suppose',
+                           'think': 'think',
+                           'thinking': 'think',
+                           'thinks': 'think'}),
+    'particle': ({}, {}),
+    'particle_poss': ({}, {}),
+    'present': (   {},
+                   {   "'m": 'be',
                        "'re": 'be',
                        'allow': 'allow',
                        'allows': 'allow',
@@ -211,8 +191,10 @@ english_lems = {'adv_adj_cert': ({'for sure': 'for sure'},
                        'collapses': 'collapse',
                        'come': 'come',
                        'comes': 'come',
-                       'congradulates': 'congradulate',
+                       'congradulate': 'congratulate',
+                       'congradulates': 'congratulate',
                        'congratulate': 'congratulate',
+                       'congratulates': 'congratulate',
                        'crash': 'crash',
                        'crashes': 'crash',
                        'decline': 'decline',
@@ -243,8 +225,8 @@ english_lems = {'adv_adj_cert': ({'for sure': 'for sure'},
                        'helps': 'help',
                        'increase': 'increase',
                        'increases': 'increase',
-                       'insists': 'insist',
                        'insist': 'insist',
+                       'insists': 'insist',
                        'is': 'be',
                        'live': 'live',
                        'lives': 'life',
@@ -283,38 +265,30 @@ english_lems = {'adv_adj_cert': ({'for sure': 'for sure'},
                        'travel': 'travel',
                        'travels': 'travel',
                        'work': 'work',
-                       'works': 'work'}
-                     ),
-    
-    'verb_cert':    ({'got to': 'got to',
-                      'has to': 'has to',
-                      'have to': 'has to'},
-    
-                     {'must': 'must'}
-                     ),
-    
-    'verb_poss':    ({},
-                     {'can': 'can',
-                      'could': 'could',
-                      'may': 'may',
-                      'might': 'might',
-                      'ought': 'ought',
-                      'should': 'should',
-                      'sould': 'should'}
-                     ),
-    
-    'will_future':  ({},
-                     {"'ll": 'will',
-                      'theyll': 'will',
-                      'wil': 'will',
-                      'will': 'will'})}
+                       'works': 'work'}),
+    'verb_cert': (   {   'got to': 'got to',
+                         'has to': 'has to',
+                         'have to': 'has to'},
+                     {'must': 'must'}),
+    'verb_poss': (   {},
+                     {   'can': 'can',
+                         'could': 'could',
+                         'may': 'may',
+                         'might': 'might',
+                         'ought': 'ought',
+                         'should': 'should',
+                         'sould': 'should'}),
+    'will_future': (   {},
+                       {   "'ll": 'will',
+                           'theyll': 'will',
+                           'wil': 'will',
+                           'will': 'will'})}
     
     
 # =============================================================================
 #     Dutch lemma map
 # =============================================================================
-dutch_lems = {'adv_adj_cert': (   {'wel degelijk': 'wel degelijk'},
-                          
+dutch_lems = {   'adv_adj_cert': (   {'wel degelijk': 'wel degelijk'},
                         {   'absoluut': 'absoluut',
                             'alleszins': 'alleszins',
                             'allicht': 'allicht',
@@ -364,14 +338,13 @@ dutch_lems = {'adv_adj_cert': (   {'wel degelijk': 'wel degelijk'},
                             'voorgoed': 'voorgoed',
                             'werkelijk': 'werkelijk',
                             'wis': 'wis',
-                            'zeker': 'zeker'}
-                        ),
-    
-    'adv_adj_poss': (   {   'in aanmerking komendniet zeker': 'in aanmerking komendniet zeker',
+                            'zeker': 'zeker'}),
+    'adv_adj_poss': (   {   'in aanmerking komendniet zeker': 'in aanmerking '
+                                                              'komendniet '
+                                                              'zeker',
                             'is er een kans': 'is er een kans',
                             'naar het schijnt': 'naar het schijnt',
                             'te komen': 'te komen'},
-    
                         {   'aannemelijk': 'aannemelijk',
                             'allichet': 'allichet',
                             'bedenkelijk': 'bedenkelijk',
@@ -395,32 +368,22 @@ dutch_lems = {'adv_adj_cert': (   {'wel degelijk': 'wel degelijk'},
                             'wellicht': 'wellicht',
                             'word': 'worden',
                             'worden': 'worden',
-                            'wordt': 'worden'}
-                        ),
-    
+                            'wordt': 'worden'}),
     'future': (   {'staat op': 'staat op'},
                   {   'ga': 'gaan',
                       'gaan': 'gaan',
-                      'gaanverliezen': 'gaanverliezen',
+                      'gaanverliezen': 'gaan',
                       'gaat': 'gaan',
                       'zal': 'zullen',
                       'zul': 'zullen',
                       'zullen': 'zullen',
-                      'zult': 'zullen'}
-                  ),
-    
+                      'zult': 'zullen'}),
     'go_future': (   {},
                      {   'ga': 'gaan',
                          'gaan': 'gaan',
-                         'gaanverliezen': 'gaanverliezen',
-                         'gaat': 'gaan'}
-                     ),
-    
-    'mental_cert': ({}, 
-                    {'weet': 'weten',
-                    'weten': 'weten'}
-                    ),
-    
+                         'gaanverliezen': 'gaan',
+                         'gaat': 'gaan'}),
+    'mental_cert': ({}, {'weet': 'weten', 'weten': 'weten'}),
     'mental_poss': (   {'houden voor': 'houden voor'},
                        {   'annehm': 'annehm',
                            'annehmen': 'annehmen',
@@ -438,8 +401,8 @@ dutch_lems = {'adv_adj_cert': (   {'wel degelijk': 'wel degelijk'},
                            'hoortbetwijfel': 'hoortbetwijfel',
                            'horen': 'horen',
                            'meen': 'menen',
-                           'ment': 'menen',
                            'menen': 'menen',
+                           'ment': 'menen',
                            'vermoed': 'vermoeden',
                            'vermoeden': 'vermoeden',
                            'vermoedt': 'vermoeden',
@@ -448,13 +411,8 @@ dutch_lems = {'adv_adj_cert': (   {'wel degelijk': 'wel degelijk'},
                            'veronderstelt': 'veronderstellen',
                            'zeg': 'zeggen',
                            'zeggen': 'zeggen',
-                           'zegt': 'zeggen'
-                           }
-                       ),
-    
-    'particle': (   {'nou eenmaal': 'nu eenmaal', 
-                     'nu eenmaal': 'nu eenmaal'},
-    
+                           'zegt': 'zeggen'}),
+    'particle': (   {'nou eenmaal': 'nu eenmaal', 'nu eenmaal': 'nu eenmaal'},
                     {   'eenseffe': 'eenseffe',
                         'entjes': 'entje',
                         'es': 'es',
@@ -464,30 +422,24 @@ dutch_lems = {'adv_adj_cert': (   {'wel degelijk': 'wel degelijk'},
                         'ja': 'ja',
                         'maar': 'maar',
                         'nounu': 'nounu',
-                        'toch': 'toch'}
-                    ),
-    
-    'particle_poss': ({'wel eens': 'wel eens'}, 
-                      {'wel': 'wel'}
-                      ),
-    
+                        'toch': 'toch'}),
+    'particle_poss': ({'wel eens': 'wel eens'}, {'wel': 'wel'}),
     'present': (   {   'contact opnemen': 'contact opnemen',
+                       'en ik in au': 'en ik in au',
                        'het stoort': 'het stoort',
                        'is het': 'is het',
                        'leuk vindt': 'leuk vindt',
                        'stort in': 'instorten',
                        'storten in': 'instorten',
-                       'storten inen':'instorten',
-                       'en ik in au':'en ik in au',
+                       'storten inen': 'instorten',
                        'val om': 'omvallen',
                        'vallen om': 'omvallen',
                        'valt om': 'omvallen',
                        'ze halen het': 'ze halen het'},
-    
                    {   '.is': 'zijn',
                        'accepteer': 'accepteren',
-                       'accepteren': 'accepteren',
                        'accepteert': 'accepteren',
+                       'accepteren': 'accepteren',
                        'bedank': 'bedanken',
                        'bedanken': 'bedanken',
                        'bedankt': 'bedanken',
@@ -586,10 +538,7 @@ dutch_lems = {'adv_adj_cert': (   {'wel degelijk': 'wel degelijk'},
                        'sneeuwen': 'sneeuwen',
                        'sneeuwt': 'sneeuwen',
                        'sort': 'storten',
-                       'sotrt':'storten',
-                       'stort':'storten',
-                       'storten':'storten',
-                       'strort': 'strort',
+                       'sotrt': 'storten',
                        'spaar': 'sparen',
                        'spaart': 'sparen',
                        'sparen': 'sparen',
@@ -603,23 +552,24 @@ dutch_lems = {'adv_adj_cert': (   {'wel degelijk': 'wel degelijk'},
                        'stijgen': 'stijgen',
                        'stijgt': 'stijgen',
                        'stjgt': 'stjgen',
+                       'stort': 'storten',
+                       'storten': 'storten',
+                       'strort': 'strort',
                        'val': 'vallen',
                        'vallen': 'vallen',
                        'valt': 'vallen',
                        'verdubbel': 'verdubbelen',
                        'verdubbelen': 'verdubbelen',
                        'verdubbelt': 'verdubbelen',
+                       'vergang': 'vergangen',
+                       'vergangen': 'vergangen',
                        'vergangt': 'vergangt',
-                       'vergang':'vergangen',
-                       'vergangen':'vergangen',
                        'verhuis': 'verhuizen',
                        'verhuist': 'verhuizen',
                        'verhuizen': 'verhuizen',
                        'verlies': 'verlies',
                        'verliest': 'verliezen',
                        'verliezen': 'verliezen',
-                       'verslijten':'verslijten',
-                       'verslijt':'verslijten',
                        'verminder': 'verminderen',
                        'verminderen': 'verminder',
                        'vermindert': 'verminderen',
@@ -661,17 +611,13 @@ dutch_lems = {'adv_adj_cert': (   {'wel degelijk': 'wel degelijk'},
                        'zitten': 'zitten',
                        'zwel': 'zwellen',
                        'zwellen': 'zwellen',
-                       'zwelt': 'zwellen'}
-                   ),
-    
+                       'zwelt': 'zwellen'}),
     'verb_cert': (   {},
                      {   'gemoeten': 'moeten',
                          'moest': 'moeten',
                          'moesten': 'moeten',
                          'moet': 'moeten',
-                         'moeten': 'moeten'}
-                     ),
-    
+                         'moeten': 'moeten'}),
     'verb_poss': (   {},
                      {   'gekund': 'kunnen',
                          'kan': 'kunnen',
@@ -681,26 +627,21 @@ dutch_lems = {'adv_adj_cert': (   {'wel degelijk': 'wel degelijk'},
                          'kunnen': 'kunnen',
                          'kunt': 'kunnen',
                          'mag': 'mogen',
-                         'mogen':'mogen',
+                         'mogen': 'mogen',
                          'vermogen': 'mogen',
-                         'vermoogd': 'mogen'}
-                     ),
-    
+                         'vermoogd': 'mogen'}),
     'will_future': (   {},
                        {   'zal': 'zullen',
                            'zul': 'zullen',
                            'zullen': 'zullen',
-                           'zult': 'zullen'}
-                       )
-    }
+                           'zult': 'zullen'})}
     
     
 # =============================================================================
 # German lemmatization
 # =============================================================================
-german_lems = {'adv_adj_cert': ({'auf jeden fall':'auf jeden fall',
-                                 'klipp und klar': 'klipp und klar'},
-    
+german_lems = {'adv_adj_cert': (   {   'auf jeden fall': 'auf jeden fall',
+                            'klipp und klar': 'klipp und klar'},
                         {   'aufjedenfall': 'aufjedenfall',
                             'augenscheinlich': 'augenscheinlich',
                             'bestimmt': 'bestimmen',
@@ -714,11 +655,8 @@ german_lems = {'adv_adj_cert': ({'auf jeden fall':'auf jeden fall',
                             'sicher': 'sicher',
                             'sicherlich': 'sicherlich',
                             'zweifellos': 'zweifellos',
-                            'zweifelsohne': 'zweifelsohne'}
-                        ),
-    
+                            'zweifelsohne': 'zweifelsohne'}),
     'adv_adj_poss': (   {'unter umständen': 'unter umständen'},
-                     
                         {   'annehmbar': 'annehmbar',
                             'anscheinend': 'anscheinend',
                             'eventuell': 'eventuell',
@@ -730,35 +668,24 @@ german_lems = {'adv_adj_cert': ({'auf jeden fall':'auf jeden fall',
                             'vermutlich': 'vermutlich',
                             'vielleicht': 'vielleicht',
                             'wahrscheinlich': 'wahrscheinlich',
-                            'womöglich': 'womöglich'}
-                        ),
-    
+                            'womöglich': 'womöglich'}),
     'future': (   {},
                   {   'werde': 'werden',
                       'werden': 'werden',
                       'werdet': 'werden',
                       'wird': 'werden',
-                      'wirst': 'werden'}
-                  ),
-    
-    'go_future': ({}, 
-                  {}
-                  ),
-    
+                      'wirst': 'werden'}),
+    'go_future': ({}, {}),
     'mental_cert': (   {},
                        {   'weiß': 'wissen',
                            'weißt': 'wissen',
                            'wissen': 'wissen',
-                           'wisst': 'wissen'}
-                       ),
-    
+                           'wisst': 'wissen'}),
     'mental_poss': (   {   'nehme an': 'aannemen',
                            'nehmen an': 'aannemen',
                            'nehmt an': 'aannemen',
                            'nimmst an': 'aannemen',
-                           'nimmt an': 'aannemen'
-                           },
-    
+                           'nimmt an': 'aannemen'},
                        {   'denke': 'denken',
                            'denken': 'denken',
                            'denkst': 'denken',
@@ -782,9 +709,7 @@ german_lems = {'adv_adj_cert': ({'auf jeden fall':'auf jeden fall',
                            'vermute': 'vermuten',
                            'vermuten': 'vermuten',
                            'vermutest': 'vermuten',
-                           'vermutet': 'vermuten'}
-                       ),
-    
+                           'vermutet': 'vermuten'}),
     'particle': (   {},
                     {   'aber': 'aber',
                         'auch': 'auch',
@@ -803,14 +728,8 @@ german_lems = {'adv_adj_cert': ({'auf jeden fall':'auf jeden fall',
                         'nur': 'nur',
                         'ruhig': 'ruhig',
                         'schon': 'schon',
-                        'vielleicht': 'vielleicht'
-                        }
-                    ),
-    
-    'particle_poss': ({}, 
-                      {'wohl': 'wohl'}
-                      ),
-    
+                        'vielleicht': 'vielleicht'}),
+    'particle_poss': ({}, {'wohl': 'wohl'}),
     'present': (   {   'gehe auf': 'aufgehen',
                        'gehe aus': 'ausgehen',
                        'gehen auf': 'aufgehen',
@@ -826,7 +745,6 @@ german_lems = {'adv_adj_cert': ({'auf jeden fall':'auf jeden fall',
                        'rufen an': 'anrufen',
                        'rufst an': 'anrufen',
                        'ruft an': 'anrufen'},
-    
                    {   'arbeite': 'arbeiten',
                        'arbeiten': 'arbeiten',
                        'arbeitest': 'arbeiten',
@@ -869,22 +787,20 @@ german_lems = {'adv_adj_cert': ({'auf jeden fall':'auf jeden fall',
                        'lebst': 'leben',
                        'lebt': 'leben',
                        'liebe': 'lieben',
-                       'liebst':'lieben',
-                       'liebt':'lieben',
-                       'lieben':'lieben',
+                       'lieben': 'lieben',
+                       'liebst': 'lieben',
+                       'liebt': 'lieben',
                        'mache': 'machen',
                        'machen': 'machen',
                        'machst': 'machen',
                        'macht': 'machen',
+                       'nutze': 'nutzen',
                        'nutzen': 'nutzen',
-                       'nutze':'nutzen',
-                       'nutzt':'nutzen',
-                       
+                       'nutzt': 'nutzen',
                        'regne': 'regnen',
                        'regnen': 'regnen',
                        'regnest': 'regnen',
                        'regnet': 'regnen',
-                       
                        'reise': 'reisen',
                        'reisen': 'reisen',
                        'reist': 'reisen',
@@ -918,23 +834,18 @@ german_lems = {'adv_adj_cert': ({'auf jeden fall':'auf jeden fall',
                          'dürften': 'dürfen_SUBJ',
                          'dürftest': 'dürfen_SUBJ',
                          'dürftet': 'dürfen_SUBJ',
-                         
                          'kann': 'können_IND',
                          'kannst': 'können_IND',
                          'können': 'können_IND',
                          'könnt': 'können_IND',
-                         
-                         
-                         'könnte':'können_SUBJ',
-                         'könntest': 'können_SUBJ',
+                         'könnte': 'können_SUBJ',
                          'könnten': 'können_SUBJ',
+                         'könntest': 'können_SUBJ',
                          'könntet': 'können_SUBJ',
-
                          'mag': 'mögen_IND',
                          'magst': 'mögen_IND',
                          'mögen': 'mögen_IND',
                          'mögt': 'mögen_IND',
-                         
                          'müsste': 'müssen_SUBJ',
                          'müssten': 'müssen_SUBJ',
                          'müsstest': 'müssen_SUBJ',
@@ -943,26 +854,20 @@ german_lems = {'adv_adj_cert': ({'auf jeden fall':'auf jeden fall',
                          'müßten': 'müssen_SUBJ',
                          'müßtest': 'müssen_SUBJ',
                          'müßtet': 'müssen_SUBJ',
-                         
                          'soll': 'sollen_IND',
                          'sollen': 'sollen_IND',
                          'sollst': 'sollen_IND',
                          'sollt': 'sollen_IND',
-                         
                          'sollte': 'sollen_SUBJ',
                          'sollten': 'sollen_SUBJ',
                          'solltest': 'sollen_SUBJ',
-                         'solltet': 'sollen_SUBJ'}
-                     ),
-    
+                         'solltet': 'sollen_SUBJ'}),
     'will_future': (   {},
                        {   'werde': 'werden',
                            'werden': 'werden',
                            'werdet': 'werden',
                            'wird': 'werden',
-                           'wirst': 'werden'}
-                       )
-    }
+                           'wirst': 'werden'})}
 
 # =============================================================================
 # create lemma map with all languages
@@ -975,8 +880,8 @@ LEMMA_MAP = {'english':english_lems,
 # save it as a pickle
 # =============================================================================
 if __name__ == '__main__':
-    from word_lists import _save_map
-    _save_map(LEMMA_MAP)
-    
+    #from ftr_classifier.word_lists import _save_map
+    #_save_map(LEMMA_MAP)
+    pass
 
 
