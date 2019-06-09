@@ -12,9 +12,9 @@ import itertools
 
 #local imports
 from ftr_classifier.classify import prepare
-from ftr_classifier.word_lists import WORD_LISTS,LEMMA_MAP
+from ftr_classifier.word_lists import LEMMA_MAP
 
-def _make_counts_df(counts,df,lang_col='language'):
+def _make_counts_df(counts,lang_col='language'):
     
     #initialise serialized dataframe    
     d = {'language':[],
@@ -56,8 +56,6 @@ def _count_to_lemma_map(feature_lem_map,lexeme_counts):
         else:
             lemma_counts[lemma] = lexeme_counts[lexeme]
     return lemma_counts
-           
-    
 
 def _counter(df,lang_col='language',phrase_col='final_sentence',word_col='response_clean'):
     #group by language
@@ -96,14 +94,27 @@ def _counter(df,lang_col='language',phrase_col='final_sentence',word_col='respon
     return counts
 
 
-def count_lemmas(df,*args,**kwargs):
+def count_lemmas(df,lang_col='language',*args,**kwargs):
     #copy
     df = df.copy()
     
+    #set WORD_LISTS as global
+    global WORD_LISTS
+    
+    #import
+    from ftr_classifier.word_lists import WORD_LISTS
+    
+    #get list of working languages
+    working_langs = list(set(df[lang_col]))
+    
+    #take out out of sample lanuages 
+    WORD_LISTS = {key:value for (key,value) in WORD_LISTS.items() if key in working_langs}
+    
+    #re make spacy docs if not present
     if 'final_sentence' not in df.columns:
         df = prepare(df)
     #do the counts
-    counts = _counter(df,*args,**kwargs)
-    counts_df = _make_counts_df(counts,df)
+    counts = _counter(df,lang_col=lang_col,*args,**kwargs)
+    counts_df = _make_counts_df(counts)
     #return
     return counts_df
