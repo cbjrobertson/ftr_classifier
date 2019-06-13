@@ -426,6 +426,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'krijgt',
                      'laat',
                      'laten',
+                     'latten',#typo
                      'maak',
                      'maaken',
                      'maakt',
