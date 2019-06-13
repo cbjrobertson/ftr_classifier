@@ -9,7 +9,7 @@ Created on Fri May 31 22:32:52 2019
 import pandas as pd
 
 #local imports
-from ftr_classifier.word_lists import FEATURES, WORD_LISTS
+from word_lists import FEATURES, WORD_LISTS, MAIN_FEATURES, ALL_FEATURES
 from ftr_classifier.models import MODELS
 
 
@@ -89,6 +89,13 @@ def _make_lexi_vars(df):
                        else 0 for x in df.index]
     return df
 
+def _make_no_code(df):
+    df = df.copy()
+    #apply
+    df['no_code'] = [1 if any(feature == 1 for feature in df.loc[x,MAIN_FEATURES])\
+                       else 0 for x in df.index]
+    return df
+
 def _tok_return(doc):
     toks =  [token.text for token in doc if\
             not token.lemma_ == '-PRON-' and \
@@ -111,9 +118,6 @@ def _check_words(response):
         else:
             scores += [0]
     return dict(zip(FEATURES, scores))
-
-
-
 
 def prepare(df,*args,**kwargs):
     """ append two columns to a pandas dataframe containing at least two columns, one
@@ -175,9 +179,10 @@ def apply_dominance(df):
     df = _present_dom(df)
     df = _future_dom(df)
     df = _make_lexi_vars(df)
+    df = _make_no_code(df)
     return df
     
-def classify_df(df,**kwargs):
+def classify_df(df,suffix=None,**kwargs):
     """ Sequentially call prepare(df), score(df), and apply_dominance(df)
     :param df: a pandas.DataFrame() object which MUST match criteria described in prepare() description.
     :param **kwargs: any key_word arguments passable to prepare() or score(), 
@@ -186,8 +191,12 @@ def classify_df(df,**kwargs):
     """
     df = df.copy()
     df = prepare(df,**kwargs)
-    df = score(df,**kwargs)
+    df = score(df)
     df = apply_dominance(df)
+    if not suffix is None:
+        suffix_features = [x+suffix for x in ALL_FEATURES]
+        df[suffix_features] = df[ALL_FEATURES]
+        df = df.drop(ALL_FEATURES,1)
     return df
     
 def clean_spacy(df):
