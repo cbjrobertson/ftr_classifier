@@ -96,7 +96,11 @@ LANGUAGES = ['english','dutch','german']
 EXTRA_FEATURES = ['negated','lexi_poss',
                   'lexi_cert','future_dom',
                   'present_dom','go_future_dom',
-                  'will_future_dom']
+                  'will_future_dom','no_code']
+
+MAIN_FEATURES = ['lexi_poss','lexi_cert','future_dom',
+                  'present_dom','verb_poss','verb_cert']
+
 ALL_FEATURES = FEATURES + EXTRA_FEATURES
 # =============================================================================
 # English word lists
@@ -344,7 +348,11 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'en ik in au','het stoort',
                      'contact opnemen','leuk vindt',
                      'ze halen het','val om','stort in',
-                     'valt om','storten in','storten inen'],
+                     'valt om','storten in','storten inen',
+                     'kom an','komt an','komen an','knap op',
+                     'knapt op','knappen op','uit eten','uit eet',
+                     'kom op','komt op','komen op',
+                     'zwel op','zwelt op','zwellen op'],
                     ['.is',#typo
                      'accepteer',
                      'accepteert',
@@ -417,7 +425,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'krijgen',
                      'krijgt',
                      'laat',
-                     'latten',
+                     'laten',
                      'maak',
                      'maaken',
                      'maakt',
