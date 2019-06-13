@@ -9,7 +9,7 @@ Created on Fri May 31 22:32:52 2019
 import pandas as pd
 
 #local imports
-from word_lists import FEATURES, WORD_LISTS, MAIN_FEATURES, ALL_FEATURES
+from ftr_classifier.word_lists import FEATURES, WORD_LISTS, MAIN_FEATURES, ALL_FEATURES
 from ftr_classifier.models import MODELS
 
 
