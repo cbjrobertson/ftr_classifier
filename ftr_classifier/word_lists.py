@@ -84,24 +84,27 @@ def check_add_lemmas(add_lemmas=True,**kwargs):
 # =============================================================================
 # Features 
 # =============================================================================
-FEATURES = ['present','future',
-            'verb_poss','verb_cert',
-            'adv_adj_poss','adv_adj_cert',
-            'mental_poss','mental_cert',
-            'particle_poss','particle',
-            'will_future','go_future']
-
 LANGUAGES = ['english','dutch','german']
 
-EXTRA_FEATURES = ['negated','lexi_poss',
-                  'lexi_cert','future_dom',
-                  'present_dom','go_future_dom',
-                  'will_future_dom','no_code']
+SUBMISSIVE_FEATURES = ['present','future','will_future','go_future']
+
+DOMINANT_FEATURES = ['verb_poss','verb_cert',
+                     'adv_adj_poss','adv_adj_cert',
+                     'mental_poss','mental_cert',
+                     'particle_poss','particle']
+
+DOMINATED_FEATURES = ['future_dom','present_dom',
+                     'go_future_dom','will_future_dom']
+
+SUMMARY_FEATURES = ['lexi_poss','lexi_cert']
+
+EXTRA_FEATURES = ['negated','no_code']
 
 MAIN_FEATURES = ['lexi_poss','lexi_cert','future_dom',
                   'present_dom','verb_poss','verb_cert']
 
-ALL_FEATURES = FEATURES + EXTRA_FEATURES
+FEATURES = DOMINANT_FEATURES + SUBMISSIVE_FEATURES
+ALL_FEATURES = FEATURES + DOMINATED_FEATURES + SUMMARY_FEATURES + EXTRA_FEATURES
 # =============================================================================
 # English word lists
 # =============================================================================

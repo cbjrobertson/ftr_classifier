@@ -92,12 +92,12 @@ def _make_lexi_vars(df):
 def _make_no_code(df):
     df = df.copy()
     #apply
-    df['no_code'] = [1 if any(feature == 1 for feature in df.loc[x,MAIN_FEATURES])\
-                       else 0 for x in df.index]
+    df['no_code'] = ['coded' if any(feature == 1 for feature in df.loc[x,MAIN_FEATURES])\
+                       else 'uncoded' for x in df.index]
     return df
 
 def _tok_return(doc):
-    toks =  [token.text for token in doc if\
+    toks =  [token.text.lower() for token in doc if\
             not token.lemma_ == '-PRON-' and \
             not token.is_punct]
     return toks
@@ -111,7 +111,7 @@ def _is_negated(doc):
 def _check_words(response):
     scores = []
     for feature,w_list in _word_list.items():
-        if any(phrase in response.text for phrase in w_list[0]):
+        if any(phrase in response.text.lower() for phrase in w_list[0]):
             scores += [1]
         elif any(word in _tok_return(response) for word in w_list[1]):
             scores += [1]
