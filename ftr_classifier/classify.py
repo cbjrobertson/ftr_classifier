@@ -129,11 +129,11 @@ def _debug_check_words(response,raw_text=False,lang='dutch'):
     scores = {}
     for feature,w_list in _word_list.items():
         if any(phrase in response.text.lower() for phrase in w_list[0]):
-            scores[feature] = [phrase for phrase in w_list[0] if phrase in response.text.lower()]
+            scores[feature+'_debug'] = [phrase for phrase in w_list[0] if phrase in response.text.lower()]
         elif any(word in _tok_return(response) for word in w_list[1]):
-            scores[feature] = [word for word in w_list[1] if word in _tok_return(response)]
+            scores[feature+'_debug'] = [word for word in w_list[1] if word in _tok_return(response)]
         else:
-            scores[feature] = 0
+            scores[feature+'_debug'] = ''
     return scores
     
 
@@ -155,7 +155,7 @@ def prepare(df,**kwargs):
     return df
 
 
-def score(df,lang_col='language',process_col='final_sentence',debug=False,debug_features=None):
+def score(df,lang_col='language',process_col='final_sentence',debug=False):
     """ Append columns for each of the features in ftr.word_lists._FEATURES. Columns are in [0,1], and define whether ftr.word_lists._FEATURES_i is present in df[process_col]
     :param df: a pandas.DataFrame() object
     :param clean_spacy: boolean, default == True. If True, spacy docs in df.final_sentence and df.spacy_doc will be dropped from df, if False, these will be kept.
@@ -178,11 +178,11 @@ def score(df,lang_col='language',process_col='final_sentence',debug=False,debug_
         _word_list = WORD_LISTS[lang]  
        
         #apply function to lang-specific group           
-        dy[FEATURES] = dy[process_col].apply(lambda doc: pd.Series(_check_words(doc)))
+        dy = pd.concat([dy,dy[process_col].apply(lambda doc: pd.Series(_check_words(doc)))],axis=1)
         dy['negated'] = dy[process_col].apply(lambda doc: _is_negated(doc))
         #add lists of hit words to debug if necessary
         if debug == True:
-            dy[debug_features] = dy[process_col].apply(lambda doc: pd.Series(_debug_check_words(doc))) 
+            dy = pd.concat([dy,dy[process_col].apply(lambda doc: pd.Series(_debug_check_words(doc)))],axis=1)
         #append together
         dx = dx.append(dy)       
     return dx
@@ -213,11 +213,7 @@ def classify_df(df,suffix=None,debug=False,**kwargs):
     df = prepare(df,**kwargs)
     
     #debug by returning the 'hit' words
-    if debug == True:
-        debug_features = [x+'_debug' for x in FEATURES]
-        df = score(df,debug=debug,debug_features=debug_features)
-    else:
-        df = score(df)
+    df = score(df,debug=debug)
     #apply dominance
     df = apply_dominance(df)
     #add a suffix as desired

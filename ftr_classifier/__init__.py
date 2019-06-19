@@ -23,7 +23,7 @@ from ftr_classifier.word_lists import MAIN_FEATURES
 from ftr_classifier.word_lists import DOMINANT_FEATURES
 from ftr_classifier.word_lists import SUBMISSIVE_FEATURES
 from ftr_classifier.word_lists import DOMINATED_FEATURES
-from ftr_classifier.word_lists import SUMMARY_FEATURES,
+from ftr_classifier.word_lists import SUMMARY_FEATURES
 from ftr_classifier.word_lists import EXTRA_FEATURES
 
 #add versinos
