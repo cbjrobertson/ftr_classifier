@@ -558,7 +558,10 @@ dutch = {'present':(['is het','vallen om','storten in',
                       'mag',
                       'mogen', #doesn't have primary epistemic uses, more deontic, Nuyts 2000, but included anyway for exploratory pusposes 
                       'vermogen',
-                      'vermoogd'] #i.e. mogen + prefix ver-
+                      'vermoogd',
+                      'zou',#past tense form of zullen, translated as 'should'/indicates epistemic modality in Broekhuis (2014) + coders/informants agree 
+                      'zouden'
+                      ] #i.e. mogen + prefix ver-
                      ),
         'verb_cert':([],
                      ['moeten',
@@ -874,6 +877,12 @@ german = {'present':(['nutze ab',
                   #'möchten',
                   #'möchtet',
                   
+                  ##konjuntiv of werden, i.e. 'would' with epistemic uses: check literature
+                  #'würde',
+                  #'würdest',
+                  #'würden',
+                  #'würdet',
+                  
                   #konjunktiv ii of müssen has epistemic uses, like 'should' (Mortelmans 2000).
                   'müßte',
                   'müßtest',
@@ -959,6 +968,10 @@ german = {'present':(['nutze ab',
                     'sagst',
                     'sagt',
                     'sagen',
+                    'erwarte', #expect -- very little reference to it... but human coders/informants indicate it indicates possibility/uncertainty
+                    'erwartest',
+                    'erwartet',
+                    'erwarten'
                     ]
                     ),
     

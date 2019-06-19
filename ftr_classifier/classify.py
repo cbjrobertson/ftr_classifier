@@ -109,15 +109,33 @@ def _is_negated(doc):
         return 0
     
 def _check_words(response):
-    scores = []
+    scores = {}
     for feature,w_list in _word_list.items():
         if any(phrase in response.text.lower() for phrase in w_list[0]):
-            scores += [1]
+            scores[feature] = 1
         elif any(word in _tok_return(response) for word in w_list[1]):
-            scores += [1]
+            scores[feature] = 1
         else:
-            scores += [0]
-    return dict(zip(FEATURES, scores))
+            scores[feature] = 0
+    return scores
+
+def _debug_check_words(response,raw_text=False,lang='dutch'):
+    #set _word_list to global
+    global _word_list
+    if raw_text == True:
+        doc = MODELS[lang](response)
+        response = [sent for sent in doc.sents][-1]
+        _word_list = WORD_LISTS[lang]
+    scores = {}
+    for feature,w_list in _word_list.items():
+        if any(phrase in response.text.lower() for phrase in w_list[0]):
+            scores[feature] = [phrase for phrase in w_list[0] if phrase in response.text.lower()]
+        elif any(word in _tok_return(response) for word in w_list[1]):
+            scores[feature] = [word for word in w_list[1] if word in _tok_return(response)]
+        else:
+            scores[feature] = 0
+    return scores
+    
 
 def prepare(df,**kwargs):
     """ append two columns to a pandas dataframe containing at least two columns, one
@@ -137,7 +155,7 @@ def prepare(df,**kwargs):
     return df
 
 
-def score(df,lang_col='language',process_col='final_sentence'):
+def score(df,lang_col='language',process_col='final_sentence',debug=False,debug_features=None):
     """ Append columns for each of the features in ftr.word_lists._FEATURES. Columns are in [0,1], and define whether ftr.word_lists._FEATURES_i is present in df[process_col]
     :param df: a pandas.DataFrame() object
     :param clean_spacy: boolean, default == True. If True, spacy docs in df.final_sentence and df.spacy_doc will be dropped from df, if False, these will be kept.
@@ -159,10 +177,12 @@ def score(df,lang_col='language',process_col='final_sentence'):
         #assign lang_specific word list abd language
         _word_list = WORD_LISTS[lang]  
        
-        #apply function to lang-specific group
+        #apply function to lang-specific group           
         dy[FEATURES] = dy[process_col].apply(lambda doc: pd.Series(_check_words(doc)))
         dy['negated'] = dy[process_col].apply(lambda doc: _is_negated(doc))
-        
+        #add lists of hit words to debug if necessary
+        if debug == True:
+            dy[debug_features] = dy[process_col].apply(lambda doc: pd.Series(_debug_check_words(doc))) 
         #append together
         dx = dx.append(dy)       
     return dx
@@ -182,7 +202,7 @@ def apply_dominance(df):
     df = _make_no_code(df)
     return df
     
-def classify_df(df,suffix=None,**kwargs):
+def classify_df(df,suffix=None,debug=False,**kwargs):
     """ Sequentially call prepare(df), score(df), and apply_dominance(df)
     :param df: a pandas.DataFrame() object which MUST match criteria described in prepare() description.
     :param **kwargs: any key_word arguments passable to prepare() or score(), 
@@ -191,8 +211,16 @@ def classify_df(df,suffix=None,**kwargs):
     """
     df = df.copy()
     df = prepare(df,**kwargs)
-    df = score(df)
+    
+    #debug by returning the 'hit' words
+    if debug == True:
+        debug_features = [x+'_debug' for x in FEATURES]
+        df = score(df,debug=debug,debug_features=debug_features)
+    else:
+        df = score(df)
+    #apply dominance
     df = apply_dominance(df)
+    #add a suffix as desired
     if not suffix is None:
         suffix_features = [x+suffix for x in ALL_FEATURES]
         df[suffix_features] = df[ALL_FEATURES]
