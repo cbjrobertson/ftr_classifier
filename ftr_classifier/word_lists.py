@@ -96,7 +96,8 @@ SUBMISSIVE_FEATURES = ['present','future','will_future','go_future']
 DOMINANT_FEATURES = ['verb_poss','verb_cert',
                      'adv_adj_poss','adv_adj_cert',
                      'mental_poss','mental_cert',
-                     'particle_poss','particle','particle_cert']
+                     'particle_poss','particle',
+                     'particle_cert']
 
 DOMINATED_FEATURES = ['future_dom','present_dom',
                      'go_future_dom','will_future_dom']
