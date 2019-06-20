@@ -80,8 +80,8 @@ def _future_dom(df):
 def _make_lexi_vars(df):
     df = df.copy()
     #make features lists
-    poss_features = [x for x in FEATURES  if x.endswith('poss')]
-    cert_features = [x for x in FEATURES if x.endswith('cert')]
+    poss_features = [x for x in FEATURES  if x.endswith('poss') and not x.startswith('verb')]
+    cert_features = [x for x in FEATURES if x.endswith('cert') and not x.startswith('verb')]
     #apply
     df['lexi_poss'] = [1 if any(feature == 1 for feature in df.loc[x,poss_features])\
                        else 0 for x in df.index]

@@ -225,7 +225,7 @@ english = {'present':(['i s',
                   'could',
                   'might',
                   'should',
-                  'sould',
+                  'sould',#typo
                   'ought',
                   'would'#used epistemically in the 'what your brother would do... question, i.e. as a conditional 
                   ]
