@@ -9,7 +9,7 @@ Created on Fri May 31 22:32:52 2019
 import pandas as pd
 
 #local imports
-from ftr_classifier.word_lists import FEATURES, WORD_LISTS, MAIN_FEATURES, ALL_FEATURES
+from ftr_classifier.word_lists import FEATURES, WORD_LISTS, MAIN_FEATURES
 from ftr_classifier.models import MODELS
 
 
@@ -98,7 +98,6 @@ def _make_no_code(df):
 
 def _tok_return(doc):
     toks =  [token.text.lower() for token in doc if\
-            not token.lemma_ == '-PRON-' and \
             not token.is_punct]
     return toks
 
@@ -202,7 +201,7 @@ def apply_dominance(df):
     df = _make_no_code(df)
     return df
     
-def classify_df(df,suffix=None,debug=False,**kwargs):
+def classify_df(df,debug=False,**kwargs):
     """ Sequentially call prepare(df), score(df), and apply_dominance(df)
     :param df: a pandas.DataFrame() object which MUST match criteria described in prepare() description.
     :param **kwargs: any key_word arguments passable to prepare() or score(), 
@@ -211,19 +210,17 @@ def classify_df(df,suffix=None,debug=False,**kwargs):
     """
     df = df.copy()
     df = prepare(df,**kwargs)
-    
     #debug by returning the 'hit' words
     df = score(df,debug=debug)
     #apply dominance
     df = apply_dominance(df)
-    #add a suffix as desired
-    if not suffix is None:
-        suffix_features = [x+suffix for x in ALL_FEATURES]
-        df[suffix_features] = df[ALL_FEATURES]
-        df = df.drop(ALL_FEATURES,1)
     return df
     
 def clean_spacy(df):
+    '''
+    :param df: pd.DataFrame
+    :return: df with cols 'final_sentence' and 'spacy_doc' dropped
+    '''
     df = df.copy()
     df = df.drop(['final_sentence','spacy_doc'],1)
     return df

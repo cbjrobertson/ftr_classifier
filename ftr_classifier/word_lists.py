@@ -108,9 +108,11 @@ ALL_FEATURES = FEATURES + DOMINATED_FEATURES + SUMMARY_FEATURES + EXTRA_FEATURES
 # =============================================================================
 # English word lists
 # =============================================================================
-english = {'present':([],
+english = {'present':(['i s',
+                       'im'],#typos
                       ["'m",
                        "'re",
+                       "'s",
                        'allow',
                        'allows',
                        'am',
@@ -209,12 +211,12 @@ english = {'present':([],
                        'works']
                           ),
     
-    'future':(['about to','is going','are going','am going','going to'],
+    'future':(['about to','is going','are going','am going','going to','theyll'],
               ['will',
                'wil',
                'shall',
                "'ll",
-               "theyll"]
+               "ll"]
             ),
     
     'verb_poss':([],
@@ -224,7 +226,8 @@ english = {'present':([],
                   'might',
                   'should',
                   'sould',
-                  'ought'
+                  'ought',
+                  'would'#used epistemically in the 'what your brother would do... question, i.e. as a conditional 
                   ]
                  ),
     
@@ -331,11 +334,11 @@ english = {'present':([],
     'particle':([],
                 []
                 ),
-    'will_future':([],
+    'will_future':(['theyll'],
                    ['will',
                     'wil',
                     "'ll",
-                    "theyll"]
+                    "ll"]
                    ),
     'go_future':(['is going','are going',
                    'am going','going to'],
@@ -353,8 +356,9 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'ze halen het','val om','stort in',
                      'valt om','storten in','storten inen',
                      'kom an','komt an','komen an','knap op',
+                     'kom ik',
                      'knapt op','knappen op','uit eten','uit eet',
-                     'kom op','komt op','komen op',
+                     'kom op','komt op','komen op','ik ik',#typo
                      'zwel op','zwelt op','zwellen op'],
                     ['.is',#typo
                      'accepteer',
@@ -404,6 +408,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'heb',
                      'hebben',
                      'hebt',
+                     'hen',#heb typo
                      'heeft',
                      'helen',
                      'heel',
@@ -446,6 +451,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'reis',
                      'reist',
                      'reizen',
+                     'resit',#misspelled
                      'resideer',
                      'resideert',
                      'resideren',
@@ -499,6 +505,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'verslijt',
                      'verslijten',
                      'verslitjen',
+                     'verlijten',#common typo
                      'verspil',
                      'verspillen',
                      'verspilt',
@@ -524,6 +531,9 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'woon',
                      'woont',
                      'wwon',#typo 
+                     'word',#could indicate future marking, but sentences in frames use  it not as such (i.e. I become fat...)
+                     'worden',
+                     'wordt',
                      'zie',
                      'zien',
                      'ziet',
@@ -539,12 +549,14 @@ dutch = {'present':(['is het','vallen om','storten in',
     
           'future':(['staat op'],#about to
                    ['ga',
-                    'gaat', 
+                    'gaat',
+                    'gat',#common typo
                     'gaan',
                     'zal', 
                     'zullen',
                     'zult', 
                     'zul',
+                    'economie.zal',#typo
                     'gaanverliezen'] #misspelling of gaan verleizen, "going to lose"
                    ),
         'verb_poss':([],
@@ -600,11 +612,12 @@ dutch = {'present':(['is het','vallen om','storten in',
                          'verwacht',
                          'waarschijnlijk',
                          'wellicht',#probably
-                         'word',
-                         'worden',
-                         'wordt']#unclear worden "becomes" is a futuroid, but is in the present tense. from a cognitive/pragmatic perspective, it is somewhat modal/marked
+                         ]
                         ),
-        'adv_adj_cert':(['wel degelijk'],
+        'adv_adj_cert':(['wel degelijk',
+                         '100%',#expresses certainty in some responses
+                         'twijfel er niet',#no doubt
+                         'zoals altijd'], #as always, implied certainty (informant/personal communication)
                         ['absoluut',
                          'alleszins',
                          'allicht',
@@ -682,10 +695,9 @@ dutch = {'present':(['is het','vallen om','storten in',
                          'annehm',#to assume, but more clear qualificational use than in English (Nuyts 2000)
                          'annehmt',
                          'annehmen',
-                         'zeg', #say, but similar to mental state pred use (Nuyts, 2000)
-                         'zeggen',
-                         'zegt',
-                         
+                         #'zeg', #say, and though can be used as mental state pred use (Nuyts, 2000), it is not in our frames
+                         #'zeggen',
+                         #'zegt',                         
                          ]
                         ),
         'mental_cert':([],
@@ -714,13 +726,16 @@ dutch = {'present':(['is het','vallen om','storten in',
                        ['zal', 
                         'zult',
                         'zul',
-                        'zullen']
+                        'zullen',
+                        'economie.zal'#typo
+                        ]
                        ),
         'go_future':([],
                      ['ga',
                       'gaat',
                       'gaan',
-                      'gaanverliezen']
+                      'gat',#typo
+                      'gaanverliezen']#typo
                      )
         }
 
@@ -745,7 +760,12 @@ german = {'present':(['nutze ab',
                       'gehe auf',
                       'gehst auf',
                       'geht auf',
-                      'gehen auf'],
+                      'gehen auf',
+                      'breche zusammen',
+                      'brichst zusammen',
+                      'bricht zusammen',
+                      'brechen zusammen',
+                      'brecht zusammen'],
                      ['bin',
                       'bist', 
                       'ist', 
@@ -820,14 +840,18 @@ german = {'present':(['nutze ab',
                       'lebe', 
                       'lebst', 
                       'lebt', 
-                      'leben']),
+                      'leben',
+                       ]),
     'future': ([],
                ['werde',
                 'wirst',
                 'wird',
                 'werden',
                 'werdet',
-                'werden']),
+                'werden',
+                'wirdt'#typo
+                ]
+               ),
     'verb_poss':([],
                  [#indicative of können
                   'kann',
@@ -877,11 +901,11 @@ german = {'present':(['nutze ab',
                   #'möchten',
                   #'möchtet',
                   
-                  ##konjuntiv of werden, i.e. 'would' with epistemic uses: check literature
-                  #'würde',
-                  #'würdest',
-                  #'würden',
-                  #'würdet',
+                  ##konjuntiv of werden, i.e. 'would' with epistemic uses: according to informant/coder
+                  'würde',
+                  'würdest',
+                  'würden',
+                  'würdet',
                   
                   #konjunktiv ii of müssen has epistemic uses, like 'should' (Mortelmans 2000).
                   'müßte',
@@ -910,6 +934,7 @@ german = {'present':(['nutze ab',
                      'eventuell',
                      'anscheinend',
                      'gegebenenfalls',
+                     'wahrscheinlichkeit',#probability -- informant coder
                      'möglich',
                      'möglicherweise',
                      'offenbar',
@@ -964,10 +989,10 @@ german = {'present':(['nutze ab',
                     'rechnest',
                     'rechnet',
                     'rechnen',
-                    'sage',
-                    'sagst',
-                    'sagt',
-                    'sagen',
+                    #'sage',#while this can be used epistemically, none of the question frames do so
+                    #'sagst',# and do use 'to say' in non epistemic ways
+                    #'sagt',
+                    #'sagen',
                     'erwarte', #expect -- very little reference to it... but human coders/informants indicate it indicates possibility/uncertainty
                     'erwartest',
                     'erwartet',
