@@ -80,6 +80,11 @@ def check_add_lemmas(add_lemmas=True,**kwargs):
         return new_map
     else:
         return LEMMA_MAP
+    
+def add_feature_to_lemma_map(lemma_map,feature_name,**kwargs):
+    for key,val in lemma_map.items():
+        val[feature_name] = ({},{})
+    _save_map(lemma_map,**kwargs)
 
 # =============================================================================
 # Features 
@@ -91,7 +96,7 @@ SUBMISSIVE_FEATURES = ['present','future','will_future','go_future']
 DOMINANT_FEATURES = ['verb_poss','verb_cert',
                      'adv_adj_poss','adv_adj_cert',
                      'mental_poss','mental_cert',
-                     'particle_poss','particle']
+                     'particle_poss','particle','particle_cert']
 
 DOMINATED_FEATURES = ['future_dom','present_dom',
                      'go_future_dom','will_future_dom']
@@ -108,8 +113,8 @@ ALL_FEATURES = FEATURES + DOMINATED_FEATURES + SUMMARY_FEATURES + EXTRA_FEATURES
 # =============================================================================
 # English word lists
 # =============================================================================
-english = {'present':(['i s',
-                       'im'],#typos
+english = {'present':([' i s ',
+                       ' im '],#typos
                       ["'m",
                        "'re",
                        "'s",
@@ -331,9 +336,14 @@ english = {'present':(['i s',
     'particle_poss':([],
                      []
                      ),
+    
+    'particle_cert':([],
+                     []
+                     ),
     'particle':([],
                 []
                 ),
+    
     'will_future':(['theyll'],
                    ['will',
                     'wil',
@@ -544,7 +554,10 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'zitten',
                      'zwel',
                      'zwellen',
-                     'zwelt']
+                     'zwelt',
+                     'zeg', #say, and though can be used as mental state pred use (Nuyts, 2000), it is not in our frames, i.e. "I {SAY} no this time..."
+                     'zeggen',
+                     'zegt']
                     ),
     
           'future':(['staat op'],#about to
@@ -707,6 +720,11 @@ dutch = {'present':(['is het','vallen om','storten in',
         'particle_poss':(['wel eens'],
                          ['wel']
                          ),
+        
+        'particle_cert':([],
+                         ['toch'] #indicates certainty according to coders, informants
+                         ),
+        
         'particle':(['nou eenmaal',
                      'nu eenmaal'],
                     ['eens'
@@ -719,8 +737,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'ja',
                      'maar',
                      'nou'
-                     'nu',
-                     'toch']
+                     'nu']
                     ),
         'will_future':([],
                        ['zal', 
@@ -1010,6 +1027,11 @@ german = {'present':(['nutze ab',
     'particle_poss':([],
                      ['wohl']
                       ),
+    
+    'particle_cert':([],
+                     []
+                     ),
+    
     'particle':([],
                  ['aber',
                   'auch',
