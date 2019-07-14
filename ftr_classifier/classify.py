@@ -9,7 +9,7 @@ Created on Fri May 31 22:32:52 2019
 import pandas as pd
 
 #local imports
-from ftr_classifier.word_lists import FEATURES, WORD_LISTS, MAIN_FEATURES
+from ftr_classifier.word_lists import FEATURES, WORD_LISTS, MAIN_FEATURES,ALL_FEATURES
 from ftr_classifier.models import MODELS
 
 
@@ -20,7 +20,7 @@ pd.options.mode.chained_assignment = None  # default='warn'
 _MISSING = '-999'
 
 #functions
-def _append_spacy_docs(df,lang_col='language',text_col='response'):
+def _append_spacy_docs(df,lang_col,text_col):
     #create new dataframe
     dx = pd.DataFrame()
     #group by language
@@ -33,11 +33,6 @@ def _append_spacy_docs(df,lang_col='language',text_col='response'):
         #append together
         dx = dx.append(dy)
     return dx
-
-def _append_last_sentence(df):
-    df = df.copy()
-    df['final_sentence'] = df.spacy_doc.apply(lambda doc: [sent for sent in doc.sents][-1])
-    return df
 
 def _clean_non_applicable(df,lang_col='language'):
     #create new dataframe
@@ -134,9 +129,15 @@ def _debug_check_words(response,raw_text=False,lang='dutch'):
         else:
             scores[feature+'_debug'] = ''
     return scores
-    
 
-def prepare(df,**kwargs):
+def add_suffix(df,suffix):
+    df = df.copy()
+    for feature in ALL_FEATURES:
+        df[[feature+suffix]] = df[[feature]]
+    df = df.drop(ALL_FEATURES,1)
+    return df
+
+def prepare(df,lang_col,text_col):
     """ append two columns to a pandas dataframe containing at least two columns, one
     definining language in ['english','dutch','german'], the second containing str 
     natural language responses. Appended columns are 'spacy_doc', which is a
@@ -148,13 +149,13 @@ def prepare(df,**kwargs):
     """
     df = df.copy()
     #clean docs with spacy
-    df = _append_spacy_docs(df,**kwargs)
-    df = _append_last_sentence(df)
+    df = _append_spacy_docs(df,lang_col,text_col)
+    df['final_sentence'] = df.spacy_doc.apply(lambda doc: [sent for sent in doc.sents][-1])
     df['response_clean'] = df.final_sentence.apply(lambda x: _tok_return(x))
     return df
 
 
-def score(df,lang_col='language',process_col='final_sentence',debug=False):
+def score(df,lang_col,debug,process_col='final_sentence'):
     """ Append columns for each of the features in ftr.word_lists._FEATURES. Columns are in [0,1], and define whether ftr.word_lists._FEATURES_i is present in df[process_col]
     :param df: a pandas.DataFrame() object
     :param clean_spacy: boolean, default == True. If True, spacy docs in df.final_sentence and df.spacy_doc will be dropped from df, if False, these will be kept.
@@ -180,7 +181,7 @@ def score(df,lang_col='language',process_col='final_sentence',debug=False):
         dy = pd.concat([dy,dy[process_col].apply(lambda doc: pd.Series(_check_words(doc)))],axis=1)
         dy['negated'] = dy[process_col].apply(lambda doc: _is_negated(doc))
         #add lists of hit words to debug if necessary
-        if debug == True:
+        if debug:
             dy = pd.concat([dy,dy[process_col].apply(lambda doc: pd.Series(_debug_check_words(doc)))],axis=1)
         #append together
         dx = dx.append(dy)       
@@ -201,7 +202,7 @@ def apply_dominance(df):
     df = _make_no_code(df)
     return df
     
-def classify_df(df,debug=False,**kwargs):
+def classify_df(df,lang_col='language',text_col='response',suffix=None,debug=False):
     """ Sequentially call prepare(df), score(df), and apply_dominance(df)
     :param df: a pandas.DataFrame() object which MUST match criteria described in prepare() description.
     :param **kwargs: any key_word arguments passable to prepare() or score(), 
@@ -209,11 +210,14 @@ def classify_df(df,debug=False,**kwargs):
     :return: pd.Dataframe()
     """
     df = df.copy()
-    df = prepare(df,**kwargs)
+    df = prepare(df,lang_col,text_col)
     #debug by returning the 'hit' words
     df = score(df,debug=debug)
     #apply dominance
     df = apply_dominance(df)
+    if suffix:
+        df = add_suffix(df,suffix)
+    df.index = range(len(df.index))
     return df
     
 def clean_spacy(df):
