@@ -14,7 +14,7 @@ import itertools
 from ftr_classifier.classify import prepare
 from ftr_classifier.word_lists import LEMMA_MAP
 
-def _make_counts_df(counts,lang_col='language'):
+def _make_counts_df(counts,lang_col):
     
     #initialise serialized dataframe    
     d = {'language':[],
@@ -58,7 +58,7 @@ def _count_to_lemma_map(feature_lem_map,lexeme_counts):
             lemma_counts[lemma] = count
     return lemma_counts
 
-def _counter(df,lang_col='language',phrase_col='final_sentence',word_col='response_clean'):
+def _counter(df,lang_col,process_col='final_sentence',word_col='response_clean'):
     #group by language
     df_groups = df.groupby(lang_col)
     
@@ -77,7 +77,7 @@ def _counter(df,lang_col='language',phrase_col='final_sentence',word_col='respon
         word_sums[lang] = (no_responses,no_words)
         for feature in counts[lang]:
             #count phrases
-            phrase_counts = {phrase : sum(dy[phrase_col].apply(lambda doc:doc.text.lower().count(phrase)))\
+            phrase_counts = {phrase : sum(dy[process_col].apply(lambda doc:doc.text.lower().count(phrase)))\
                                       for phrase in counts[lang][feature][0]}
             
             #count phrase lemmas
@@ -95,7 +95,7 @@ def _counter(df,lang_col='language',phrase_col='final_sentence',word_col='respon
     return counts
 
 
-def count_lemmas(df,lang_col='language',*args,**kwargs):
+def count_lemmas(df,lang_col='language',text_col='response',**kwargs):
     #copy
     df = df.copy()
     
@@ -113,9 +113,9 @@ def count_lemmas(df,lang_col='language',*args,**kwargs):
     
     #re make spacy docs if not present
     if 'final_sentence' not in df.columns:
-        df = prepare(df)
+        df = prepare(df,lang_col,text_col)
     #do the counts
-    counts = _counter(df,lang_col=lang_col,*args,**kwargs)
-    counts_df = _make_counts_df(counts)
+    counts = _counter(df,lang_col,**kwargs)
+    counts_df = _make_counts_df(counts,lang_col)
     #return
     return counts_df

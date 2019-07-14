@@ -203,7 +203,7 @@ def apply_dominance(df):
     df = _make_no_code(df)
     return df
     
-def classify_df(df,lang_col='language',text_col='response',suffix=None,debug=False):
+def classify_df(df,lang_col='language',text_col='response',suffix=None,debug=False,**kwargs):
     """ Sequentially call prepare(df), score(df), and apply_dominance(df)
     :param df: a pandas.DataFrame() object which MUST match criteria described in prepare() description.
     :param **kwargs: any key_word arguments passable to prepare() or score(), 
@@ -213,7 +213,7 @@ def classify_df(df,lang_col='language',text_col='response',suffix=None,debug=Fal
     df = df.copy()
     df = prepare(df,lang_col,text_col)
     #debug by returning the 'hit' words
-    df = score(df,lang_col,debug)
+    df = score(df,lang_col,debug,**kwargs)
     #apply dominance
     df = apply_dominance(df)
     if suffix:
