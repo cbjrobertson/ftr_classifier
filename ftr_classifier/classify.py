@@ -57,8 +57,9 @@ def _present_dom(df):
     other_features = [x for x in FEATURES if x != 'present']
     #apply
     df['present_dom'] = [0 if any(feature == 1 for feature in df.loc[x,other_features])\
-                  else 1 if df.present[x] == 1 else 0\
-                  for x in df.index]
+                          else 1 if df.present[x] == 1 \
+                          else 0\
+                          for x in df.index]
     return df
 
 def _future_dom(df):
