@@ -957,7 +957,7 @@ german = {'present':(['nutze ab',
                      'möglicherweise',
                      'offenbar',
                      'scheinbar',#seemingly
-                     'vielleicht',
+                     #'vielleicht',
                      'vermutlich',#presumably (Nuyts 2000)
                      'wahrscheinlich',
                      'womöglich']#maybe
@@ -1026,7 +1026,8 @@ german = {'present':(['nutze ab',
                    ),
     
     'particle_poss':([],
-                     ['wohl']
+                     ['wohl',
+                      'vielleicht']
                       ),
     
     'particle_cert':([],

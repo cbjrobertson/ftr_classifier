@@ -50,11 +50,12 @@ def _count_to_lemma_map(feature_lem_map,lexeme_counts):
     #initialize lemma dict
     lemma_counts = {}
     #map lexemes onto lemmas/stems
-    for lexeme,lemma in feature_lem_map.items():
+    for lexeme,count in lexeme_counts.items():
+        lemma = feature_lem_map[lexeme]
         if lemma in lemma_counts.keys():
-            lemma_counts[lemma] += lexeme_counts[lexeme]
+            lemma_counts[lemma] += count
         else:
-            lemma_counts[lemma] = lexeme_counts[lexeme]
+            lemma_counts[lemma] = count
     return lemma_counts
 
 def _counter(df,lang_col='language',phrase_col='final_sentence',word_col='response_clean'):
