@@ -6,9 +6,10 @@ Created on Fri May 31 22:32:52 2019
 @author: cole roberson
 """
 #imports
-#import ftr_classifier.count_lemmas as cl
-#import ftr_classifier.word_lists as word_lists
-#from ftr_classifier.count_lemmas import count_lemmas
+import ftr_classifier.count_lemmas 
+import ftr_classifier.word_lists
+import ftr_classifier.classify
+from ftr_classifier.count_lemmas import count_lemmas
 from ftr_classifier.classify import prepare
 from ftr_classifier.classify import score
 from ftr_classifier.classify import apply_dominance
@@ -25,7 +26,7 @@ from ftr_classifier.word_lists import DOMINATED_FEATURES
 from ftr_classifier.word_lists import SUMMARY_FEATURES
 from ftr_classifier.word_lists import EXTRA_FEATURES
 
-#add versinos
+#add versions
 from ftr_classifier.info import INFO
 __version__ = INFO['version']
 description = INFO['description']
