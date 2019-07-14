@@ -212,7 +212,7 @@ def classify_df(df,lang_col='language',text_col='response',suffix=None,debug=Fal
     df = df.copy()
     df = prepare(df,lang_col,text_col)
     #debug by returning the 'hit' words
-    df = score(df,debug=debug)
+    df = score(df,lang_col,debug)
     #apply dominance
     df = apply_dominance(df)
     if suffix:
