@@ -34,7 +34,7 @@ def _append_spacy_docs(df,lang_col,text_col):
         dx = dx.append(dy)
     return dx
 
-def _clean_non_applicable(df,lang_col='language'):
+def _clean_non_applicable(df,lang_col):
     #create new dataframe
     dx = pd.DataFrame()
     #group by language
@@ -103,6 +103,11 @@ def _is_negated(doc):
     else:
         return 0
     
+def _append_last_sentence(df):
+    df = df.copy()
+    df['final_sentence'] = df.spacy_doc.apply(lambda doc: [sent for sent in doc.sents][-1])
+    return df
+    
 def _check_words(response):
     scores = {}
     for feature,w_list in _word_list.items():
@@ -151,7 +156,7 @@ def prepare(df,lang_col,text_col):
     df = df.copy()
     #clean docs with spacy
     df = _append_spacy_docs(df,lang_col,text_col)
-    df['final_sentence'] = df.spacy_doc.apply(lambda doc: [sent for sent in doc.sents][-1])
+    df  = _append_last_sentence(df)
     df['response_clean'] = df.final_sentence.apply(lambda x: _tok_return(x))
     return df
 
@@ -218,6 +223,7 @@ def classify_df(df,lang_col='language',text_col='response',suffix=None,debug=Fal
     df = apply_dominance(df)
     if suffix:
         df = add_suffix(df,suffix)
+    df = _clean_non_applicable(df,lang_col)
     df.index = range(len(df.index))
     return df
     
