@@ -102,12 +102,12 @@ DOMINANT_FEATURES = ['verb_poss','verb_cert',
 DOMINATED_FEATURES = ['future_dom','present_dom',
                      'go_future_dom','will_future_dom']
 
-SUMMARY_FEATURES = ['lexi_poss','lexi_cert']
+SUMMARY_FEATURES = ['lexi_poss','lexi_cert','uncertain','certain']
 
 EXTRA_FEATURES = ['negated','no_code']
 
 MAIN_FEATURES = ['lexi_poss','lexi_cert','future_dom',
-                  'present_dom','verb_poss','verb_cert']
+                  'present_dom','verb_poss','verb_cert','uncertain','certain']
 
 FEATURES = DOMINANT_FEATURES + SUBMISSIVE_FEATURES
 ALL_FEATURES = FEATURES + DOMINATED_FEATURES + SUMMARY_FEATURES + EXTRA_FEATURES
