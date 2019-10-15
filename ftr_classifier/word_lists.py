@@ -5,86 +5,6 @@ Created on Fri May 31 22:32:52 2019
 
 @author: cole roberson
 """
-# =============================================================================
-# imports
-# =============================================================================
-from copy import deepcopy
-import os
-import pickle
-
-#set constants
-DIR = os.path.dirname(os.path.realpath(__file__))
-LOCAL_PATH ='/lemma_map/lemma_map'
-# =============================================================================
-# CRUD functions
-# =============================================================================
-
-def _load_map(filepath=None):
-    if filepath is None:
-        load_path = DIR+LOCAL_PATH
-    else:
-        load_path = filepath
-    #open
-    with open(load_path,'rb') as handle:
-        lemma_map = pickle.load(handle)
-    return lemma_map   
-
-#save map function
-def _save_map(lemma_map,filepath=None):
-    #save
-    if filepath is None:
-        save_path = DIR+LOCAL_PATH
-    else:
-        save_path = filepath
-    #open
-    with open(save_path,'wb') as handle:
-        pickle.dump(lemma_map,handle,protocol=pickle.HIGHEST_PROTOCOL)
-    print('lemma_map saved to {}'.format(save_path))
-    
-def check_add_lemmas(add_lemmas=True,**kwargs):
-    safe = True
-    if add_lemmas is True:
-        new_map = deepcopy(LEMMA_MAP)
-    #iterate through and add/check
-    for lang,lang_dict in WORD_LISTS.items():
-        for feature,phrase_word_tuple in lang_dict.items():
-            for phrase in phrase_word_tuple[0]:
-                if phrase not in LEMMA_MAP[lang][feature][0]:
-                    safe = False
-                    if add_lemmas is False:
-                        print('The phrase "{}" from the {} feature "{}" is not in the corresponding lemma_map'.format(phrase,lang,feature))
-                    elif add_lemmas is True:
-                        new_lemma = input('Please enter the phrase "{}" will be lemmatized as in the {} language feature {}.\n\n Enter "pass" to continue with no change:\n\n'.format(phrase,lang,feature))
-                        if not new_lemma == 'pass':
-                            new_map[lang][feature][0][phrase] = new_lemma
-                            print('New lemma "{}" added to new lemma_map for "{}"'.format(new_lemma,phrase))
-                    else:
-                        pass
-            for word in phrase_word_tuple[1]:
-                if word not in LEMMA_MAP[lang][feature][1]:
-                        safe = False
-                        if add_lemmas is False:
-                            print('The word "{}" from the {} feature "{}" is not in the corresponding lemma_map'.format(word,lang,feature))
-                        elif add_lemmas is True:
-                            new_lemma = input('Please enter the word "{}" will be lemmatized as in the {} language feature "{}":\n\nEnter "pass" to continue with no change:\n\n'.format(word,lang,feature))
-                            if not new_lemma == 'pass':
-                                new_map[lang][feature][1][word] = new_lemma
-                                print('New lemma "{}" added to new lemma_map for "{}"'.format(new_lemma,word))
-                        else:
-                            pass
-    if safe is True:
-        print("All phrases and words are in the lemma map")
-        return LEMMA_MAP
-    elif add_lemmas is True and new_map != LEMMA_MAP:
-        _save_map(new_map,**kwargs)
-        return new_map
-    else:
-        return LEMMA_MAP
-    
-def add_feature_to_lemma_map(lemma_map,feature_name,**kwargs):
-    for key,val in lemma_map.items():
-        val[feature_name] = ({},{})
-    _save_map(lemma_map,**kwargs)
 
 # =============================================================================
 # Features 
@@ -623,7 +543,6 @@ dutch = {'present':(['is het','vallen om','storten in',
                          'twijfelachtig',
                          'veelbelovend',
                          'vermoedelijk',
-                         'verwacht',
                          'waarschijnlijk',
                          'wellicht',#probably
                          ]
@@ -661,7 +580,6 @@ dutch = {'present':(['is het','vallen om','storten in',
                          'noodzakelijk',
                          'normaal',
                          'ondenkbaar',
-                         'ongetwijfeld',#certainly               
                          'onmiskenbaar',
                          'onmogelijk',
                          'onomstotelijk',
@@ -709,6 +627,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                          'annehm',#to assume, but more clear qualificational use than in English (Nuyts 2000)
                          'annehmt',
                          'annehmen',
+                         'verwacht',
                          #'zeg', #say, and though can be used as mental state pred use (Nuyts, 2000), it is not in our frames
                          #'zeggen',
                          #'zegt',                         
@@ -716,7 +635,8 @@ dutch = {'present':(['is het','vallen om','storten in',
                         ),
         'mental_cert':([],
                        ['weet',
-                        'weten']#not sure if certain or uncertain, certaintly strongest of mental state preds
+                        'weten',#not sure if certain or uncertain, certaintly strongest of mental state preds
+                        'ongetwijfeld']#undoubtedly   
                        ),
         'particle_poss':(['wel eens'],
                          ['wel']
@@ -889,7 +809,7 @@ german = {'present':(['nutze ab',
                   'sollst',
                   'sollt',
                   
-                  #konjunktiv ii uncelar if I should include ???
+                  #konjunktiv ii
                   'sollte',
                   'solltest',
                   'sollten',
@@ -1075,12 +995,4 @@ WORD_LISTS = {
         'english':english,
         'dutch':dutch,
         'german':german
-            }    
-#load map
-LEMMA_MAP = _load_map()
-
-#run and save changes to lemma map
-if __name__ == '__main__':
-    LEMMA_MAP = check_add_lemmas()
-    #pass
-    
+            }

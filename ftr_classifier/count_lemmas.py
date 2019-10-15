@@ -12,10 +12,13 @@ import itertools
 
 #local imports
 from ftr_classifier.classify import prepare
-from ftr_classifier.word_lists import LEMMA_MAP
+from ftr_classifier.manage_functions import _load_obj
+
+#import lemma map
+LEMMA_MAP = _load_obj('lemma_map')
+META_DATA = _load_obj('meta_data')
 
 def _make_counts_df(counts,lang_col):
-    
     #initialise serialized dataframe    
     d = {'language':[],
          'feature':[],
@@ -94,8 +97,37 @@ def _counter(df,lang_col,process_col='final_sentence',word_col='response_clean')
             counts[lang][feature] = {**phrase_lemma_counts, **word_lemma_counts}
     return counts
 
-
-def count_lemmas(df,lang_col='language',text_col='response',**kwargs):
+def _format_md(d,key):
+    if key != 'citation':
+        if key in d.keys():
+            return d[key]
+        else:
+            return ''
+    else:
+        if any(x.startswith('cit_key') for x in d.keys()):
+            return '; '.join(['\\citeA{{{}}}'.format(val) for key,val in d.items() if key.startswith('cit_key')])
+        else:
+            return ''
+        
+def _lookup_md(keys):
+    try:
+        d = META_DATA[keys[0]][keys[1]][keys[2]]
+        meta_data = {'gloss':_format_md(d,'gloss'),
+                     'justification':_format_md(d,'justification'),
+                     'citation(s)':_format_md(d,'citation')
+                     }
+    except KeyError:
+        meta_data = {'gloss':'','justification':'','citation(s)':''}
+    return meta_data
+    
+def merge_md(count_df):
+    df = count_df.copy()
+    key_cols = ['language','feature','lemma']
+    dy = pd.concat([df,df[key_cols].apply(lambda keys:pd.Series(_lookup_md(keys)),axis=1)],axis=1)
+    dy['percent_in_sample'] = dy['count']/dy['num_responses']*100
+    return dy
+    
+def count_lemmas(df,lang_col='language',text_col='response',md=True,**kwargs):
     #copy
     df = df.copy()
     
@@ -117,5 +149,7 @@ def count_lemmas(df,lang_col='language',text_col='response',**kwargs):
     #do the counts
     counts = _counter(df,lang_col,**kwargs)
     counts_df = _make_counts_df(counts,lang_col)
+    if md:
+        counts_df = merge_md(counts_df)
     #return
     return counts_df

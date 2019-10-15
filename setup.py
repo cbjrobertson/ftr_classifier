@@ -30,6 +30,6 @@ setup(name='ftr_classifier',
             'pathlib==1.0.1; python_version < "3.4"'],
         python_requires='==3.6.*',
         download_url='https://github.com/cbjrobertson/future_modality/archive/{}.tar.gz'.format(INFO['version']),
-        package_data = {'ftr_classifier':['lemma_map/lemma_map']},
+        package_data = {'ftr_classifier':['data/lemma_map','data/meta_data','data/bibtex.bib']},
         classifiers = []
       )
