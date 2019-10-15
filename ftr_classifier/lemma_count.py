@@ -43,6 +43,9 @@ def _make_counts_df(counts,lang_col):
 
     #sort
     dx = dx.sort_values(by=['language','feature','count'],ascending=False)
+    
+    #add percentage
+    dx['percent_in_sample'] = dx['count']/dx['num_responses']*100
    
     #drop will and go future (as the lemmas are alredy counted in future)
     dx = dx[~dx['feature'].isin(['will_future','go_future'])]
@@ -124,7 +127,6 @@ def merge_md(count_df):
     df = count_df.copy()
     key_cols = ['language','feature','lemma']
     dy = pd.concat([df,df[key_cols].apply(lambda keys:pd.Series(_lookup_md(keys)),axis=1)],axis=1)
-    dy['percent_in_sample'] = dy['count']/dy['num_responses']*100
     return dy
     
 def count_lemmas(df,lang_col='language',text_col='response',md=True,**kwargs):
