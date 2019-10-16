@@ -6,10 +6,10 @@ Created on Fri May 31 22:32:52 2019
 @author: cole roberson
 """
 #imports
-import ftr_classifier.count_lemmas 
+import ftr_classifier.lemma_count 
 import ftr_classifier.word_lists
 import ftr_classifier.classify
-from ftr_classifier.lemma_count import count_lemmas,md
+from ftr_classifier.lemma_count import count_lemmas,merge_md
 from ftr_classifier.classify import prepare
 from ftr_classifier.classify import score
 from ftr_classifier.classify import apply_dominance

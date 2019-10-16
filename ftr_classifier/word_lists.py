@@ -11,6 +11,23 @@ Created on Fri May 31 22:32:52 2019
 # =============================================================================
 LANGUAGES = ['english','dutch','german']
 
+MAP = {'future':'future',
+       'present':'present',
+       'future_dom':'future',
+       'go_future_dom':'future',
+       'will_future_dom':'future',
+       'particle':'',
+       'present_dom':'present',
+       'adv_adj_poss':'lexical uncertain',
+       'adv_adj_cert':'lexical certain',
+       'mental_poss':'lexical uncertain',
+       'mental_cert':'lexical certain',
+       'particle_poss':'lexical uncertain',
+       'particle_cert':'lexical certain',
+       'verb_poss':'verbal uncertain',
+       'verb_cert':'verbal certain'
+       }
+
 SUBMISSIVE_FEATURES = ['present','future','will_future','go_future']
 
 DOMINANT_FEATURES = ['verb_poss','verb_cert',
