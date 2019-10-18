@@ -186,14 +186,15 @@ LEMMA_MAP = _load_obj('lemma_map')
 # bib = _load_bibtex('/Users/cole/Documents/BibTex/library.bib')
 # _update_md_keys(LEMMA_MAP)
 # 
-# md = add_md(lemma='staat op',
-#             justification='indicates near future',
-#             language='dutch',
-#             feature='future',
+# md = add_md(lemma='bestimmen',
+#             justification='indicates high certainty',
+#             language='german',
+#             feature='adv_adj_cert',
 #             bib=bib,
-#             citation_key=['Dahl2000'],
-#             gloss='about to'
+#             citation_key=['Karagjosova2004','Nuyts2000'],
+#             gloss='certainly'
 #             )
+# 
 # md = _load_obj('meta_data')
 # _write_bibtex()
 # _save_obj(md,'meta_data')

@@ -45,7 +45,7 @@ def _make_counts_df(counts,lang_col):
     dx = dx.sort_values(by=['language','feature','count'],ascending=False)
     
     #add percentage
-    dx['percent_in_sample'] = dx['count']/dx['num_responses']*100
+    dx['percent'] = dx['count']/dx['num_responses']*100
    
     #drop will and go future (as the lemmas are alredy counted in future)
     dx = dx[~dx['feature'].isin(['will_future','go_future'])]
