@@ -48,6 +48,7 @@ MAIN_FEATURES = ['lexi_poss','lexi_cert','future_dom',
 
 FEATURES = DOMINANT_FEATURES + SUBMISSIVE_FEATURES
 ALL_FEATURES = FEATURES + DOMINATED_FEATURES + SUMMARY_FEATURES + EXTRA_FEATURES
+
 # =============================================================================
 # English word lists
 # =============================================================================
@@ -252,9 +253,6 @@ english = {'present':([' i s ',
                     'expect',
                     'expects',
                     'expecting',
-                    'planning',
-                    'plan',
-                    'plans',
                     'doubt',
                     'doubts',
                     'doubting',
@@ -264,11 +262,6 @@ english = {'present':([' i s ',
                     'guess',
                     'guesses',
                     'guessing']
-                   ),
-    
-    'mental_cert':([],
-                   ['know',
-                    'knows']#certaintly strongest of mental state preds, enough for certain category?
                    ),
                    
     'particle_poss':([],
@@ -540,7 +533,6 @@ dutch = {'present':(['is het','vallen om','storten in',
         'adv_adj_poss':(['in aanmerking komend'
                          'niet zeker',
                          'is er een kans',
-                         'te komen',
                          'naar het schijnt'],#it seems 
                         ['aannemelijk',#predsumably (Nuyts 2000)
                          'allichet',#probably
@@ -565,9 +557,9 @@ dutch = {'present':(['is het','vallen om','storten in',
                          ]
                         ),
         'adv_adj_cert':(['wel degelijk',
-                         '100%',#expresses certainty in some responses
-                         'twijfel er niet',#no doubt
-                         'zoals altijd'], #as always, implied certainty (informant/personal communication)
+                         '100%',#expresses certainty in some (1) response
+                         'twijfel er niet'#no doubt
+                         ],
                         ['absoluut',
                          'alleszins',
                          'allicht',
@@ -590,7 +582,6 @@ dutch = {'present':(['is het','vallen om','storten in',
                          'inderdaad',
                          'kennelijk',
                          'klaarblijkelijk',
-                         'klaar',
                          'logisch',
                          'natuurlijk',
                          'nodig',
@@ -616,9 +607,12 @@ dutch = {'present':(['is het','vallen om','storten in',
                          'voorgoed',
                          'werkelijk',
                          'wis',
-                         'zeker']
+                         'zeker',
+                         'ongetwijfeld']#undoubtedly]
                         ),
-        'mental_poss':(['houden voor'],
+        'mental_poss':(['houden voor',
+                        'niet weten',
+                        'neit weet'],
                         ['denk',
                          'denken',
                          'denkt',
@@ -650,11 +644,6 @@ dutch = {'present':(['is het','vallen om','storten in',
                          #'zegt',                         
                          ]
                         ),
-        'mental_cert':([],
-                       ['weet',
-                        'weten',#not sure if certain or uncertain, certaintly strongest of mental state preds
-                        'ongetwijfeld']#undoubtedly   
-                       ),
         'particle_poss':(['wel eens'],
                          ['wel']
                          ),
@@ -948,19 +937,12 @@ german = {'present':(['nutze ab',
                     #'sagst',# and do use 'to say' in non epistemic ways
                     #'sagt',
                     #'sagen',
-                    'erwarte', #expect -- very little reference to it... but human coders/informants indicate it indicates possibility/uncertainty
+                    'erwarte',
                     'erwartest',
                     'erwartet',
                     'erwarten'
                     ]
                     ),
-    
-    'mental_cert':([],
-                   ['weiß',
-                    'weißt',
-                    'wissen',
-                    'wisst'] #to know, qualificational use, though whether certain/uncertain unclear (Nuyts 2000)
-                   ),
     
     'particle_poss':([],
                      ['wohl',

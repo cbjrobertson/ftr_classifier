@@ -1,5 +1,5 @@
 # ftr_classifier
-This is a natural language classifier, which uses key-word methods to classify future-referring sentences in terms of whether they utilize the present tense, future tense, or express epistemic modality.
+This is a natural language classifier, which uses key-word methods to classify future-referring sentences in terms of whether they use the present tense, future tense, or express epistemic certainty or uncertainty.
 
 
 ## installation
@@ -37,9 +37,9 @@ lemma_count.to_excel('lemma_counts.xlsx',index=False)*
 
 ## description
 
-`ftr_classifier` has two main purposes. Firstly, it scores some  `pandas` dataframe, "`df`", English, Dutch and German language string data, in terms of how these data refer to the future, i.e whether a future tense marker is used, whether the present tense is used, or whether some kind of epistemic modal expression is used.  For explanation and justification of this classification scheme as regards English, Dutch, and German, see `Robertson et al. (TKTK)`.  Secondly, it provides counts of the lemmas/stems of the words in these data which are used in the key-word classification proceedure.
+`ftr_classifier` has two main purposes. Firstly, it scores some  `pandas` dataframe, "`df`", containing English, Dutch or German natural language strings in terms of how these data refer to the future, i.e whether a future tense marker is used, whether the present tense is used, or whether some kind of epistemic modal expression is used.  For explanation and justification of this classification scheme as regards English, Dutch, and German, see `Robertson et al. (TKTK)`.  Secondly, it provides counts of the lemmas/stems of the words in these data which are used in the key-word classification procedure.
 
-The default column names are `response` for the column containing natural language strings, and `language` for the column indexing language. But these can be altered according to the user's data by passing key word arguments as in, `ftr.prepare(lang_col='new_language_col_name',text_col='new_response_col_name')` or `ftr.score(lang_col='new_language_col_name',text_col='new_response_col_name')`. Natural langauge responses should have been generated using the experimental methods described in `Robertson et al (TKTK)`. 
+The default column names are `response` for the column containing natural language strings, and `language` for the column indexing language. But these can be altered according to the user's data by passing key word arguments as in, `ftr.prepare(lang_col='new_language_col_name',text_col='new_response_col_name')` or `ftr.score(lang_col='new_language_col_name',text_col='new_response_col_name')`. Natural language responses should have been generated using the experimental methods described in `Robertson et al (TKTK)`. 
 
 
 ### classification
@@ -51,7 +51,7 @@ The default column names are `response` for the column containing natural langua
 
 Finally, `ftr.classify_df()` calls `ftr.prepare()`, `ftr.score()` and `ftr.apply_dominance()` in sequence and returns a dataframe scored according to the descriptions in `Robertson et al (TKTK)`. This is the recommended apprach, as given in  the minimal example.
 
-##### resultant collumns
+##### resultant columns
 Calling  `ftr.lassify_df(df)` appends the following columns to `df`. Except for when a language does not have the word category of the column in question, columns are scored as `1` when a given feature is present and `0` when it is not. When a language does not have the word category in question, all values for that feature for that langauge are scored `-999`.
 
 1) `response_clean` a python `list`, of the tokens in the final sentence in the strings in `df['response']`.
@@ -83,7 +83,7 @@ Additionally, `ftr_classifier` includes functionality to count word occuances ac
 
 1) `language`: the language defined in `df['language']`.
 2) `feature`:  which classification feature the lemma is defined as being a part of, see above.
-3) `lemma`:  the lemma/stem in question. The custom lemmatizer is actually not strictly a lemmatiser, as words from different word classes (i.e. epistemic modal adverbs and adjectives) are "lemmatised" to their _adjectival_/_nominal_ form. It therefore sometimes behaves more like a stemer, but stems back to a real in-the-dictionary lexeme. The choice of adjectival forms to be the "lemma" is entirely arbitrary. The reasons for the hibrid lemmatising/stemming approach, is that we are interested in `Robertson et al. (TKTK)`, in the semantic domain associated with a given root more so than the subtle differneces delineated by similar derrived/inflected versions of the same root. For instance, in German, we drop person and number marking of modal verbs, but retain mood marked, as mood marking of modal adverbs alters their modal strength. The the subjunctive/konjunktiv II mood  is indicated by the suffix  `_SUBJ`, while the indicative is indicated with the suffix `_IND`.
+3) `lemma`:  the lemma/stem in question. The custom lemmatizer is actually not strictly a lemmatiser, as words from different word classes (i.e. epistemic modal adverbs and adjectives) are "lemmatised" to their _adjectival_/_nominal_ form. It therefore sometimes behaves more like a stemer, but stems back to a real in-the-dictionary lexeme. The choice of adjectival forms to be the "lemma" is entirely arbitrary. The reasons for the hibrid lemmatising/stemming approach, is that we are interested in `Robertson et al. (TKTK)`, in the semantic domain associated with a given root more so than the subtle differences delineated by similar derived/inflected versions of the same root. For instance, in German, we drop person and number marking of modal verbs, but retain mood marked, as mood marking of modal adverbs alters their modal strength. The the subjunctive/konjunktiv II mood  is indicated by the suffix  `_SUBJ`, while the indicative is indicated with the suffix `_IND`.
 4) `count`: the count of the lemma within each language.
 5) `num_responses`: the number of responses within the language. This and the next column are included in case researchers wish to normalise counts, in the case they have differing number of responses in each language.
 6) `num_words` the sum of the number of words in `df['final_sentence']` for each language.
@@ -92,7 +92,7 @@ Additionally, `ftr_classifier` includes functionality to count word occuances ac
 Finally we provide a function which drops the  `spacy` docs automatically appended to the dataframe when `ftr.prepare()` or `ftr.classify_df()` are called. This is because these are memory intensive and sometimes cause display difficulties in the resultant dataframes in some common IDEs, e.g. `spyder`. Use is `clean_df = ftr.clean_spacy(df_class)`, where `df_class == ftr.prepare(df) OR ftr.classify_df(df)`.
 
 ### minimal examples
-Minimal example scripts are located in `./minimal_examples/`. There is an `iPython` and base `python` version, which demonstrate the same function calls. Opening `minimal_example.ipynb` by clicking on it in `git` will show the interested reader examples of useage with printed results.
+Minimal example scripts are located in `./minimal_examples/`. There is an `iPython` and base `python` version, which demonstrate the same function calls. Opening `minimal_example.ipynb` by clicking on it in `git` will show the interested reader examples of usage with printed results.
 
 # changing word lists
 If researchers wish to change the word lists, they should clone this repo and open `word_lists.py`, and alter importing paths so they point locally, as well as the default paths in `ftr.classify._save()` and `ftr.classify._load()`, any additions/subtractions can be added as line edits in `word_lists.py`, when this script is run, it will prompt for the desired lemmas to be saved to path defined in `ftr.classify._save()` . Eventually, functions to save/load local word lists will be added.

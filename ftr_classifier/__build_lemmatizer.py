@@ -17,7 +17,7 @@ Created on Wed Jun  5 10:48:05 2019
 # and some marking i.e. german mood must be retained. Code has been left in this script to make the methods 
 # transparent as well as facilitate extensibility, should future researchers wish to add languages
 # =============================================================================
-def make_initial_map(stem_langs=['english'],stem_features = ['adv_adj_poss','adv_adj_cert']):
+def _make_initial_map(stem_langs=['english'],stem_features = ['adv_adj_poss','adv_adj_cert']):
     '''
     Note: only english adjectives and adverbs are stemmed, as they are derivations (ie different word classes). 
     Other features classes (i.e. present, mental_*, verb_*, *future*, and particle*, are either marked 
@@ -52,7 +52,7 @@ def make_initial_map(stem_langs=['english'],stem_features = ['adv_adj_poss','adv
     return lemma_map
 
 ##print
-def print_map(lemma_map,indent=4):
+def _print_map(lemma_map,indent=4):
     #imports
     from word_lists import LANGUAGES
     from pprint import PrettyPrinter
@@ -880,8 +880,8 @@ LEMMA_MAP = {'english':english_lems,
 # save it as a pickle
 # =============================================================================
 if __name__ == '__main__':
-    #from ftr_classifier.word_lists import _save_map
-    #_save_map(LEMMA_MAP)
+    #from ftr_classifier.word_lists import _save_obj
+    #_save_obj(LEMMA_MAP,'lemma_map')
     pass
 
 
