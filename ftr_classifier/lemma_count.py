@@ -13,6 +13,7 @@ import itertools
 #local imports
 from ftr_classifier.classify import prepare
 from ftr_classifier.manage_functions import _load_obj
+from ftr_classifier.word_lists import META_FEATURE_MAP,FEATURE_NAME_MAP
 
 #import lemma map
 LEMMA_MAP = _load_obj('lemma_map')
@@ -122,13 +123,33 @@ def _lookup_md(keys):
     except KeyError:
         meta_data = {'gloss':'','justification':'','citation(s)':''}
     return meta_data
+
+def _format_citations(df,group_col):
+    dfg = df.groupby(group_col)
+    store = pd.DataFrame()
+    for grp,dx in dfg:
+        dx['cits'] = [[i.strip() for i in item.split(";") if not i == ''] for item in dx.loc[:,'citation(s)']]
+        cits = [item for sublist in dx.cits for item in sublist]
+        cits = pd.Series(cits)
+        cits = cits[~cits.duplicated()].to_list()
+        ref_map = {cit:"\\textsuperscript{{{}}}".format(no+1) for no,cit in enumerate(cits)}
+        cit_list = []
+        for idx in dx.index:
+            cit_list += ["".join(ref_map[c] for c in dx.loc[idx,"cits"])]
+        dx.cits = cit_list
+        dx["justification"] = [dx.loc[idx,"justification"]+dx.loc[idx,"cits"] for idx in dx.index]
+        cits = [a+b for a,b in zip([ref_map[x] for x in cits],cits)]
+        dx["citation(s)"] = "; ".join(cits)
+        dx = dx.drop('cits',1)
+        store = store.append(dx)
+    return store
     
-def merge_md(count_df):
+def _merge_md(count_df):
     df = count_df.copy()
     key_cols = ['language','feature','lemma']
     dy = pd.concat([df,df[key_cols].apply(lambda keys:pd.Series(_lookup_md(keys)),axis=1)],axis=1)
     return dy
-    
+
 def count_lemmas(df,lang_col='language',text_col='response',md=True,**kwargs):
     #copy
     df = df.copy()
@@ -152,6 +173,32 @@ def count_lemmas(df,lang_col='language',text_col='response',md=True,**kwargs):
     counts = _counter(df,lang_col,**kwargs)
     counts_df = _make_counts_df(counts,lang_col)
     if md:
-        counts_df = merge_md(counts_df)
+        counts_df = _merge_md(counts_df)
     #return
     return counts_df
+
+
+def format_lemma_df(df_lemmas,
+                   droprows=['will_future','go_future','particle','present'],
+                   dropcols=['num_responses','num_words'],
+                   min_count=1,
+                   order = ['language', 'meta category','category', 'word/expression', 'count', 'percent', 
+                            'gloss','justification', 'citation(s)'],
+                   group_col='language'
+                   ):
+    dx = df_lemmas.copy()
+    dx = dx.loc[~dx.feature.isin(droprows),:]
+    dx['percent'] = round(dx['count']/dx['num_responses']*100,2)
+    dx.percent = dx.percent.apply(lambda x: str(x)+'\\%')
+    dx = dx.loc[dx['count'] >min_count,:]
+    dx['meta category'] = dx.feature.apply(lambda x: META_FEATURE_MAP[x])
+    dx['category'] = dx.feature.apply(lambda x: FEATURE_NAME_MAP[x])
+    dx.lemma = dx.lemma.apply(lambda x: x.replace('_','\\textsubscript{')+'}' if x.endswith('_IND') or x.endswith('_SUBJ') else x)
+    dx['word/expression'] = dx.lemma
+    dx = dx.sort_values(by=['language','meta category','category','count'],ascending=False)
+    dx = dx.drop(dropcols,1)
+    dx = dx[order]
+    dx = _format_citations(dx,group_col=group_col)
+    return dx
+
+

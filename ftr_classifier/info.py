@@ -7,7 +7,7 @@ Created on Fri May 31 22:32:52 2019
 """
 
 
-INFO = {'version':'1.2.1',
+INFO = {'version':'1.2.2',
         "long_description" :
         '''This is an implementation of the key-word analysis techniques described in Robertson et al. (TKTK). 
         

@@ -11,7 +11,7 @@ Created on Fri May 31 22:32:52 2019
 # =============================================================================
 LANGUAGES = ['english','dutch','german']
 
-MAP = {'future':'future',
+META_FEATURE_MAP = {'future':'future',
        'present':'present',
        'future_dom':'future',
        'go_future_dom':'future',
@@ -27,6 +27,22 @@ MAP = {'future':'future',
        'verb_poss':'verbal uncertain',
        'verb_cert':'verbal certain'
        }
+FEATURE_NAME_MAP = {'future':"grammar book ``futures''",
+                    'present':"present tense response",
+                    'future_dom':"grammar book ``futures''",
+                    'go_future_dom':"grammar book ``future'' using ``be going to/gaan'' constructions",
+                    'will_future_dom':"grammar book ``future'' auxilaries ``will/shall'',``zullen'', ``werden''",
+                    'particle':"modal particles with no epistemic valance",
+                    'present_dom':"present tense response",
+                    'adv_adj_poss':"adverbs/adjectives/nouns",
+                    'adv_adj_cert':"adverbs/adjectives/nouns",
+                    'mental_poss':"mental state predicates",
+                    'mental_cert':"mental state predicates",
+                    'particle_poss':"modal particles",
+                    'particle_cert':"modal particles",
+                    'verb_poss':"modal verbs",
+                    'verb_cert':"modal verbs"
+                    }
 
 SUBMISSIVE_FEATURES = ['present','future','will_future','go_future']
 

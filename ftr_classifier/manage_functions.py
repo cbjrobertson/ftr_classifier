@@ -177,6 +177,33 @@ def add_md(lemma,justification,language,feature,bib,citation_key=None,**kwargs):
     _save_obj(md,'meta_data')
     return md
 
+#some cruddy functions to get the strings formatting correctly
+def _format_str(s,replace_chars=['"'],sub1="``",sub2="''"):
+    count = 0
+    s = s.replace('“','"').replace('”','"')
+    new = ""
+    for ch in s:
+        if ch == "%":
+            new += "\\%"
+        elif ch in replace_chars and count == 0:
+            new += sub1
+            count += 1
+        elif ch in replace_chars and count == 1:
+            new += sub2
+            count += 1
+        else:
+            new += ch
+    return new
+    
+def _format_md(md,key):
+    mdn = deepcopy(md)
+    for language in mdn:
+        for feature in mdn[language]:
+            for lemma in mdn[language][feature].keys():
+                if key in mdn[language][feature][lemma].keys():
+                    mdn[language][feature][lemma][key] = _format_str(mdn[language][feature][lemma][key])
+    return mdn
+
 #load map
 META_DATA = _load_obj('meta_data')
 LEMMA_MAP = _load_obj('lemma_map')
@@ -186,16 +213,17 @@ LEMMA_MAP = _load_obj('lemma_map')
 # bib = _load_bibtex('/Users/cole/Documents/BibTex/library.bib')
 # _update_md_keys(LEMMA_MAP)
 # 
-# md = add_md(lemma='bestimmen',
-#             justification='indicates high certainty',
-#             language='german',
-#             feature='adv_adj_cert',
+# md = add_md(lemma='mogen',
+#             justification='primarily deontic/dynamic modal, but review of our data indicate peripheral epistemic uses are possible (rare)',
+#             language='dutch',
+#             feature='verb_poss',
 #             bib=bib,
-#             citation_key=['Karagjosova2004','Nuyts2000'],
-#             gloss='certainly'
+#             citation_key=['Nuyts2000'],
+#             gloss='may'
 #             )
 # 
 # md = _load_obj('meta_data')
+# mdn = _format_md(md,'gloss')
 # _write_bibtex()
 # _save_obj(md,'meta_data')
 # =============================================================================
