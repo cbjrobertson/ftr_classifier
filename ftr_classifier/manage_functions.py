@@ -12,6 +12,7 @@ from copy import deepcopy
 import pickle
 import os
 from ftr_classifier.word_lists import WORD_LISTS
+import pandas as pd
 #from word_lists import WORD_LISTS
 
 # =============================================================================
@@ -90,13 +91,48 @@ def _write_bibtex():
     with open(path, 'w') as bibfile:
         bibfile.write(writer.write(db))
         
-            
 def _show_prog(md,language,cat):
     print('done:')
     print([key for key,val in md[language][cat].items() if len(val) > 0])
     print('')
     print('not done:')
     print([key for key,val in md[language][cat].items() if len(val) ==0])
+
+def _split(x,split_on=']'):
+    return x.split(split_on)[-1]
+
+def _get_verb(x,start='{',end='}'):
+    return x[x.index(start)+1:x.index(end)].lower().strip()
+
+def _get_set(x):
+    return list(set(x))
+
+def _apply_func(store,func=None,kind='by_item'):
+    store = deepcopy(store)
+    for key,val in store.items():
+        if kind == 'by_item':
+            store[key] = list(map(func,val))
+        elif kind == 'as_list':
+            store[key] = func(val)
+        elif kind == 'filter':
+            store[key] = list(filter(lambda x: x not in WORD_LISTS[key]['present'][0] and x not in WORD_LISTS[key]['present'][1],val))
+    return store
+
+def get_new_verbs(questions_path='../../ftr_questionnaire/new_questions/ftr_questions/questionnaire_long.xlsx',
+                   lang_col='language',
+                   text_col='question'):
+    questions = pd.read_excel(questions_path)
+    store = {}
+    for lang,dx in questions.groupby(lang_col):
+        store[lang] = dx.loc[:,text_col].to_list()
+    store = _apply_func(store,_split)
+    store = _apply_func(store,_get_verb)
+    store = _apply_func(store,_get_set,kind='as_list')
+    store = _apply_func(store,kind='filter')
+    store = {'language':[lang for lang,val in store.items() for word in val],
+                         'word':[word for lang,val in store.items() for word in val]}
+    store = pd.DataFrame(store)
+    return store
 
 def check_add_lemmas(add_lemmas=True,**kwargs):
     safe = True
@@ -124,8 +160,8 @@ def check_add_lemmas(add_lemmas=True,**kwargs):
                         if add_lemmas is False:
                             print('The word "{}" from the {} feature "{}" is not in the corresponding lemma_map'.format(word,lang,feature))
                         elif add_lemmas is True:
-                            new_lemma = input('Please enter the word "{}" will be lemmatized as in the {} language feature "{}":\n\nEnter "pass" to continue with no change:\n\n'.format(word,lang,feature))
-                            if not new_lemma == 'pass':
+                            new_lemma = input('Please enter the word "{}" will be lemmatized as in the {} language feature "{}":\n\nEnter "no_new_lemma" to continue with no change:\n\n'.format(word,lang,feature))
+                            if not new_lemma == 'no_new_lemma':
                                 new_map[lang][feature][1][word] = new_lemma
                                 print('New lemma "{}" added to new lemma_map for "{}"'.format(new_lemma,word))
                         else:
@@ -229,5 +265,5 @@ LEMMA_MAP = _load_obj('lemma_map')
 # =============================================================================
 
 #run and save changes to lemma map
-if __name__ == '__main__':
+if True:
     LEMMA_MAP = check_add_lemmas()
