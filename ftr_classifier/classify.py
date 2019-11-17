@@ -9,8 +9,8 @@ Created on Fri May 31 22:32:52 2019
 import pandas as pd
 
 #local imports
-from ftr_classifier.word_lists import FEATURES, WORD_LISTS, MAIN_FEATURES,ALL_FEATURES
-from ftr_classifier.models import MODELS
+from .word_lists import FEATURES,WORD_LISTS,ALL_FEATURES
+from .models import MODELS
 
 
 #fuck off pandas
@@ -65,13 +65,22 @@ def _present_dom(df):
 def _future_dom(df):
     df = df.copy()
     futures = ['go_future','will_future','future']
-    exclude = ['present','particle']
+    exclude = ['present','particle','past']
     other_features = [x for x in FEATURES if x not in futures and x not in exclude]
     for future in futures:
         df[future+'_dom'] = [0 if any(feature == 1 for feature in df.loc[x,other_features])\
                               else 1 if df[future][x] == 1 else 0\
                               for x in df.index]
     return df
+
+def _past_dom(df):
+    df = df.copy()
+    other_features = ['verb_cert','verb_poss','future']
+    df['past'] = [0 if any(feature == 1 for feature in df.loc[x,other_features])\
+                          else 1 if df.past[x] == 1 else 0\
+                          for x in df.index]
+    return df
+    
 
 def _make_lexi_vars(df):
     df = df.copy()
@@ -93,13 +102,12 @@ def _make_lexi_vars(df):
                        else 0 for x in df.index]
     df['lexi_cert'] = [1 if any(feature == 1 for feature in df.loc[x,lexi_cert_features])\
                        else 0 for x in df.index]
-    
     return df
 
 def _make_no_code(df):
     df = df.copy()
     #apply
-    df['no_code'] = ['coded' if any(feature == 1 for feature in df.loc[x,MAIN_FEATURES])\
+    df['no_code'] = ['coded' if any(feature == 1 for feature in df.loc[x,FEATURES])\
                        else 'uncoded' for x in df.index]
     return df
 
@@ -118,7 +126,7 @@ def _append_last_sentence(df):
     df = df.copy()
     df['final_sentence'] = df.spacy_doc.apply(lambda doc: [sent for sent in doc.sents][-1])
     return df
-    
+
 def _check_words(response):
     scores = {}
     for feature,w_list in _word_list.items():
@@ -213,6 +221,7 @@ def apply_dominance(df):
     :return: pd.DataFrame()
     """
     df = df.copy()
+    df = _past_dom(df)
     df = _present_dom(df)
     df = _future_dom(df)
     df = _make_lexi_vars(df)

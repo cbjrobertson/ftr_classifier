@@ -108,7 +108,8 @@ venv.bak/
 
 #mac OS files
 .DS_Store
-
+#setup.py tracked install
+files.txt
 
 #testing and debugging files
 ftr_classifier/test.py

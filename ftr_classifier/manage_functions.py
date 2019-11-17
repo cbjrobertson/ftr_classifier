@@ -11,7 +11,7 @@ Created on Tue Oct 15 16:03:29 2019
 from copy import deepcopy
 import pickle
 import os
-from ftr_classifier.word_lists import WORD_LISTS
+from .word_lists import WORD_LISTS
 import pandas as pd
 #from word_lists import WORD_LISTS
 
@@ -170,18 +170,27 @@ def check_add_lemmas(add_lemmas=True,**kwargs):
     #iterate through and add/check
     for lang,lang_dict in WORD_LISTS.items():
         for feature,phrase_word_tuple in lang_dict.items():
+            #add new features if necessary
+            try:
+                new_map[lang][feature]
+            except KeyError:
+                print('adding new feature')
+                new_map[lang][feature] = ({}, {})
+                LEMMA_MAP[lang][feature] = ({}, {})
+            #iterate through phrases
             for phrase in phrase_word_tuple[0]:
                 if phrase not in LEMMA_MAP[lang][feature][0]:
                     safe = False
                     if add_lemmas is False:
                         print('The phrase "{}" from the {} feature "{}" is not in the corresponding lemma_map'.format(phrase,lang,feature))
                     elif add_lemmas is True:
-                        new_lemma = input('Please enter the phrase "{}" will be lemmatized as in the {} language feature {}.\n\n Enter "pass" to continue with no change:\n\n'.format(phrase,lang,feature))
-                        if not new_lemma == 'pass':
+                        new_lemma = input('Please enter the phrase "{}" will be lemmatized as in the {} language feature {}.\n\n Enter "no_new_lemma" to continue with no change:\n\n'.format(phrase,lang,feature))
+                        if not new_lemma == 'no_new_lemma':
                             new_map[lang][feature][0][phrase] = new_lemma
                             print('New lemma "{}" added to new lemma_map for "{}"'.format(new_lemma,phrase))
                     else:
                         pass
+            #iterate through words
             for word in phrase_word_tuple[1]:
                 if word not in LEMMA_MAP[lang][feature][1]:
                         safe = False
@@ -266,5 +275,5 @@ LEMMA_MAP = _load_obj('lemma_map')
 # =============================================================================
 
 #run and save changes to lemma map
-if True:
+if __name__ == "__main__":
     LEMMA_MAP = check_add_lemmas()
