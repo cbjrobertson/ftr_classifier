@@ -277,3 +277,4 @@ LEMMA_MAP = _load_obj('lemma_map')
 #run and save changes to lemma map
 if __name__ == "__main__":
     LEMMA_MAP = check_add_lemmas()
+    pass

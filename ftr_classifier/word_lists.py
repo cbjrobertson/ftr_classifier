@@ -26,7 +26,8 @@ META_FEATURE_MAP = {'future':'future',
        'particle_cert':'lexical certain',
        'verb_poss':'verbal uncertain',
        'verb_cert':'verbal certain',
-       'past':'past'
+       'past':'past',
+       'verb_des_int':'verbal bouletic'
        
        }
 
@@ -45,10 +46,13 @@ FEATURE_NAME_MAP = {'future':"grammar book ``futures''",
                     'particle_cert':"modal particles",
                     'verb_poss':"modal verbs",
                     'verb_cert':"modal verbs",
-                    'past':'past tense'
+                    'past':'past tense',
+                    'verb_des_int':'verbs of desire/intention'
                     }
 
 PAST = ['past']
+
+DESIRE = ['verb_des_int']
 
 SUBMISSIVE_FEATURES = ['present','future','will_future','go_future']
 
@@ -68,7 +72,7 @@ EXTRA_FEATURES = ['negated','no_code']
 MAIN_FEATURES = ['lexi_poss','lexi_cert','future_dom',
                   'present_dom','verb_poss','verb_cert','uncertain','certain']
 
-FEATURES = DOMINANT_FEATURES + SUBMISSIVE_FEATURES + PAST
+FEATURES = DOMINANT_FEATURES + SUBMISSIVE_FEATURES + PAST + DESIRE
 ALL_FEATURES = FEATURES + DOMINATED_FEATURES + SUMMARY_FEATURES + EXTRA_FEATURES
 
 # =============================================================================
@@ -76,17 +80,18 @@ ALL_FEATURES = FEATURES + DOMINATED_FEATURES + SUMMARY_FEATURES + EXTRA_FEATURES
 # =============================================================================
 english = {'present': (
                         [
-                        ' i s ',#typos
-                        ' im ',
-                         'blow in','blows in','blowing in',
-                         'dine out','dines out','dining out',
-                         'swell up','swells up','swelling up',
-                         'wear out','wears out','wearing out'
+                        'i s',#typos
+                        'im',
+                        'blow in','blows in','blowing in',
+                        'dine out','dines out','dining out',
+                        'swell up','swells up','swelling up',
+                        'wear out','wears out','wearing out'
                          ],
                         [
                          "'m",
                          "'re",
-                         "'s",                       
+                         "'s",
+                         'its',
                          'allow',
                          'allows',
                          'allowing',
@@ -105,6 +110,9 @@ english = {'present': (
                          'buy',
                          'buys',
                          'buying',
+                         'begin',
+                         'begins',
+                         'beginning',
                          'call',
                          'calls',
                          'calling',
@@ -135,6 +143,9 @@ english = {'present': (
                          'develop',
                          'develops',
                          'developing',
+                         'defend',
+                         'defends',
+                         'defending',
                          'die',
                          'dies',
                          'dying',
@@ -217,6 +228,9 @@ english = {'present': (
                          'move',
                          'moving',
                          'moves',
+                         'occurs',
+                         'occur',
+                         'occurring',
                          'pass',
                          'passing',
                          'passes',
@@ -314,6 +328,7 @@ english = {'present': (
              'bought',
              'bought',
              'broke',
+             'began',
              'called',
              'called',
              'came',
@@ -328,6 +343,7 @@ english = {'present': (
              'did',
              'died',
              'dropped',
+             'defended',
              'enrolled',
              'expired',
              'fell',
@@ -343,6 +359,7 @@ english = {'present': (
              'helped',
              'improved',
              'increased',
+             'happened',
              'insisted',
              'joined',
              'killed',
@@ -383,9 +400,13 @@ english = {'present': (
              'worked']
                     ),
     
-    'future':(['about to','is going','are going','am going','going to','theyll'],
+    'future':(['about to','set to','on the verge of',
+               'is going','are going','am going','going to','theyll'],
               ['will',
                'wil',
+               'twill',#typos
+               'willbe',#typos
+               'gonna',
                'shall',
                "'ll",
                "ll"]
@@ -395,11 +416,13 @@ english = {'present': (
                  ['can',
                   'may',
                   'could',
+                  'coud',#typo
                   'might',
                   'should',
                   'sould',#typo
                   'ought',
-                  'would'#used epistemically in the 'what your brother would do... question, i.e. as a conditional 
+                  'would',#used epistemically in the 'what your brother would do... question, i.e. as a conditional 
+                  'wouls'#typo
                   ]
                  ),
     
@@ -407,7 +430,7 @@ english = {'present': (
                  ['must']
                  ),
     
-    'adv_adj_poss':([],
+    'adv_adj_poss':(['is a chance','fairly certain'],
                    ['apparently',
                     'dubiously',
                     'expectably',
@@ -416,6 +439,8 @@ english = {'present': (
                     'likely',
                     'maybe',
                     'mayhap',
+                    'chance',
+                    'risk',
                     'perchance',
                     'perhaps',
                     'possibility',
@@ -434,6 +459,7 @@ english = {'present': (
                     'somewhat',
                     'supposedly',
                     'supposed',
+                    'unsure',
                     'uncertainly']
                     ),
     
@@ -445,6 +471,7 @@ english = {'present': (
                 'certainty',
                 'assuredly',
                 'assured',
+                'positive',
                 'clearly',
                 'doubtless',
                 'indubitably',
@@ -472,23 +499,30 @@ english = {'present': (
                    ['think',
                     'thinking',
                     'thinks',
+                    'thought',
                     'believe',
                     'believes',
+                    'believed',
                     'believing',
                     'reckon',
                     'reckons',
+                    'reckoned',
                     'reckoning',
                     'expect',
                     'expects',
+                    'expected',
                     'expecting',
                     'doubt',
                     'doubts',
+                    'doubted',
                     'doubting',
                     'suppose',
                     'supposes',
+                    'supposed',
                     'supposing',
                     'guess',
                     'guesses',
+                    'guessed',
                     'guessing']
                    ),
                    
@@ -505,14 +539,26 @@ english = {'present': (
     
     'will_future':(['theyll'],
                    ['will',
+                    'willbe',
                     'wil',
                     "'ll",
                     "ll"]
                    ),
     'go_future':(['is going','are going',
-                   'am going','going to'],
+                   'am going','going to','gonna'],
                  []
-                 )
+                 ),
+    
+    'verb_des_int':([],
+                   ['want',
+                    'wanting',
+                    'wants',
+                    'hope',
+                    'hoping',
+                    'hopes',
+                    'planning',
+                    'plan',
+                    'plans'])
     }
 
 
@@ -703,6 +749,9 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'val',
                      'vallen',
                      'valt',
+                     'verdedig',
+                     'verdedigt',
+                     'verdedigen',
                      'verdubbel',
                      'verdubbelen',
                      'verdubbelt',
@@ -839,25 +888,18 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'begoonden',
                      'begon',
                      'begonnen',
-                     
-
                      'bekeek',
                      'bekeeken',
-                     
                      'beldde',
                      'beldden',
                      'bereikte',
                      'bereikten',
-                     
                      'bleef',
                      'bleven',
-                     
                      'brak',
                      'braken',
-                     
                      'crashde',
                      'crashden',
-                     
                      'daalde',
                      'daalden',
                      'dankte',
@@ -882,10 +924,8 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'heelden',
                      'hielp',
                      'hielpen',
-                     
                      'keek',
                      'keken',
-                     
                      'knapte',
                      'knapten',
                      'kwam',
@@ -931,6 +971,8 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'stortten',
                      'viel',
                      'vielen',
+                     'verdedigde',
+                     'verdedigden',
                      'verbeterde',
                      'verbeterden',
                      'verdubbelde',
@@ -1170,7 +1212,17 @@ dutch = {'present':(['is het','vallen om','storten in',
                       'gaan',
                       'gat',#typo
                       'gaanverliezen']#typo
-                     )
+                     ),
+    'verb_des_int':([],
+                   ['wil',
+                    'wilt',
+                    'willen',
+                    'hoop',
+                    'hoopt',
+                    'hopen',
+                    'plan',
+                    'plant',
+                    'plannen'])
         }
 
 # =============================================================================
@@ -1332,11 +1384,6 @@ german = {'present':(['nutze ab',
                   'mögen',
                   'mögt',
                   
-                  ##konjunktiv ii
-                  #'möchte',
-                  #'möchtest',
-                  #'möchten',
-                  #'möchtet',
                   
                   ##konjuntiv of werden, i.e. 'would' with epistemic uses: according to informant/coder
                   'würde',
@@ -1477,7 +1524,28 @@ german = {'present':(['nutze ab',
     
      'go_future':([],
                   []
-                   )
+                   ),
+     
+     'verb_des_int':([],
+                   ['will',
+                    'willst',
+                    'wollen',
+                    'wollt',
+                    'wollen',
+                    ##konjunktiv ii of mogen meaning to want/would like
+                    'möchte',
+                    'möchtest',
+                    'möchten',
+                    'möchtet',
+                    'hoffe',#hope
+                    'hoffst',
+                    'hofft',
+                    'hoffen',
+                    'plane',
+                    'planst',
+                    'plant',
+                    'plannen'
+                    ])
      }
 
 # =============================================================================

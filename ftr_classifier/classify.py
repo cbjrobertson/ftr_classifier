@@ -54,7 +54,7 @@ def _clean_non_applicable(df,lang_col):
 def _present_dom(df):
     df = df.copy()
     #other features not pres
-    other_features = [x for x in FEATURES if x != 'present']
+    other_features = [x for x in FEATURES if x != 'present' and x != 'particle']
     #apply
     df['present_dom'] = [0 if any(feature == 1 for feature in df.loc[x,other_features])\
                           else 1 if df.present[x] == 1 \
@@ -75,12 +75,21 @@ def _future_dom(df):
 
 def _past_dom(df):
     df = df.copy()
-    other_features = ['verb_cert','verb_poss','future']
+    other_features = ['verb_cert','verb_poss','future','verb_des_int']
     df['past'] = [0 if any(feature == 1 for feature in df.loc[x,other_features])\
                           else 1 if df.past[x] == 1 else 0\
                           for x in df.index]
     return df
-    
+
+def _certain_dom(df):
+    df = df.copy()
+    other_features = [x for x in FEATURES if x.endwith('poss')]
+    certains = [x for x in FEATURES if x.endswith('cert')]
+    for cert in certains:
+        df[cert] = [0 if any(feature == 1 for feature in df.loc[x,other_features])\
+                              else 1 if df[cert][x] == 1 else 0\
+                              for x in df.index]
+    return df
 
 def _make_lexi_vars(df):
     df = df.copy()
@@ -114,6 +123,7 @@ def _make_no_code(df):
 def _tok_return(doc):
     toks =  [token.text.lower() for token in doc if\
             not token.is_punct]
+    toks = [stok for tok in toks for stok in tok.split("'")]
     return toks
 
 def _is_negated(doc):
@@ -224,6 +234,7 @@ def apply_dominance(df):
     df = _past_dom(df)
     df = _present_dom(df)
     df = _future_dom(df)
+    df = _certain_dom(df)
     df = _make_lexi_vars(df)
     df = _make_no_code(df)
     return df
