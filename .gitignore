@@ -114,3 +114,8 @@ files.txt
 #testing and debugging files
 ftr_classifier/test.py
 ftr_classifier/test.pkl
+
+#adding present p suppose
+add_perfect/code/geckodriver.log
+add_perfect/code/scrape_present_participles.py
+add_perfect/data/*.txt

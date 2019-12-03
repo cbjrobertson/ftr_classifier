@@ -51,6 +51,23 @@ def _clean_non_applicable(df,lang_col):
         dx = dx.append(dy)
     return dx
 
+def _aspect_dom(df,lang_col='language'):
+    dfg = df.groupby(lang_col)
+    store = pd.DataFrame()
+    for lang,dx in dfg:
+        if lang == 'english':
+            dx['present_perfect'] = [1 if dx.present_perfect[x] == 1 and dx.past[x] == 1 else 0 for x in dx.index]
+            dx['past_perfect'] = [1 if dx.past_perfect[x] == 1 and dx.past[x] == 1 else 0 for x in dx.index]
+            store = store.append(dx)
+        elif lang == 'dutch':
+            dx['present_perfect'] = [1 if dx.present_perfect[x] == 1 and dx.past_participle[x] == 1 else 0 for x in dx.index]
+            dx['past_perfect'] = [1 if dx.past_perfect[x] == 1 and dx.past_participle[x] == 1 else 0 for x in dx.index]
+            store = store.append(dx)
+        else:
+            store = store.append(dx)
+    store.index = range(store.shape[0])
+    return store
+        
 def _present_dom(df):
     df = df.copy()
     #other features not pres
@@ -81,14 +98,16 @@ def _past_dom(df):
                           for x in df.index]
     return df
 
-def _certain_dom(df):
+def _modal_exclude(df):
     df = df.copy()
-    other_features = [x for x in FEATURES if x.endwith('poss')]
-    certains = [x for x in FEATURES if x.endswith('cert')]
-    for cert in certains:
-        df[cert] = [0 if any(feature == 1 for feature in df.loc[x,other_features])\
-                              else 1 if df[cert][x] == 1 else 0\
-                              for x in df.index]
+    posses = [x for x in FEATURES if x.endswith('poss')]
+    certs = [x for x in FEATURES if x.endswith('cert')]
+    for cert in certs:
+        df[cert] = ['-999' if any(feature == 1 for feature in df.loc[x,posses]) and df[cert][x] == 1\
+                              else df[cert][x] for x in df.index]
+    for poss in posses:
+        df[cert] = ['-999' if any(feature == 1 for feature in df.loc[x,certs]) and df[poss][x] == 1\
+                              else df[poss][x] for x in df.index]
     return df
 
 def _make_lexi_vars(df):
@@ -134,7 +153,8 @@ def _is_negated(doc):
     
 def _append_last_sentence(df):
     df = df.copy()
-    df['final_sentence'] = df.spacy_doc.apply(lambda doc: [sent for sent in doc.sents][-1])
+    df['final_sentence'] = df.spacy_doc #pointless step implementing to test for better accuracy
+    #df['final_sentence'] = df.spacy_doc.apply(lambda doc: [sent for sent in doc.sents][-1])
     return df
 
 def _check_words(response):
@@ -231,10 +251,11 @@ def apply_dominance(df):
     :return: pd.DataFrame()
     """
     df = df.copy()
+    df = _aspect_dom(df)
     df = _past_dom(df)
     df = _present_dom(df)
     df = _future_dom(df)
-    df = _certain_dom(df)
+    df = _modal_exclude(df)
     df = _make_lexi_vars(df)
     df = _make_no_code(df)
     return df

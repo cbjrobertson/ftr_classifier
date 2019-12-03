@@ -27,7 +27,10 @@ META_FEATURE_MAP = {'future':'future',
        'verb_poss':'verbal uncertain',
        'verb_cert':'verbal certain',
        'past':'past',
-       'verb_des_int':'verbal bouletic'
+       'verb_des_int':'verbal bouletic',
+       'present_perfect': 'the present perfect',
+       'past_perfect':'the past perfect',
+       'past_participle':'the past participle'
        
        }
 
@@ -47,12 +50,19 @@ FEATURE_NAME_MAP = {'future':"grammar book ``futures''",
                     'verb_poss':"modal verbs",
                     'verb_cert':"modal verbs",
                     'past':'past tense',
-                    'verb_des_int':'verbs of desire/intention'
+                    'verb_des_int':'verbs of desire/intention',
+                    'present_perfect': 'the present perfect',
+                    'past_perfect':'the past perfect',
+                    'past_participle':'the past participle'
                     }
 
 PAST = ['past']
 
 DESIRE = ['verb_des_int']
+
+ASPECTS = ['present_perfect','past_perfect']
+
+PP = ['past_participle']
 
 SUBMISSIVE_FEATURES = ['present','future','will_future','go_future']
 
@@ -72,8 +82,8 @@ EXTRA_FEATURES = ['negated','no_code']
 MAIN_FEATURES = ['lexi_poss','lexi_cert','future_dom',
                   'present_dom','verb_poss','verb_cert','uncertain','certain']
 
-FEATURES = DOMINANT_FEATURES + SUBMISSIVE_FEATURES + PAST + DESIRE
-ALL_FEATURES = FEATURES + DOMINATED_FEATURES + SUMMARY_FEATURES + EXTRA_FEATURES
+FEATURES = DOMINANT_FEATURES + SUBMISSIVE_FEATURES + PAST + DESIRE + ASPECTS
+ALL_FEATURES = FEATURES + DOMINATED_FEATURES + SUMMARY_FEATURES + EXTRA_FEATURES + PP
 
 # =============================================================================
 # English word lists
@@ -161,6 +171,7 @@ english = {'present': (
                          'expire',
                          'expiring',
                          'expires',
+                         'exipires',
                          'fall',
                          'falling',
                          'falls',
@@ -225,6 +236,7 @@ english = {'present': (
                          'mature',
                          'maturing',
                          'matures',
+                         'matues',#typo
                          'move',
                          'moving',
                          'moves',
@@ -312,6 +324,28 @@ english = {'present': (
                          'works'
                          ]
                         ),
+
+    'present_perfect':(["youve",
+                        "weve",
+                        "theyve"],
+                       ['has',
+                        'have',
+                        've'
+                        ]),
+                       
+    'past_perfect':(["i'd",
+                     "you'd",
+                     "we'd",
+                     "they'd",
+                     "id",
+                     "youd",
+                     "theyd"],
+                    ['had',
+                     'd']),
+                    
+    'past_participle':([],
+                       []),
+                       
     'past':([
              'blew in',
              'dined out',
@@ -329,6 +363,7 @@ english = {'present': (
              'bought',
              'broke',
              'began',
+             'decided',
              'called',
              'called',
              'came',
@@ -348,6 +383,7 @@ english = {'present': (
              'expired',
              'fell',
              'felt',
+             'feeled',
              'finished',
              'flew',
              'forecasted',
@@ -378,10 +414,12 @@ english = {'present': (
              'pottered',
              'praised',
              'rained',
+             'risen',
              'received',
              'replaced',
              'risked',
              'rose',
+             'seen',
              'said',
              'sat',
              'saw',
@@ -395,6 +433,7 @@ english = {'present': (
              'trained',
              'trained',
              'travelled',
+             'traveled',
              'went',
              'won',
              'worked']
@@ -426,11 +465,14 @@ english = {'present': (
                   ]
                  ),
     
-    'verb_cert':(['have to','got to','has to'],
+    'verb_cert':([#'have to',
+                  #'got to',
+                  #'has to'
+                  ],
                  ['must']
                  ),
     
-    'adv_adj_poss':(['is a chance','fairly certain'],
+    'adv_adj_poss':(['is a chance','fairly certain','rates are shakey'],
                    ['apparently',
                     'dubiously',
                     'expectably',
@@ -463,7 +505,8 @@ english = {'present': (
                     'uncertainly']
                     ),
     
-    'adv_adj_cert':(['for sure'],
+    'adv_adj_cert':(['for sure','no chance',
+                     'guaranteed to'],
                ['definitely','definetly',#missspelling
                 'definite',
                 'certainly',
@@ -556,6 +599,7 @@ english = {'present': (
                     'hope',
                     'hoping',
                     'hopes',
+                    'hopefully',
                     'planning',
                     'plan',
                     'plans'])
@@ -580,7 +624,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'ik ik',#typo
                      'zwel op','zwelt op','zwellen op',
                      'studeer af','studeert af','studeren af',
-                     'vraag aan','vraagt aan','vraagen aan',
+                     'vraag aan','vraagt aan','vragen aan',
                      'eet uit','eten uit','uit eten',
                      'schrijf in','schrijft in','schrijven in',
                      'loop af','loopt af','lopen af',
@@ -589,6 +633,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                      ],
 
                     ['.is',#typo
+                     'ishet',#typo
                      'aanvragen',
                      'aflopen',
                      'afstuderen',
@@ -615,12 +660,16 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'blijf',
                      'blijven',
                      'blijft',
+                     'blijvenb',#typo
                      'breek',
                      'breekt',
                      'breken',
                      'crashen',
+                     'crashed',#typo
+                     'crahst',#typo 
                      'crasht',
                      'crash',
+                     'carsht',#typo
                      'daal',
                      'daalt',
                      'dalen',
@@ -638,6 +687,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'duurt',
                      'duuren',
                      'eindig',
+                     'eindigd',#typo
                      'eindigt',
                      'eindigen',
                      'eet',
@@ -645,14 +695,12 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'explodeer',
                      'explodeert',
                      'exploderen',
+                     'geef',
+                     'geeft',
+                     'geven',
                      'haal',
                      'haalt',
                      'halen',
-                     'heb',
-                     'hebben',
-                     'hebt',
-                     'hen',#heb typo
-                     'heeft',
                      'helen',
                      'heel',
                      'heelt',
@@ -660,8 +708,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'helpt',
                      'helpen',
                      'inschrijven',
-                     'ingestort',
-                     'instort',
+                     'instorten',
                      'is',
                      'is.',#typo
                      'kijk',
@@ -675,10 +722,14 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'komt',
                      'koop',
                      'koopt',
+                     'kpen',#typo
                      'kopen',
                      'krijg',
                      'krijgen',
                      'krijgt',
+                     'loopt',
+                     'lopen',
+                     'loop',
                      'laat',
                      'laten',
                      'latten',#typo
@@ -731,13 +782,14 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'stijg',
                      'stijgen',
                      'stijgt',
+                     'dtijgt',#typo
                      'stjgt',#typo
                      'stort',
                      'storten',
                      'strort',#typo
                      'slaag',
                      'slaagt',
-                     'slaagen',
+                     'slagen',
                      'storm',
                      'stormt',
                      'stormen',
@@ -833,6 +885,114 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'zeggen',
                      'zegt']
                     ),
+    
+    'present_perfect':([],
+                       ['heb',
+                        'hebt',
+                        'hebben',
+                        'heeft',
+                        'is',
+                        'ben',
+                        'bent',
+                        'zijn']),
+
+    'past_perfect':([],
+                    ['had',
+                     'hadden',
+                     'was',
+                     'waren']),
+                    
+    'past_participle':(['leuk gevonden',
+                        'het gehaald',
+                        'gezich voeld'],
+                        ['ingestort',
+                         'omgevald',
+                         'aangekomen',
+                         'opgeknapt',
+                         'uitgeeët',
+                         'opgekomen',
+                         'opgezweld',
+                         'afgestudeerd',
+                         'aangevraagd',
+                         'ingeschreven',
+                         'afgeloopt',
+                         'uitgeven',
+                         'geweest',
+                         'geaccepteerd',
+                         'bedankt',
+                         'bekeken',
+                         'gebeld',
+                         'bereikt',
+                         'begonnen',
+                         'gebleven',
+                         'gebroken',
+                         'gegreven',
+                         'gecrashd',
+                         'gedaald',
+                         'gedankt',
+                         'gedaan',
+                         'gedood',
+                         'geduurd',
+                         'geëindigd',
+                         'gegeten',
+                         'geëxplodeerd',
+                         'gehaald',
+                         'geheeld',
+                         'geholpen',
+                         'gelopen',
+                         'ingeschreven',
+                         'gekeken',
+                         'geknapt',
+                         'gekomen',
+                         'gekocht',
+                         'gekregen',
+                         'gelaten',
+                         'gemaakt',
+                         'gemaakt',
+                         'genomen',
+                         'gepast',
+                         'geregend',
+                         'gereisd',
+                         'geresideerd',
+                         'gereden',
+                         'gesleten',
+                         'gesneeuwd',
+                         'gesort',
+                         'gesleet',
+                         'gespaard',
+                         'gesteld',
+                         'gestorven',
+                         'gestegen',
+                         'gestort',
+                         'geslaagd',
+                         'gestormd',
+                         'gespeeld',
+                         'gevallen',
+                         'verdedigd',
+                         'verdubbeld',
+                         'vervoegd',
+                         'vergangd',
+                         'verhuisd',
+                         'verloren',
+                         'verminderd',
+                         'versleten',
+                         'verspild',
+                         'vervangen',
+                         'vertrokken',
+                         'gevonden',
+                         'gevoeld',
+                         'gevolgd',
+                         'gevraagd',
+                         'verbeterd',
+                         'vervallen',
+                         'gewerkt',
+                         'gewonnen',
+                         'gewoond',
+                         'geworden',
+                         'gezonnen',
+                         'gezeten',
+                         'gezwollen',
+                         'gezegd']),
 
         'past':     (
                     ['aamde na',
@@ -900,6 +1060,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'braken',
                      'crashde',
                      'crashden',
+                     'crashte',
                      'daalde',
                      'daalden',
                      'dankte',
@@ -916,6 +1077,8 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'aten',
                      'explodeerde',
                      'explodeerden',
+                     'gaf',
+                     'gaven',
                      'haalde',
                      'haalden',
                      'had',
@@ -935,6 +1098,8 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'kreeg',
                      'kregen',
                      'liette',#lietten same as present
+                     'liep',
+                     'liepen',
                      'maakte',
                      'maakten',
                      'paste',
@@ -969,6 +1134,8 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'stormden',
                      'stortte',
                      'stortten',
+                     'slaagde',
+                     'slaagden',
                      'viel',
                      'vielen',
                      'verdedigde',
@@ -982,7 +1149,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'verhuisde',
                      'verhuisden',
                      'verloor',
-                     'verloren',
+                     #'verloren',#same as past participle
                      'verminderde',
                      'verminderden',
                      'versleet',
@@ -1064,6 +1231,10 @@ dutch = {'present':(['is het','vallen om','storten in',
                      ),
         'adv_adj_poss':(['in aanmerking komend'
                          'niet zeker',
+                         'zich vast',
+                         'een maand of vijf',#about (more or less) 5 months
+                         '50%',
+                         'niet duidelijk',
                          'is er een kans',
                          'naar het schijnt'],#it seems 
                         ['aannemelijk',#predsumably (Nuyts 2000)
@@ -1102,7 +1273,6 @@ dutch = {'present':(['is het','vallen om','storten in',
                          'duidelijk',
                          'echt',
                          'eenvoudigweg',
-                         'eigenlijk',
                          'essentieel',
                          'evident',
                          'fietelijk',
@@ -1142,7 +1312,9 @@ dutch = {'present':(['is het','vallen om','storten in',
                          'zeker',
                          'ongetwijfeld']#undoubtedly]
                         ),
-        'mental_poss':(['houden voor',
+        'mental_poss':(['volgens mij',
+                        'volgens mijn',
+                        'houden voor',
                         'niet weten',
                         'neit weet'],
                         ['denk',
@@ -1328,6 +1500,16 @@ german = {'present':(['nutze ab',
                       'lebt', 
                       'leben',
                        ]),
+
+    'present_perfect':([],
+                       []),#no german aspect (exp. # 5 just on dutch+english)
+                       
+    'past_perfect':([],
+                    []),
+                    
+    'past_participle':([],
+                       []),
+                       
     'past':([],
             []),#no german past yet (exp. # 5 just on dutch+english)
             
