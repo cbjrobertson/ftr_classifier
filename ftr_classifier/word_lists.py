@@ -355,6 +355,7 @@ english = {'present': (
             [
              'was',
              'were',
+             'been',
              'allowed',
              'applied',
              'applied',
@@ -439,8 +440,22 @@ english = {'present': (
              'worked']
                     ),
     
-    'future':(['about to','set to','on the verge of',
-               'is going','are going','am going','going to','theyll'],
+    'future':(['about to',
+               'set to',
+               'on the verge of',
+               'is going',
+               'are going',
+               'am going',
+               'going to',
+               'gonna',
+               'theyll',
+               'they`ll',
+               "i'll",
+               "you'll",
+               "he'll",
+               "she'll",
+               "we'll"
+               ],
               ['will',
                'wil',
                'twill',#typos
@@ -448,10 +463,13 @@ english = {'present': (
                'gonna',
                'shall',
                "'ll",
-               "ll"]
+               "ll",
+               "youll",#typos
+               "shell",
+               'ill']
             ),
     
-    'verb_poss':([],
+    'verb_poss':(['likely to'],
                  ['can',
                   'may',
                   'could',
@@ -472,7 +490,9 @@ english = {'present': (
                  ['must']
                  ),
     
-    'adv_adj_poss':(['is a chance','fairly certain','rates are shakey'],
+    'adv_adj_poss':(['is a chance',
+                     'fairly certain',
+                     'rates are shakey'],
                    ['apparently',
                     'dubiously',
                     'expectably',
@@ -505,7 +525,9 @@ english = {'present': (
                     'uncertainly']
                     ),
     
-    'adv_adj_cert':(['for sure','no chance',
+    'adv_adj_cert':(['for sure',
+                     'no chance',
+                     '100%',
                      'guaranteed to'],
                ['definitely','definetly',#missspelling
                 'definite',
@@ -538,7 +560,11 @@ english = {'present': (
                 'unquestionably',
                 'unquestionable']
                ),
-    'mental_poss':(['feel like'],
+    'mental_poss':(['feel like',
+                    'not too sure',
+                    'i am not sure',
+                    'not certain',
+                    'not 100% certain'],
                    ['think',
                     'thinking',
                     'thinks',
@@ -580,7 +606,16 @@ english = {'present': (
                 []
                 ),
     
-    'will_future':(['theyll'],
+    'will_future':(['theyll',
+                    'they`ll',
+                    "i'll",
+                    "you'll",
+                    "he'll",
+                    "she'll",
+                    "we'll"
+                    "youll",
+                    "shell",
+                    'ill'],
                    ['will',
                     'willbe',
                     'wil',
@@ -1180,6 +1215,8 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'woonden',
                      'werd',
                      'werden',
+                     'zag',
+                     'zagen',
                      'zei',
                      'zegde',
                      'zeien',
@@ -1209,7 +1246,6 @@ dutch = {'present':(['is het','vallen om','storten in',
                       'kun',
                       'kunt',
                       'kon' ,
-                      'kans',
                       'mag',
                       'mogen', #doesn't have primary epistemic uses, more deontic, Nuyts 2000, but included anyway for exploratory pusposes 
                       'vermogen',
@@ -1234,17 +1270,22 @@ dutch = {'present':(['is het','vallen om','storten in',
                          'zich vast',
                          'een maand of vijf',#about (more or less) 5 months
                          '50%',
+                         'de kans is',
                          'niet duidelijk',
                          'is er een kans',
+                         'lijkt erop',#looks/seems like
+                         'lijkt alsof',#looks/seems like
                          'naar het schijnt'],#it seems 
                         ['aannemelijk',#predsumably (Nuyts 2000)
                          'allichet',#probably
                          'bedenkelijk',
                          'blijkbaar',
                          'denkelijk',
+                         'kans',
                          'geschiktlijkend',
                          'hypothetisch',
                          'misschien',#perhaps
+                         'msschien',#typo
                          'mogelijk',#possibly
                          'mogelijkerwijs',#possibly
                          'ongeveer',
@@ -1343,6 +1384,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                          'annehmt',
                          'annehmen',
                          'verwacht',
+                         'verwachten',
                          #'zeg', #say, and though can be used as mental state pred use (Nuyts, 2000), it is not in our frames
                          #'zeggen',
                          #'zegt',                         
@@ -1385,7 +1427,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                       'gat',#typo
                       'gaanverliezen']#typo
                      ),
-    'verb_des_int':([],
+    'verb_des_int':(['het lijkt zo goed'],
                    ['wil',
                     'wilt',
                     'willen',

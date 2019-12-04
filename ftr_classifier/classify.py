@@ -51,38 +51,10 @@ def _clean_non_applicable(df,lang_col):
         dx = dx.append(dy)
     return dx
 
-def _aspect_dom(df,lang_col='language'):
-    dfg = df.groupby(lang_col)
-    store = pd.DataFrame()
-    for lang,dx in dfg:
-        if lang == 'english':
-            dx['present_perfect'] = [1 if dx.present_perfect[x] == 1 and dx.past[x] == 1 else 0 for x in dx.index]
-            dx['past_perfect'] = [1 if dx.past_perfect[x] == 1 and dx.past[x] == 1 else 0 for x in dx.index]
-            store = store.append(dx)
-        elif lang == 'dutch':
-            dx['present_perfect'] = [1 if dx.present_perfect[x] == 1 and dx.past_participle[x] == 1 else 0 for x in dx.index]
-            dx['past_perfect'] = [1 if dx.past_perfect[x] == 1 and dx.past_participle[x] == 1 else 0 for x in dx.index]
-            store = store.append(dx)
-        else:
-            store = store.append(dx)
-    store.index = range(store.shape[0])
-    return store
-        
-def _present_dom(df):
-    df = df.copy()
-    #other features not pres
-    other_features = [x for x in FEATURES if x != 'present' and x != 'particle']
-    #apply
-    df['present_dom'] = [0 if any(feature == 1 for feature in df.loc[x,other_features])\
-                          else 1 if df.present[x] == 1 \
-                          else 0\
-                          for x in df.index]
-    return df
-
 def _future_dom(df):
     df = df.copy()
     futures = ['go_future','will_future','future']
-    exclude = ['present','particle','past']
+    exclude = ['present','particle','past','present_perfect','past_perfect']
     other_features = [x for x in FEATURES if x not in futures and x not in exclude]
     for future in futures:
         df[future+'_dom'] = [0 if any(feature == 1 for feature in df.loc[x,other_features])\
@@ -90,11 +62,39 @@ def _future_dom(df):
                               for x in df.index]
     return df
 
+def _aspect_dom(df,lang_col='language'):
+    dfg = df.groupby(lang_col)
+    store = pd.DataFrame()
+    for lang,dx in dfg:
+        if lang == 'english':
+            dx['present_perfect'] = [1 if dx.present_perfect[x] == 1 and dx.past[x] == 1 and dx.future[x] == 0 else 0 for x in dx.index]
+            dx['past_perfect'] = [1 if dx.past_perfect[x] == 1 and dx.past[x] == 1 and dx.future[x] == 0 else 0 for x in dx.index]
+            store = store.append(dx)
+        elif lang == 'dutch':
+            dx['present_perfect'] = [1 if dx.present_perfect[x] == 1 and dx.past_participle[x] == 1 and dx.future[x] == 0 else 0 for x in dx.index]
+            dx['past_perfect'] = [1 if dx.past_perfect[x] == 1 and dx.past_participle[x] == 1 and dx.future[x] == 0 else 0 for x in dx.index]
+            store = store.append(dx)
+        else:
+            store = store.append(dx)
+    store.index = range(store.shape[0])
+    return store
+
 def _past_dom(df):
     df = df.copy()
-    other_features = ['verb_cert','verb_poss','future','verb_des_int']
+    other_features = ['verb_cert','verb_poss','future','verb_des_int','present_perfect']
     df['past'] = [0 if any(feature == 1 for feature in df.loc[x,other_features])\
                           else 1 if df.past[x] == 1 else 0\
+                          for x in df.index]
+    return df
+
+def _present_dom(df):
+    df = df.copy()
+    #other features not pres
+    other_features = [x for x in FEATURES if x != 'present' and x not in ['particle','past_perfect']]
+    #apply
+    df['present_dom'] = [0 if any(feature == 1 for feature in df.loc[x,other_features])\
+                          else 1 if df.present[x] == 1 \
+                          else 0\
                           for x in df.index]
     return df
 
@@ -251,10 +251,10 @@ def apply_dominance(df):
     :return: pd.DataFrame()
     """
     df = df.copy()
+    df = _future_dom(df)
     df = _aspect_dom(df)
     df = _past_dom(df)
     df = _present_dom(df)
-    df = _future_dom(df)
     df = _modal_exclude(df)
     df = _make_lexi_vars(df)
     df = _make_no_code(df)
