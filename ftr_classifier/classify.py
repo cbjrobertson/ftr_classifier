@@ -9,8 +9,8 @@ Created on Fri May 31 22:32:52 2019
 import pandas as pd
 
 #local imports
-from .word_lists import FEATURES,WORD_LISTS,ALL_FEATURES
-from .models import MODELS
+from ftr_classifier.word_lists import FEATURES,WORD_LISTS,ALL_FEATURES
+from ftr_classifier.models import MODELS
 
 
 #fuck off pandas

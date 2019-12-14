@@ -11,9 +11,9 @@ from copy import deepcopy
 import itertools
 
 #local imports
-from .classify import prepare
-from .manage_functions import _load_obj
-from .word_lists import META_FEATURE_MAP,FEATURE_NAME_MAP
+from ftr_classifier.classify import prepare
+from ftr_classifier.manage_functions import _load_obj
+from ftr_classifier.word_lists import META_FEATURE_MAP,FEATURE_NAME_MAP
 
 #import lemma map
 LEMMA_MAP = _load_obj('lemma_map')

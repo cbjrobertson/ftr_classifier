@@ -11,7 +11,7 @@ Created on Tue Oct 15 16:03:29 2019
 from copy import deepcopy
 import pickle
 import os
-from .word_lists import WORD_LISTS
+from ftr_classifier.word_lists import WORD_LISTS
 import pandas as pd
 #from word_lists import WORD_LISTS
 
