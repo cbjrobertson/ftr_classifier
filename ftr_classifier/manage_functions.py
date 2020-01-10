@@ -60,6 +60,8 @@ def _update_md_keys(lemma_map,new=False,drop = ['present','will_future','go_futu
     for language in lm:
         for feature in lm[language]:
             if not feature in drop:
+                if feature not in d[language].keys():
+                    d[language][feature] = {}
                 for dic in lm[language][feature]:
                     vals = {val:{} for val in set(dic.values())}
                     d[language][feature] = {**vals,**d[language][feature]}
@@ -254,25 +256,23 @@ def add_md(lemma,justification,language,feature,bib,citation_key=None,**kwargs):
 META_DATA = _load_obj('meta_data')
 LEMMA_MAP = _load_obj('lemma_map')
 
-# =============================================================================
-# ### add data to metadata
-# bib = _load_bibtex('/Users/cole/Documents/BibTex/library.bib')
-# _update_md_keys(LEMMA_MAP)
-# 
-# md = add_md(lemma='mogen',
-#             justification='primarily deontic/dynamic modal, but review of our data indicate peripheral epistemic uses are possible (rare)',
-#             language='dutch',
-#             feature='verb_poss',
-#             bib=bib,
-#             citation_key=['Nuyts2000'],
-#             gloss='may'
-#             )
-# 
-# md = _load_obj('meta_data')
-# mdn = _format_md(md,'gloss')
-# _write_bibtex()
-# _save_obj(md,'meta_data')
-# =============================================================================
+### add data to metadata
+bib = _load_bibtex('/Users/cole/Documents/BibTex/library.bib')
+_update_md_keys(LEMMA_MAP)
+
+md = add_md(lemma='mogen',
+            justification='primarily deontic/dynamic modal, but review of our data indicate peripheral epistemic uses are possible (rare)',
+            language='dutch',
+            feature='verb_poss',
+            bib=bib,
+            citation_key=['Nuyts2000'],
+            gloss='may'
+            )
+
+md = _load_obj('meta_data')
+mdn = _format_md(md,'gloss')
+_write_bibtex()
+_save_obj(md,'meta_data')
 
 #run and save changes to lemma map
 if __name__ == "__main__":
