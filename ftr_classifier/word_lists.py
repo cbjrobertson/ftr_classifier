@@ -1265,7 +1265,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                       #'willen'#no real epistemic use, i.e. "to want", see Nuyts 2000
                       ]
                      ),
-        'adv_adj_poss':(['in aanmerking komend'
+        'adv_adj_poss':(['in aanmerking komend',
                          'niet zeker',
                          'zich vast',
                          'een maand of vijf',#about (more or less) 5 months
@@ -1297,7 +1297,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                          'veelbelovend',
                          'vermoedelijk',
                          'waarschijnlijk',
-                         'wellicht',#probably
+                         'wellicht'#probably
                          ]
                         ),
         'adv_adj_cert':(['wel degelijk',
@@ -1376,7 +1376,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                          'gehoord',#to hear, possible epistemic/evidential use (Nuyts, 2000)
                          'horen', #to hear, possible epistemic/evidential
                          'hoor',
-                         'hoort'
+                         'hoort',
                          'betwijfel',#to doubt, has epistemic use Nuyts (2000)
                          'betwijfelt',
                          'betwijfelen',
@@ -1384,7 +1384,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                          'annehmt',
                          'annehmen',
                          'verwacht',
-                         'verwachten',
+                         'verwachten'
                          #'zeg', #say, and though can be used as mental state pred use (Nuyts, 2000), it is not in our frames
                          #'zeggen',
                          #'zegt',                         
@@ -1400,7 +1400,7 @@ dutch = {'present':(['is het','vallen om','storten in',
         
         'particle':(['nou eenmaal',
                      'nu eenmaal'],
-                    ['eens'
+                    ['eens',
                      'effe',
                      'es',
                      'even',
@@ -1409,7 +1409,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'hoor',
                      'ja',
                      'maar',
-                     'nou'
+                     'nou',
                      'nu']
                     ),
         'will_future':([],
@@ -1540,7 +1540,7 @@ german = {'present':(['nutze ab',
                       'lebe', 
                       'lebst', 
                       'lebt', 
-                      'leben',
+                      'leben'
                        ]),
 
     'present_perfect':([],
@@ -1668,7 +1668,7 @@ german = {'present':(['nutze ab',
                      'sicher',#certainly (Nuyts 2000)
                      'sicherlich',#certainly
                      'zweifelsohne',#certainly
-                     'zweifellos',#certainly
+                     'zweifellos'#certainly
                      ]
                     ),
     

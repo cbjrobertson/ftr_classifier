@@ -29,7 +29,7 @@ def _append_spacy_docs(df,lang_col,text_col):
         #pull a model
         nlp = MODELS[lang]
         #apply model to language
-        dy['spacy_doc'] = dy[text_col].apply(lambda x: nlp(x))
+        dy['spacy_doc'] = dy[text_col].apply(lambda x:  nlp(x) if isinstance(x,str) else nlp(""))
         #append together
         dx = dx.append(dy)
     return dx
