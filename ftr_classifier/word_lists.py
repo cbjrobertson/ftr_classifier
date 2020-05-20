@@ -77,7 +77,7 @@ DOMINATED_FEATURES = ['future_dom','present_dom',
 
 SUMMARY_FEATURES = ['lexi_poss','lexi_cert','uncertain','certain']
 
-EXTRA_FEATURES = ['negated','no_code']
+EXTRA_FEATURES = ['negated','no_code',"mixed_modality"]
 
 MAIN_FEATURES = ['lexi_poss','lexi_cert','future_dom',
                   'present_dom','verb_poss','verb_cert','uncertain','certain']
