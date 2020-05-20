@@ -252,27 +252,29 @@ def add_md(lemma,justification,language,feature,bib,citation_key=None,**kwargs):
     _save_obj(md,'meta_data')
     return md
 
-#load map
-META_DATA = _load_obj('meta_data')
-LEMMA_MAP = _load_obj('lemma_map')
-
-### add data to metadata
-bib = _load_bibtex('/Users/cole/Documents/BibTex/library.bib')
-_update_md_keys(LEMMA_MAP)
-
-md = add_md(lemma='mogen',
-            justification='primarily deontic/dynamic modal, but review of our data indicate peripheral epistemic uses are possible (rare)',
-            language='dutch',
-            feature='verb_poss',
-            bib=bib,
-            citation_key=['Nuyts2000'],
-            gloss='may'
-            )
-
-md = _load_obj('meta_data')
-mdn = _format_md(md,'gloss')
-_write_bibtex()
-_save_obj(md,'meta_data')
+# =============================================================================
+# #load map
+# META_DATA = _load_obj('meta_data')
+# LEMMA_MAP = _load_obj('lemma_map')
+# 
+# ### add data to metadata
+# bib = _load_bibtex('/Users/cole/Documents/BibTex/library.bib')
+# _update_md_keys(LEMMA_MAP)
+# 
+# md = add_md(lemma='mogen',
+#             justification='primarily deontic/dynamic modal, but review of our data indicate peripheral epistemic uses are possible (rare)',
+#             language='dutch',
+#             feature='verb_poss',
+#             bib=bib,
+#             citation_key=['Nuyts2000'],
+#             gloss='may'
+#             )
+# 
+# md = _load_obj('meta_data')
+# mdn = _format_md(md,'gloss')
+# _write_bibtex()
+# _save_obj(md,'meta_data')
+# =============================================================================
 
 #run and save changes to lemma map
 if __name__ == "__main__":

@@ -102,12 +102,9 @@ def _modal_exclude(df):
     df = df.copy()
     posses = [x for x in FEATURES if x.endswith('poss')]
     certs = [x for x in FEATURES if x.endswith('cert')]
-    for cert in certs:
-        df[cert] = ['-999' if any(feature == 1 for feature in df.loc[x,posses]) and df[cert][x] == 1\
-                              else df[cert][x] for x in df.index]
-    for poss in posses:
-        df[cert] = ['-999' if any(feature == 1 for feature in df.loc[x,certs]) and df[poss][x] == 1\
-                              else df[poss][x] for x in df.index]
+    new_val = "mixed_modality"
+    df[new_val] = [new_val if any(feature == 1 for feature in df.loc[x,certs]) and \
+          any(feature == 1 for feature in df.loc[x,posses]) else "unmixed_modality" for x in df.index]
     return df
 
 def _make_lexi_vars(df):
@@ -122,13 +119,17 @@ def _make_lexi_vars(df):
     
     #apply
     df['uncertain'] = [1 if any(feature == 1 for feature in df.loc[x,poss_features])\
+                       else "mixed_modality" if any(feature == "mixed_modality" for feature in df.loc[x,poss_features])
                        else 0 for x in df.index]
     df['certain'] = [1 if any(feature == 1 for feature in df.loc[x,cert_features])\
+                      else "mixed_modality" if any(feature == "mixed_modality" for feature in df.loc[x,cert_features])
                        else 0 for x in df.index]
     
     df['lexi_poss'] = [1 if any(feature == 1 for feature in df.loc[x,lexi_poss_features])\
+                      else "mixed_modality" if any(feature == "mixed_modality" for feature in df.loc[x,poss_features])
                        else 0 for x in df.index]
     df['lexi_cert'] = [1 if any(feature == 1 for feature in df.loc[x,lexi_cert_features])\
+                      else "mixed_modality" if any(feature == "mixed_modality" for feature in df.loc[x,cert_features])
                        else 0 for x in df.index]
     return df
 
