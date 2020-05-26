@@ -12,6 +12,7 @@ from copy import deepcopy
 import pickle
 import os
 from ftr_classifier.word_lists import WORD_LISTS
+#from word_lists import WORD_LISTS
 import pandas as pd
 #from word_lists import WORD_LISTS
 
