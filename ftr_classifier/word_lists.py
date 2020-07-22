@@ -114,9 +114,13 @@ english = {'present': (
                          'arrives',
                          'arriving',
                          'be',
+                         "being",
                          'break',
                          'breaks',
                          'breaking',
+                         "blows",
+                         "blow",
+                         "blowing",
                          'buy',
                          'buys',
                          'buying',
@@ -145,7 +149,7 @@ english = {'present': (
                          'congratulate',
                          'congratulates',
                          'crash',
-                         'crashes',
+                         'crashes',"chrash","crach","chash","crshes",#spelling
                          'crashing',
                          'decline',
                          'declining',
@@ -163,7 +167,7 @@ english = {'present': (
                          'doing',
                          'does',
                          'drop',
-                         'dropping',
+                         'dropping',"droping",#typo
                          'drops',
                          'enrol',
                          'enrols',
@@ -227,7 +231,7 @@ english = {'present': (
                          'live',
                          'living',
                          'lives',
-                         'lose',
+                         'lose',"loose","looses","losses","lossing",#spelling
                          'losing',
                          'loses',
                          'make',
@@ -274,7 +278,7 @@ english = {'present': (
                          'replacing',
                          'replaces',
                          'rise',
-                         'rising',
+                         'rising',"riseing",#typo
                          'rises',
                          'risk',
                          'risking',
@@ -288,7 +292,7 @@ english = {'present': (
                          'sit',
                          'sitting',
                          'sits',
-                         'snow',
+                         'snow',"shows",#spelling
                          'snowing',
                          'snows',
                          'spend',
@@ -316,6 +320,9 @@ english = {'present': (
                          'travelling',
                          'traveling',#misspelling
                          'travels',
+                         "wear",
+                         "wears",
+                         "wearing"
                          'win',
                          'winning',
                          'wins',
@@ -435,6 +442,7 @@ english = {'present': (
              'trained',
              'travelled',
              'traveled',
+             "wore",
              'went',
              'won',
              'worked']
@@ -447,7 +455,7 @@ english = {'present': (
                'are going',
                'am going',
                'going to',
-               'gonna',
+               'gonna',"gona","gonn",#spelling
                'theyll',
                'they`ll',
                "i'll",
@@ -461,6 +469,8 @@ english = {'present': (
                'twill',#typos
                'willbe',#typos
                'gonna',
+               "wont",#typ0
+               "won't",
                'shall',
                "'ll",
                "ll",
@@ -469,7 +479,7 @@ english = {'present': (
                'ill']
             ),
     
-    'verb_poss':(['likely to'],
+    'verb_poss':([],
                  ['can',
                   'may',
                   'could',
@@ -492,16 +502,21 @@ english = {'present': (
     
     'adv_adj_poss':(['is a chance',
                      'fairly certain',
-                     'rates are shakey'],
+                     'rates are shakey',
+                     'likely to',
+                     'toss up',
+                     'predicted to',
+                     "it is unclear if",
+                     "has to opportunity"],
                    ['apparently',
                     'dubiously',
-                    'expectably',
-                    'expectedly',
                     'improbably',
                     'likely',
-                    'maybe',
+                    'maybe',"maby",#spelling
                     'mayhap',
-                    'chance',
+                    'chance',"chanche",#misspelling
+                    "50%",
+                    "50/50",
                     'risk',
                     'perchance',
                     'perhaps',
@@ -512,7 +527,7 @@ english = {'present': (
                     'presumably',
                     'probable',
                     'probability',
-                    'probably',
+                    'probably',"probaly","probarly",#misspelling
                     'improbable',
                     'improbability',
                     'improbably',
@@ -558,13 +573,16 @@ english = {'present': (
                 'undoubtedly',
                 'undoubted',
                 'unquestionably',
-                'unquestionable']
+                'unquestionable',
+                "absolutely",
+                "absolute"]
                ),
     'mental_poss':(['feel like',
                     'not too sure',
                     'i am not sure',
                     'not certain',
-                    'not 100% certain'],
+                    'not 100% certain',
+                    "in my opinion"],
                    ['think',
                     'thinking',
                     'thinks',
@@ -581,6 +599,9 @@ english = {'present': (
                     'expects',
                     'expected',
                     'expecting',
+                    'expectably',
+                    'expectedly',
+                    'aspect',#expect misspelling
                     'doubt',
                     'doubts',
                     'doubted',
@@ -609,6 +630,8 @@ english = {'present': (
     'will_future':(['theyll',
                     'they`ll',
                     "i'll",
+                    "wont",
+                    "won't",
                     "you'll",
                     "he'll",
                     "she'll",
@@ -632,6 +655,7 @@ english = {'present': (
                     'wanting',
                     'wants',
                     'hope',
+                    "hopely",
                     'hoping',
                     'hopes',
                     'hopefully',
@@ -704,7 +728,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'blijf',
                      'blijven',
                      'blijft',
-                     'blijvenb',#typo
+                     'blijvenb',"bkijven",#typo
                      'breek',
                      'breekt',
                      'breken',
@@ -712,7 +736,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                      "bezitten",
                      'crashen',
                      'crashed',#typo
-                     'crahst',#typo 
+                     'crahst',"crrasht","chrasht","crashd","crahses","cracsht",#typo 
                      'crasht',
                      'crash',
                      'carsht',#typo
@@ -802,7 +826,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'passen',
                      'regen',
                      'regenen',
-                     'regent',
+                     'regent',"fegent","regt","regend",#spelling,
                      "regel",
                      "regelt",
                      "regelen",
@@ -877,7 +901,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'verhuist',
                      'verhuizen',
                      'verlies',
-                     'verliest',
+                     'verliest',"veliezen",
                      'verliezen',
                      'verslijten',
                      'verslijt',
@@ -902,7 +926,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                      'vindt',
                      'voel',
                      'voelen',
-                     'voelt',
+                     'voelt',"voult","volet",#spelling
                      'volg',
                      'volgt',
                      'volgen',
@@ -1352,7 +1376,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                          'geschiktlijkend',
                          'hypothetisch',
                          'misschien',#perhaps
-                         'msschien',#typo
+                         'msschien',"misscxhien",#typo
                          'mogelijk',#possibly
                          'mogelijkerwijs',#possibly
                          'ongeveer',
@@ -1363,7 +1387,7 @@ dutch = {'present':(['is het','vallen om','storten in',
                          'twijfelachtig',
                          'veelbelovend',
                          'vermoedelijk',
-                         'waarschijnlijk',
+                         'waarschijnlijk',"waarschijnljk","waarschynlijk","waarschijnlijkheid",#spelling
                          'wellicht'#probably
                          ]
                         ),
@@ -1436,6 +1460,9 @@ dutch = {'present':(['is het','vallen om','storten in',
                          'meen',
                          'ment',
                          'menen',
+                         "gokken",
+                         "gok",
+                         "gokt",
                          'veronderstellen',#to suppose, epistemic use (Nuyts 2000)
                          'veronderstel',
                          'veronderstelt',
@@ -1453,7 +1480,8 @@ dutch = {'present':(['is het','vallen om','storten in',
                          'annehmt',
                          'annehmen',
                          'verwacht',
-                         'verwachten'
+                         'verwachten',
+                         "verwachting",
                          #'zeg', #say, and though can be used as mental state pred use (Nuyts, 2000), it is not in our frames
                          #'zeggen',
                          #'zegt',                         
