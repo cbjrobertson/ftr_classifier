@@ -322,7 +322,7 @@ english = {'present': (
                          'travels',
                          "wear",
                          "wears",
-                         "wearing"
+                         "wearing",
                          'win',
                          'winning',
                          'wins',
