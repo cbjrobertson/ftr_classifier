@@ -30,7 +30,8 @@ META_FEATURE_MAP = {'future':'future',
        'verb_des_int':'verbal bouletic',
        'present_perfect': 'the present perfect',
        'past_perfect':'the past perfect',
-       'past_participle':'the past participle'
+       'past_participle':'the past participle',
+       'verb_irr':"verbal irrialis"
        
        }
 
@@ -53,7 +54,8 @@ FEATURE_NAME_MAP = {'future':"grammar book ``futures''",
                     'verb_des_int':'verbs of desire/intention',
                     'present_perfect': 'the present perfect',
                     'past_perfect':'the past perfect',
-                    'past_participle':'the past participle'
+                    'past_participle':'the past participle',
+                    'verb_irr':"verbal irrialis, e.g. 'would'"
                     }
 
 PAST = ['past']
@@ -63,6 +65,8 @@ DESIRE = ['verb_des_int']
 ASPECTS = ['present_perfect','past_perfect']
 
 PP = ['past_participle']
+
+IRR = ["verb_irr"]
 
 SUBMISSIVE_FEATURES = ['present','future','will_future','go_future']
 
@@ -82,7 +86,7 @@ EXTRA_FEATURES = ['negated','no_code',"mixed_modality"]
 MAIN_FEATURES = ['lexi_poss','lexi_cert','future_dom',
                   'present_dom','verb_poss','verb_cert','uncertain','certain']
 
-FEATURES = DOMINANT_FEATURES + SUBMISSIVE_FEATURES + PAST + DESIRE + ASPECTS
+FEATURES = DOMINANT_FEATURES + SUBMISSIVE_FEATURES + PAST + DESIRE + ASPECTS + IRR
 ALL_FEATURES = FEATURES + DOMINATED_FEATURES + SUMMARY_FEATURES + EXTRA_FEATURES + PP
 
 # =============================================================================
@@ -487,11 +491,15 @@ english = {'present': (
                   'might',
                   'should',
                   'sould',#typo
-                  'ought',
-                  'would',#used epistemically in the 'what your brother would do... question, i.e. as a conditional 
-                  'wouls'#typo
+                  'ought'
                   ]
                  ),
+    
+    'verb_irr':([],
+                ['would',#used epistemically in the 'what your brother would do... question, i.e. as a conditional 
+                  'wouls'#typo
+                  ]
+                  ),
     
     'verb_cert':([#'have to',
                   #'got to',
@@ -1345,6 +1353,11 @@ dutch = {'present':(['is het','vallen om','storten in',
                       'zouden'
                       ] #i.e. mogen + prefix ver-
                      ),
+        
+        'verb_irr':([],
+                    []
+                    ),
+        
         'verb_cert':([],
                      ['moeten',
                       'moet',
@@ -1723,6 +1736,11 @@ german = {'present':(['nutze ab',
                   'müssten',
                   'müsstet']
                  ),
+    
+            
+    'verb_irr':([],
+                []
+                ),
     
     'verb_cert':([],
                  ['muss',
