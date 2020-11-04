@@ -19,3 +19,4 @@ from ftr_classifier.info import INFO
 __version__ = INFO['version']
 description = INFO['description']
 long_description = INFO['long_description']
+
