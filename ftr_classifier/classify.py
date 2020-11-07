@@ -90,7 +90,7 @@ def _past_dom(df):
 def _present_dom(df):
     df = df.copy()
     #other features not pres
-    other_features = [x for x in FEATURES if x != 'present' and x not in ['particle','past_perfect']]
+    other_features = [x for x in FEATURES if x != 'present' and x not in ['particle','past_perfect','verb_des_int']]
     #apply
     df['present_dom'] = [0 if any(feature == 1 for feature in df.loc[x,other_features])\
                           else 1 if df.present[x] == 1 \

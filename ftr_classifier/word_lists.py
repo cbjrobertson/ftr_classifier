@@ -498,8 +498,10 @@ english = {'present': (
     'verb_irr':([],
                 ['would',#used epistemically in the 'what your brother would do... question, i.e. as a conditional 
                   'wouls',#typo
+                  "wouldn’t",
                   "'d",
-                  "if"
+                  "if",
+                  "id"
                   ]
                   ),
     
@@ -507,6 +509,7 @@ english = {'present': (
                   'got to',
                   'has to',
                   'need to',
+                  "needs to"
                   ],
                  ['must']
                  ),
@@ -665,7 +668,9 @@ english = {'present': (
                  ),
     
     'verb_des_int':(["looking forward",
+                     "looking to",
                      "can’t wait",
+                     "cant wait",
                      "love to"],
                    ['want',
                     'wanting',
