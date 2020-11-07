@@ -484,7 +484,7 @@ english = {'present': (
             ),
     
     'verb_poss':([],
-                 ['can',
+                 [#'can',
                   'may',
                   'could',
                   'coud',#typo
@@ -497,13 +497,16 @@ english = {'present': (
     
     'verb_irr':([],
                 ['would',#used epistemically in the 'what your brother would do... question, i.e. as a conditional 
-                  'wouls'#typo
+                  'wouls',#typo
+                  "'d",
+                  "if"
                   ]
                   ),
     
-    'verb_cert':([#'have to',
-                  #'got to',
-                  #'has to'
+    'verb_cert':(['have to',
+                  'got to',
+                  'has to',
+                  'need to',
                   ],
                  ['must']
                  ),
@@ -562,6 +565,9 @@ english = {'present': (
                 'positive',
                 'clearly',
                 'doubtless',
+                "guarantee",
+                "guaranteed",
+                "garuntee",
                 'indubitably',
                 'indubitable',
                 'inevitably',
@@ -658,14 +664,26 @@ english = {'present': (
                  []
                  ),
     
-    'verb_des_int':([],
+    'verb_des_int':(["looking forward",
+                     "can’t wait",
+                     "love to"],
                    ['want',
                     'wanting',
                     'wants',
+                    "wanted",
                     'hope',
                     "hopely",
                     'hoping',
                     'hopes',
+                    "need",
+                    "needs",
+                    "needing",
+                    "wish",
+                    "wishing",
+                    "wishes",
+                    "try",
+                    "trying",
+                    "tries",
                     'hopefully',
                     'planning',
                     'plan',
