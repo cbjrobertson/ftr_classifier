@@ -508,7 +508,7 @@ english = {'present': (
                   ]
                  ),
     
-    'verb_irr':(["id"],
+    'verb_irr':([],
                 ['would',#used epistemically in the 'what your brother would do... question, i.e. as a conditional 
                   'wouls',#typo
                   "wouldn’t",
