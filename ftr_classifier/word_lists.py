@@ -469,7 +469,7 @@ english = {'present': (
                "you'll",
                "he'll",
                "she'll",
-               "we'll"
+               "we'll",
                "won’t",
                "he’ll",
                "she’ll",
@@ -508,7 +508,7 @@ english = {'present': (
                   ]
                  ),
     
-    'verb_irr':([],
+    'verb_irr':(["id"],
                 ['would',#used epistemically in the 'what your brother would do... question, i.e. as a conditional 
                   'wouls',#typo
                   "wouldn’t",
@@ -685,7 +685,8 @@ english = {'present': (
                      "looking to",
                      "can’t wait",
                      "cant wait",
-                     "love to"],
+                     "love to",
+                     "love for"],
                    ['want',
                     'wanting',
                     'wants',
