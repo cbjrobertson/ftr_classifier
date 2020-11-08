@@ -475,21 +475,21 @@ english = {'present': (
                "she’ll",
                "we’ll",
                "they’ll",
-               "you’ll"
+               "you’ll",
+               "wont",#typ0
+               "won't",
+               "won’t",
+               "'ll",
+               "’ll",
                ],
               ['will',
                'wil',
                'twill',#typos
                'willbe',#typos
                'gonna',
-               "wont",#typ0
-               "won't",
-               "won’t",
                'go',
                "going",
                'shall',
-               "'ll",
-               "’ll",
                "ll",
                "youll",#typos
                "shell",
@@ -632,7 +632,7 @@ english = {'present': (
                     'expecting',
                     'expectably',
                     'expectedly',
-                    'aspect',#expect misspelling
+                    #'aspect',#expect misspelling
                     'doubt',
                     'doubts',
                     'doubted',
@@ -668,13 +668,13 @@ english = {'present': (
                     "she'll",
                     "we'll"
                     "youll",
-                    "shell",
-                    'ill'],
+                    "shell"],
                    ['will',
                     'willbe',
                     'wil',
                     "'ll",
-                    "ll"]
+                    "ll",
+                    'ill']
                    ),
     'go_future':(['is going','are going','to gp','go to'
                    'am going','going to','gonna'],
@@ -688,6 +688,7 @@ english = {'present': (
                      "love to",
                      "love for"],
                    ['want',
+                    "wanna",
                     'wanting',
                     'wants',
                     "wanted",
@@ -695,9 +696,9 @@ english = {'present': (
                     "hopely",
                     'hoping',
                     'hopes',
-                    "need",
-                    "needs",
-                    "needing",
+                    #"need",
+                    #"needs",
+                    #"needing",
                     "wish",
                     "wishing",
                     "wishes",
