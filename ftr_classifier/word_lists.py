@@ -459,14 +459,23 @@ english = {'present': (
                'are going',
                'am going',
                'going to',
+               'go to',
+               'to go',
                'gonna',"gona","gonn",#spelling
                'theyll',
-               'they`ll',
+               "they`ll",
+               "they'll",
                "i'll",
                "you'll",
                "he'll",
                "she'll",
                "we'll"
+               "won’t",
+               "he’ll",
+               "she’ll",
+               "we’ll",
+               "they’ll",
+               "you’ll"
                ],
               ['will',
                'wil',
@@ -475,8 +484,12 @@ english = {'present': (
                'gonna',
                "wont",#typ0
                "won't",
+               "won’t",
+               'go',
+               "going",
                'shall',
                "'ll",
+               "’ll",
                "ll",
                "youll",#typos
                "shell",
@@ -595,6 +608,7 @@ english = {'present': (
                 "absolute"]
                ),
     'mental_poss':(['feel like',
+                    "feels like",
                     'not too sure',
                     'i am not sure',
                     'not certain',
@@ -603,7 +617,7 @@ english = {'present': (
                    ['think',
                     'thinking',
                     'thinks',
-                    'thought',
+                    #'thought',
                     'believe',
                     'believes',
                     'believed',
@@ -662,9 +676,9 @@ english = {'present': (
                     "'ll",
                     "ll"]
                    ),
-    'go_future':(['is going','are going',
+    'go_future':(['is going','are going','to gp','go to'
                    'am going','going to','gonna'],
-                 []
+                 ['go']
                  ),
     
     'verb_des_int':(["looking forward",
