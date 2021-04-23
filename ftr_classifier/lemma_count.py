@@ -127,12 +127,13 @@ def _lookup_md(keys):
 def _format_citations(df,group_col):
     dfg = df.groupby(group_col)
     store = pd.DataFrame()
+    from string import ascii_lowercase as alpha
     for grp,dx in dfg:
         dx['cits'] = [[i.strip() for i in item.split(";") if not i == ''] for item in dx.loc[:,'citation(s)']]
         cits = [item for sublist in dx.cits for item in sublist]
         cits = pd.Series(cits)
         cits = cits[~cits.duplicated()].to_list()
-        ref_map = {cit:"\\textsuperscript{{{}}}".format(no+1) for no,cit in enumerate(cits)}
+        ref_map = {cit:"\\textsuperscript{{{}}}".format(alpha[no]) for no,cit in enumerate(cits)}
         cit_list = []
         for idx in dx.index:
             cit_list += ["".join(ref_map[c] for c in dx.loc[idx,"cits"])]

@@ -253,6 +253,46 @@ def add_md(lemma,justification,language,feature,bib,citation_key=None,**kwargs):
     _save_obj(md,'meta_data')
     return md
 
+def flatten_tup(d):
+    if isinstance(d,dict):
+        save_lst = []
+        for key,val in d.items():
+            save_lst += [item for lst in val for item in lst]
+        return save_lst
+    else:
+        return [item for lst in d for item in lst]
+
+def get_cats(lang_dic):
+    #pull them out
+    poss = {key:val for (key,val) in lang_dic.items() if key.endswith("poss")}
+    verb_poss = {key:val for (key,val) in poss.items() if key.startswith("verb")}
+    lexi_poss = {key:val for (key,val) in poss.items() if not key.startswith("verb")}
+    cert = {key:val for (key,val) in lang_dic.items() if key.endswith("cert")}
+    verb_cert = {key:val for (key,val) in cert.items() if key.startswith("verb")}
+    lexi_cert = {key:val for (key,val) in cert.items() if not key.startswith("verb")}
+    future = lang_dic['future']
+    present = lang_dic['present']
+
+
+    #flatten
+    verb_poss = flatten_tup(verb_poss)
+    lexi_poss = flatten_tup(lexi_poss)
+    verb_cert = flatten_tup(verb_cert)
+    lexi_cert = flatten_tup(lexi_cert)
+    future = flatten_tup(future)
+    present = flatten_tup(present)
+    
+    #turn to dict
+    store_dict = {'future':future,
+                  'present':present,
+                  'verb_poss':verb_poss,
+                  'verb_cert':verb_cert,
+                  'lexi_poss':lexi_poss,
+                  'lexi_cert':lexi_cert}
+    #convert to df
+    df = pd.DataFrame(dict([(k,pd.Series(v)) for k,v in store_dict.items()]))
+    return df
+
 # =============================================================================
 # #load map
 # META_DATA = _load_obj('meta_data')
