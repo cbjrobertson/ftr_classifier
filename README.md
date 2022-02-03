@@ -28,7 +28,7 @@ df = pd.read_excel('data.xlsx')*
 """
 to implement the spaCy model which estimates whether an item of text refers to the future (and the past) run:
 """
-ftr.estimate_ftr(df)
+ftr.estimate_ftr_ptr(df)
 
 
 """
