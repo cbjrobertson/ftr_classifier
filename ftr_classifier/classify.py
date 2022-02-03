@@ -7,11 +7,18 @@ Created on Fri May 31 22:32:52 2019
 """
 #load libraries
 import pandas as pd
+import spacy
+import os
 
 #local imports
 from ftr_classifier.word_lists import FEATURES,WORD_LISTS,ALL_FEATURES
 from ftr_classifier.models import MODELS
 
+# =============================================================================
+# #set localle
+# =============================================================================
+DIR = os.path.dirname(os.path.realpath(__file__))
+MOD ='/ftr_ptr_mod'
 
 #fuck off pandas
 pd.options.mode.chained_assignment = None  # default='warn'
@@ -250,6 +257,12 @@ def score(df,lang_col,debug,process_col='final_sentence'):
             dy = pd.concat([dy,dy[process_col].apply(lambda doc: pd.Series(_debug_check_words(doc)))],axis=1)
         #append together
         dx = dx.append(dy)       
+    return dx
+
+def estimate_ftr_ptr(df,lang_col="language",text_col="response"):
+    mod_path = DIR+MOD
+    ftr_mod = spacy.load(mod_path)
+    dx = pd.concat([df,df[text_col].apply(lambda response: pd.Series(ftr_mod(response).cats))],axis=1)
     return dx
 
 def apply_dominance(df,experimental_data):
