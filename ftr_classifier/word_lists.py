@@ -513,8 +513,7 @@ english = {'present': (
                   'wouls',#typo
                   "wouldn’t",
                   "'d",
-                  "if",
-                  "id"
+                  "if"
                   ]
                   ),
     
