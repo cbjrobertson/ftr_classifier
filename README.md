@@ -5,3 +5,8 @@ The other main addiion is the ability to classify text data in terms of not only
 
 See the `README.md` to the `master` branch for documentation.
 
+To install this branch, first install `spacy 2.2.1`, as for the master branch, then clone this branch with `git clone -b natural_ftr git@github.com:cbjrobertson/ftr_classifier.git`, then `cd ftr_classifier` and install from source with `python setup.py install`. This should install this branch to whichever environment `python` is in, and will give you access to the `ftr.estimate_ftr_ptr` function, which estimates _whether_ an item of text data refers to the future.
+
+NB: running `git clone...` will be slow, the repo takes up approximately 1GB.
+
+
