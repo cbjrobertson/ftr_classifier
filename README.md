@@ -3,7 +3,7 @@ This is a natural language classifier, which uses key-word methods to classify f
 
 
 ## installation
-It is recommended that ftr_classifier be used in a `conda` environment with `python 3.6` installed. Instructions on getting started with `conda` can be found [here](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html). Once `conda` is installed, create an appropriate environment, with `conda create --name my_env_name python=3.6` , then activate the environment with `conda activate my_env_name` or `source activate my_env_name`. Before installing I recommend you install `pandas<2.x` and `spaCy`, with e.g. `conda install -c conda-forge spacy=2.2.1`
+It is recommended that ftr_classifier be used in a `conda` environment with `python 3.6` installed. Instructions on getting started with `conda` can be found [here](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html). Once `conda` is installed, create an appropriate environment, with `conda create --name my_env_name python=3.6` , then activate the environment with `conda activate my_env_name` or `source activate my_env_name`. Before installing I recommend you install `pandas>2.x` and `spaCy 2.2.1`, with e.g. `conda install -c conda-forge spacy=2.2.1`
 
 Then, to install  run:
 
