@@ -3,11 +3,15 @@ This is a natural language classifier, which uses key-word methods to classify f
 
 
 ## installation
-It is recommended that ftr_classifier be used in a `conda` environment with `python 3.6` installed. Instructions on getting started with `conda` can be found [here](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html). Once `conda` is installed, create an appropriate environment, with `conda create --name my_env_name python=3.6` , then activate the environment with `conda activate my_env_name` or `source activate my_env_name`. 
+It is recommended that ftr_classifier be used in a `conda` environment with `python 3.6` installed. Instructions on getting started with `conda` can be found [here](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html). Once `conda` is installed, create an appropriate environment, with `conda create --name my_env_name python=3.6` , then activate the environment with `conda activate my_env_name` or `source activate my_env_name`. Before installing I recommend you install `pandas<2.x` and `spaCy`, with e.g. `conda install -c conda-forge spacy=2.2.1`
 
 Then, to install  run:
 
 `pip install ftr-classifier` 
+
+To install a version of the `ftr-classifier` which is designed to operate on naturally-occuring (rather than experimental) data, install from the `natural_ftr` branch. The classification logis is changed slightly here. This branch also includes a function which wraps a `spaCy` model which estimates _whether_, rather than _how_, a text datum refers to the future described [here](https://psyarxiv.com/v6ern/). When processing naturally-occuring data, I recommend you use this and then pass FTR (> 50%) statements to the `ftr-classifier`, as described in the linked pre-print above.
+
+
 
 ## usage
 
@@ -21,7 +25,16 @@ import ftr_classifier as ftr
 df = pd.read_excel('data.xlsx')*
 
 #classify
-class_df = ftr.classify_df(df)
+"""
+to implement the spaCy model which estimates whether an item of text refers to the future (and the past) run:
+"""
+ftr.estimate_ftr(df)
+
+
+"""
+to implement the ftr-classifier, whih estimates how an FTR statement refers to the future, run:
+"""
+class_df = ftr.classify_df(df) 
 
 #count lemmas
 lemma_count = ftr.count_lemmas(class_df)
