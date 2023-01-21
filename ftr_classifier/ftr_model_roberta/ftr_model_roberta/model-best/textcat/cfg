@@ -1,0 +1,8 @@
+{
+  "labels":[
+    "FTR",
+    "NOT_FTR"
+  ],
+  "threshold":0.5,
+  "positive_label":null
+}
