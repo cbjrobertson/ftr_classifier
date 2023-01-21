@@ -11,29 +11,29 @@ import spacy
 #import models
 #english
 try:    
-    en = spacy.load('en')
+    en = spacy.load('en_core_web_sm')
 except OSError:
     print('Downloading English language model for the spaCy\n'
           "(don't worry, this will only happen once)")
-    spacy.cli.download('en')
-    en = spacy.load('en')
+    spacy.cli.download('en_core_web_sm')
+    en = spacy.load('en_core_web_sm')
     
 #dutch
 try:    
-    nl = spacy.load('nl')
+    nl = spacy.load('nl_core_news_sm')
 except OSError:
     print('Downloading Dutch language model for the spaCy\n'
           "(don't worry, this will only happen once)")
     spacy.cli.download('nl')
-    nl = spacy.load('nl')
+    nl = spacy.load('nl_core_news_sm')
     
 try:    
-    de = spacy.load('de')
+    de = spacy.load('de_core_news_sm')
 except OSError:
     print('Downloading German language model for the spaCy\n'
           "(don't worry, this will only happen once)")
-    spacy.cli.download('de')
-    de = spacy.load('de')
+    spacy.cli.download('de_core_news_sm')
+    de = spacy.load('de_core_news_sm')
 
 #make MODELS dictionary
 MODELS = {'english':en,

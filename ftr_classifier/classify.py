@@ -18,7 +18,7 @@ from ftr_classifier.models import MODELS
 # #set localle
 # =============================================================================
 DIR = os.path.dirname(os.path.realpath(__file__))
-MOD ='/ftr_ptr_mod'
+MOD ='/ftr_model_roberta/ftr_model_roberta/model-best'
 
 #fuck off pandas
 pd.options.mode.chained_assignment = None  # default='warn'
@@ -259,7 +259,7 @@ def score(df,lang_col,debug,process_col='final_sentence'):
         dx = dx.append(dy)       
     return dx
 
-def estimate_ftr_ptr(df,lang_col="language",text_col="response"):
+def estimate_ftr(df,lang_col="language",text_col="response"):
     mod_path = DIR+MOD
     ftr_mod = spacy.load(mod_path)
     dx = pd.concat([df,df[text_col].apply(lambda response: pd.Series(ftr_mod(response).cats))],axis=1)
