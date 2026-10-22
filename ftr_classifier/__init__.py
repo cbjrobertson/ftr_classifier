@@ -5,6 +5,7 @@ Created on Fri May 31 22:32:52 2019
 
 @author: cole roberson
 """
+
 #imports
 import ftr_classifier.lemma_count as lemma_count
 import ftr_classifier.word_lists as word_lists
